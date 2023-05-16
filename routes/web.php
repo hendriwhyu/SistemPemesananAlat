@@ -32,8 +32,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/kategori', [AdminController::class, 'kategori']);
+    Route::get('/kategori', [AdminController::class, 'kategori'])->name('admin.kategori');
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
+    Route::put('/kategori/edit', [AdminController::class, 'edit']);
+    Route::delete('/kategori/delete', [AdminController::class, 'delete']);
 })->middleware('auth');
 
 Route::prefix('client')->middleware('auth')->group(function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -25,5 +26,20 @@ class AdminController extends Controller
         $category->name_categories = $request->nama_kategori;
         $category->save();
         return back();
+    }
+
+    public function edit(Request $request)
+    {
+        $data = Category::where('id_categories', $request->id_categori);
+        $data->update([
+            'name_categories' => $request->nama_kategori
+        ]);
+
+        if ($data) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Ubah Kategori Berhasil');
+        }
+        return redirect()->route('admin.kategori');
+        // return view('admin.DataUnit.edit-kategori', ['Kategori' => $data]);
     }
 }

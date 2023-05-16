@@ -29,6 +29,11 @@
                     </div>
                     <!--//col-auto-->
                 </div>
+                @if (Session::has('status'))
+                    <div class="alert alert-success mt-4" role="alert">
+                        {{ Session::get('message') }}
+                    </div>
+                @endif
                 <!--//row-->
 
                 <div class="app-card app-card-orders-table mb-5">
@@ -48,11 +53,14 @@
                                         <tr>
                                             <td class="cell">{{ $loop->iteration }}</td>
                                             <td class="cell">{{ $item->name_categories }}</td>
-                                            <td class="cell text-end"><a href="" class="text-info"><i
-                                                        class='bx bxs-edit'></i>Ubah</a> | <a href=""
-                                                    class="text-danger"><i class='bx bx-trash'></i>Delete</a> | <a
-                                                    href="" class="text-success"><i
+                                            <td class="cell text-end"><a href="#edit{{ $item->id_categories }}"
+                                                    data-bs-toggle="modal" class="text-info"><i
+                                                        class='bx bxs-edit'></i>Ubah</a> | <a
+                                                    href="#delete{{ $item->id_categories }}" data-bs-toggle="modal"
+                                                    class="text-danger"><i class='bx bx-trash'></i>Delete</a>
+                                                | <a href="" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
+                                                @include('admin.component-admin.content-modal.modal-action-category')
                                             </td>
                                         </tr>
                                     @endforeach
