@@ -37,8 +37,11 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="delete" action="{{ url('admin/kategori/edit') }}">
+            <form method="post" action="{{ url('admin/kategori/delete') }}">
                 @csrf
+                @method('delete')
+                <input type="hidden" value="{{ $item->id_categories }}" name="id_categori">
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Delete Member</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -49,7 +52,7 @@
                     <div class="input-group">
                         <span class="input-group-text">Kategori</span>
                         <input type="text" aria-label="First name" name="nama_kategori" class="form-control"
-                            value="{{ $item->name_categories }}">
+                            value="{{ $item->name_categories }}" disabled>
                     </div>
 
                 </div>

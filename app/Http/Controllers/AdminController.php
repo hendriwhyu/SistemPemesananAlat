@@ -40,6 +40,15 @@ class AdminController extends Controller
             Session::flash('message', 'Ubah Kategori Berhasil');
         }
         return redirect()->route('admin.kategori');
-        // return view('admin.DataUnit.edit-kategori', ['Kategori' => $data]);
+    }
+    public function delete(Request $request)
+    {
+        $data = Category::where('id_categories', $request->id_categori);
+        $data->delete();
+        if ($data) {
+            Session::flash('status', 'success');
+            Session::flash('message', 'Hapus Kategori Berhasil');
+        }
+        return redirect()->route('admin.kategori');
     }
 }
