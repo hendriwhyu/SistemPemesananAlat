@@ -49,16 +49,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ListUnit as $item)
+                                    @foreach ($Unit as $item)
                                         <tr>
                                             <td class="cell">{{ $loop->iteration }}</td>
-                                            <td class="cell">{{ $item->name_categories }}</td>
+                                            <td class="cell">{{ $item->kode_alat }}</td>
+                                            <td class="cell">{{ $item->nama_alat }}</td>
+                                            <td class="cell">{{ $item->status }}</td>
                                             <td class="cell text-end"><a href="#edit{{ $item->id_categories }}"
                                                     data-bs-toggle="modal" class="text-info"><i
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
                                                     href="#delete{{ $item->id_categories }}" data-bs-toggle="modal"
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
-                                                | <a href="www.google.com" class="text-success"><i
+                                                | <a href="" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
                                                 {{-- @include('admin.component-admin.content-modal.modal-action-category') --}}
                                             </td>
