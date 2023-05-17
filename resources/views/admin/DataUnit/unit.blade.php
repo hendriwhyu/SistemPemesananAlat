@@ -1,5 +1,5 @@
 @extends('admin.component-admin.master-admin')
-@section('title', 'Kategori Unit')
+@section('title', 'Kelola Unit - {{ $Kategori->name_categories }}')
 @section('content-admin')
     <div class="app-wrapper">
 
@@ -58,7 +58,7 @@
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
                                                     href="#delete{{ $item->id_categories }}" data-bs-toggle="modal"
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
-                                                | <a href="detail-kategori/{{ $item->name_categories }}" class="text-success"><i
+                                                | <a href="www.google.com" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
                                                 {{-- @include('admin.component-admin.content-modal.modal-action-category') --}}
                                             </td>
@@ -92,5 +92,5 @@
     <!--//app-footer-->
 
     </div>
-    @include('admin.component-admin.content-modal.modal-add-category')
+    {{-- @include('admin.component-admin.content-modal.modal-add-category') --}}
 @endsection

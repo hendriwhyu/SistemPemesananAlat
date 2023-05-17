@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('kode_alat', 100);
             $table->string('name_alat', 100);
             $table->string('status')->default('ready');
+            $table->unsignedInteger('id_categories')->length(10);
+            $table->foreign('id_categories')->references('id_categories')->on('category');
             $table->timestamps();
         });
     }

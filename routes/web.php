@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
     Route::put('/kategori/edit', [AdminController::class, 'edit']);
     Route::delete('/kategori/delete', [AdminController::class, 'delete']);
+    Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show']);
 })->middleware('auth');
 
 Route::prefix('client')->middleware('auth')->group(function () {

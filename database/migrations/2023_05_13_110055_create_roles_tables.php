@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->integerIncrements('id_role');
-            $table->enum('role', ['Admin', 'Manager', 'Client']);
+            $table->string('role')->length(100);
         });
     }
 
