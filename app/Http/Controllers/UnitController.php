@@ -10,8 +10,8 @@ class UnitController extends Controller
 {
     public function show($categories)
     {
-        $kategori = Category::where('name_categories',$categories);
-        $unit = Unit::all();
+        $kategori = Category::where('name_categories',$categories)->first();
+        $unit = Unit::where('id_categories', $kategori->id_categories)->get();
         return view('admin.DataUnit.unit', ['Kategori'=>$kategori, 'Unit'=>$unit]);
     }
 }

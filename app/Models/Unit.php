@@ -14,4 +14,8 @@ class Unit extends Model
         'name_alat',
         'status'
     ];
+    public function relationCategory()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

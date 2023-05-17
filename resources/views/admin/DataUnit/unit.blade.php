@@ -1,5 +1,5 @@
 @extends('admin.component-admin.master-admin')
-@section('title', 'Kelola Unit - {{ $Kategori->name_categories }}')
+@section('title', 'Kelola Unit')
 @section('content-admin')
     <div class="app-wrapper">
 
@@ -8,7 +8,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Kategori Unit</h1>
+                        <h1 class="app-page-title mb-0">Kategori Unit  ({{ $Kategori->name_categories }})</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -44,7 +44,9 @@
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
-                                        <th class="cell">Kategori</th>
+                                        <th class="cell">Kode Alat</th>
+                                        <th class="cell">Nama Alat</th>
+                                        <th class="cell">Status</th>
                                         <th class="cell text-center" style="width:200px">Action</th>
                                     </tr>
                                 </thead>
@@ -53,8 +55,8 @@
                                         <tr>
                                             <td class="cell">{{ $loop->iteration }}</td>
                                             <td class="cell">{{ $item->kode_alat }}</td>
-                                            <td class="cell">{{ $item->nama_alat }}</td>
-                                            <td class="cell">{{ $item->status }}</td>
+                                            <td class="cell">{{ $item->name_alat }}</td>
+                                            <td class="cell text-center badge bg-success text-uppercase text-light" >{{ $item->status }}</td>
                                             <td class="cell text-end"><a href="#edit{{ $item->id_categories }}"
                                                     data-bs-toggle="modal" class="text-info"><i
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
@@ -62,7 +64,6 @@
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
                                                 | <a href="" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
-                                                {{-- @include('admin.component-admin.content-modal.modal-action-category') --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,5 +95,4 @@
     <!--//app-footer-->
 
     </div>
-    {{-- @include('admin.component-admin.content-modal.modal-add-category') --}}
 @endsection
