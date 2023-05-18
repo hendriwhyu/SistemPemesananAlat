@@ -35,31 +35,25 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $credentials = array(
-            'username' => $request->get('username'),
-            'password' => $request->get('password')
-        );
-        // $credentials = $request->only('username', 'password');
+        $credentials = [
+            'username' => $request->username,
+            'password' => $request->password,
+        ];
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            // dd($request);
+            // $request->session()->regenerate();
             $user = Auth::user();
+
             if ($user->id_role == 1) {
+                // dd($user);
                 return redirect()->intended('admin/dashboard');
             } elseif ($user->id_role == 2) {
                 return redirect()->intended('client/dashboard');
-                if (!redirect()->intended('/dashboard')) {
-                    abort(404);
-                }
+            } else {
+                abort(404);
             }
         } else {
-            // return back()->withErrors([
-            //     'username' => 'The provided credentials do not match our records.',
-            // ])->onlyInput('username');
             Session::flash('status', 'failed!');
-            // Session::flash('message', 'Gagal login Akun');
             return redirect()->back()->withInput()->with('message', 'login failed!');
-            // return redirect('login');
         }
     }
 }

@@ -5,7 +5,6 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-
                 <h1 class="app-page-title">Overview</h1>
 
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">

@@ -17,7 +17,7 @@
                             </div>
                         @endif
                         <div class="auth-form-container text-start">
-                            <form class="auth-form login-form" action="{{ url('/login/proses') }}" method="POST">
+                            <form class="auth-form login-form" action="{{ url('/login-proses') }}" method="POST" novalidate>
                                 @csrf
                                 <div class="username mb-3">
                                     <label class="form-label" for="username">Username</label>
@@ -35,10 +35,14 @@
                                 <!--//form-group-->
                                 <div class="password mb-3">
                                     <label class="form-label" for="password">Password</label>
-                                    <input name="password" type="password" id="password"
-                                        class="form-control signin-password" placeholder="Password">
+                                    <input name="password" type="password" id="password" class="form-control signin-password
                                     @error('password')
                                         is-invalid
+                                    @enderror" placeholder="Password">
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                     <div class="extra mt-3 row justify-content-between">
                                         <div class="col-6">
@@ -67,7 +71,7 @@
                                         In</button>
                                 </div>
                             </form>
-
+                            
                             <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link"
                                     href="{{ url('register') }}">here</a>.</div>
                         </div>

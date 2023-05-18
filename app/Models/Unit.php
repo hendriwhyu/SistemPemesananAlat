@@ -12,7 +12,8 @@ class Unit extends Model
     protected $fillable = [
         'kode_alat',
         'name_alat',
-        'status'
+        'status',
+        'id_categories'
     ];
     public function relationCategory()
     {

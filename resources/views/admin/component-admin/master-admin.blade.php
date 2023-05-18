@@ -179,6 +179,10 @@
                                         href="#" role="button" aria-expanded="false"><img
                                             src="assets/images/user.png" alt="user profile"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                                        <li><b
+                                                class="dropdown-item text-center text-capitalize text-bold" style="margin-bottom: 0%; padding-bottom:0%">{{ Auth::user()->username }}</b>
+                                            <small class="dropdown-item text-center text-capitalize text-bold" style="margin-bottom: 0%; padding-bottom:0%; padding-top:0%">{{ Auth::user()->role->role }}</small>
+                                        </li>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                         <li>

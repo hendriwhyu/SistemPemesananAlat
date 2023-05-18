@@ -15,9 +15,9 @@ class UserSeed extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
-        User::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Schema::disableForeignKeyConstraints();
+        // User::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         User::create([
             // 'nama_pengguna' => 'user',
@@ -30,6 +30,12 @@ class UserSeed extends Seeder
             'id_role' => 1, // Ubah sesuai id_role yang diinginkan
             'telp' => '0811111',
             'alamat' => 'Perum'
+            // 'username' => 'client',
+            // 'email' => 'admin@gmail.com',
+            // 'password' => Hash::make('client'),
+            // 'id_role' => 2, // Ubah sesuai id_role yang diinginkan
+            // 'telp' => '0811111',
+            // 'alamat' => 'Perum'
         ]);
     }
 }

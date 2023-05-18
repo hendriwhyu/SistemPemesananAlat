@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#addnew"
-                                        class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Tambah</button>
+                                        class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i> Tambah</button>
                                 </div>
                             </div>
                             <!--//row-->
@@ -101,4 +101,5 @@
     <!--//app-footer-->
 
     </div>
+    @include('admin.component-admin.content-modal.modal-add-unit')
 @endsection
