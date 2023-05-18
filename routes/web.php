@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'authentication']);
+Route::post('/login/proses', [AuthController::class, 'authentication']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 // Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -31,14 +31,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 // });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/kategori', [AdminController::class, 'kategori'])->name('admin.kategori');
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
     Route::put('/kategori/edit', [AdminController::class, 'edit']);
     Route::delete('/kategori/delete', [AdminController::class, 'delete']);
     Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show']);
-})->middleware('auth');
+});
 
 Route::prefix('client')->middleware('auth')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');

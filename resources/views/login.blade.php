@@ -17,18 +17,29 @@
                             </div>
                         @endif
                         <div class="auth-form-container text-start">
-                            <form class="auth-form login-form" method="POST">
+                            <form class="auth-form login-form" action="{{ url('/login/proses') }}" method="POST">
                                 @csrf
-                                <div class="email mb-3">
-                                    <label class="sr-only" for="username">Username</label>
+                                <div class="username mb-3">
+                                    <label class="form-label" for="username">Username</label>
                                     <input type="text" name="username" id="username"
-                                        class="form-control signin-email" placeholder="Username anda" required="required">
+                                        class="form-control @error('username')
+                                        is-invalid
+                                    @enderror"
+                                        placeholder="Username anda" value="{{ old('username') }}">
+                                    @error('username')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <!--//form-group-->
                                 <div class="password mb-3">
-                                    <label class="sr-only" for="password">Password</label>
+                                    <label class="form-label" for="password">Password</label>
                                     <input name="password" type="password" id="password"
-                                        class="form-control signin-password" placeholder="Password" required="required">
+                                        class="form-control signin-password" placeholder="Password">
+                                    @error('password')
+                                        is-invalid
+                                    @enderror
                                     <div class="extra mt-3 row justify-content-between">
                                         <div class="col-6">
                                             <div class="form-check">

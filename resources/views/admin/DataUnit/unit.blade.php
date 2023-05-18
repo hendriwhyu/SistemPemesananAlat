@@ -8,7 +8,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Kategori Unit  ({{ $Kategori->name_categories }})</h1>
+                        <h1 class="app-page-title mb-0">Kategori Unit ({{ $Kategori->name_categories }})</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -56,7 +56,13 @@
                                             <td class="cell">{{ $loop->iteration }}</td>
                                             <td class="cell">{{ $item->kode_alat }}</td>
                                             <td class="cell">{{ $item->name_alat }}</td>
-                                            <td class="cell text-center badge bg-success text-uppercase text-light" >{{ $item->status }}</td>
+                                            @if ($item->status == 'ready')
+                                                <td class="cell text-center badge bg-success text-uppercase text-light">
+                                                    ready</td>
+                                            @elseif($item->status == 'sold')
+                                                <td class="cell text-center badge bg-danger text-uppercase text-light">
+                                                    sold</td>
+                                            @endif
                                             <td class="cell text-end"><a href="#edit{{ $item->id_categories }}"
                                                     data-bs-toggle="modal" class="text-info"><i
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
