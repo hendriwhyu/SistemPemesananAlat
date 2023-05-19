@@ -11,39 +11,75 @@
                         <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="logo-icon me-2"
                                     src="assets/images/app-logo.svg" alt="logo"></a></div>
                         <h2 class="auth-heading text-center mb-4">Sign up to Portal</h2>
-
+                        @if (session('status'))
+                            <div class="alert alert-danger">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <div class="auth-form-container text-start mx-auto">
-                            <form class="auth-form auth-signup-form" action="" method="POST">
+                            <form class="auth-form auth-signup-form" method="POST" novalidate>
+                                @csrf
                                 <div class="email mb-3">
-                                    <label class="form-label" for="phone">Username</label>
-                                    <input id="signup-name" name="signup-name" type="text"
-                                        class="form-control signup-name" placeholder="Full name" required="required">
+                                    <label class="form-label" for="username">Username</label>
+                                    <input id="username" name="username" type="text"
+                                        class="form-control username @error('username')
+                                        is-invalid
+                                    @enderror"
+                                        placeholder="Full name" value="{{ old('username') }}">
+                                    @error('username')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="email mb-3">
-                                    <label class="form-label" for="phone">Email</label>
-                                    <input id="signup-email" name="signup-email" type="email"
-                                        class="form-control signup-email" placeholder="Email" required="required">
-                                </div>
-                                <div class="form-outline mb-3" style="width: 100%; max-width: 22rem">
-                                    <label class="form-label" for="phone">Phone number</label>
-                                    <input type="text" id="phone" class="form-control" placeholder="+62xxxxxxxxxx" />
+                                    <label class="form-label" for="email">Email</label>
+                                    <input id="email" name="email" type="email"
+                                        class="form-control email  @error('email')
+                                        is-invalid
+                                    @enderror"
+                                        placeholder="Email" value="{{ old('email') }}">
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="password mb-3">
-                                    <label class="form-label" for="phone">Password</label>
-                                    <input id="signup-password" name="signup-password" type="password"
-                                        class="form-control signup-password" placeholder="Create a password"
-                                        required="required">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input placeholder="Masukkan Password"
+                                        class="form-control @error('password')
+                                        is-invalid
+                                    @enderror"
+                                        type="password" name="password" id="password">
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="password mb-3">
+                                    <div class="password-confirm mb-3">
+                                        <label class="form-label" for="password-confirm">Confirm Password</label>
+                                        <input id="password-confirm" name="password_confirmation" type="password"
+                                            class="form-control  @error('password')
+                                        is-invalid
+                                    @enderror"
+                                            placeholder="Confirm your password">
+                                    </div>
                                 </div>
                                 <div class="extra mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value=""
                                             id="RememberPassword">
+                                        <input type="hidden" value="2" id="role" name="role">
                                         <label class="form-check-label" for="RememberPassword">
                                             I agree to Portal's <a href="#" class="app-link">Terms of Service</a> and
                                             <a href="#" class="app-link">Privacy Policy</a>.
                                         </label>
                                     </div>
                                 </div>
+
                                 <!--//extra-->
 
                                 <div class="text-center">

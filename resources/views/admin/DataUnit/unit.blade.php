@@ -20,7 +20,8 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#addnew"
-                                        class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i> Tambah</button>
+                                        class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i>
+                                        Tambah</button>
                                 </div>
                             </div>
                             <!--//row-->

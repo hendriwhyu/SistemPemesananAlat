@@ -11,8 +11,12 @@
                         <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="logo-icon me-2"
                                     src="assets/images/app-logo.svg" alt="logo"></a></div>
                         <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
-                        @if (session('status'))
+                        @if (session('status') == 'failed')
                             <div class="alert alert-danger">
+                                {{ session('message') }}
+                            </div>
+                        @elseif (session('status') == 'success')
+                        <div class="alert alert-success">
                                 {{ session('message') }}
                             </div>
                         @endif

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -52,8 +54,34 @@ class AuthController extends Controller
                 abort(404);
             }
         } else {
-            Session::flash('status', 'failed!');
+            Session::flash('status', 'failed');
             return redirect()->back()->withInput()->with('message', 'login failed!');
+        }
+    }
+    public function makeAccount(Request $request)
+    {
+        // Validasi data yang dikirimkan oleh pengguna
+        $request->validate([
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+        ]);
+
+        // Membuat pengguna baru
+        $user = new User();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->id_role = $request->role;
+        $user->save();
+        
+        if ($user->save()) {
+            Session::flash('status', 'success');
+            // Mengirimkan pesan berhasil dan mengarahkan pengguna ke halaman login
+            return redirect('/login')->with('message', 'Registrasi berhasil! Silakan masuk menggunakan akun Anda.');
+        } else {
+            Session::flash('status', 'failed');
+            return back()->withInput()->with('message', 'register failed!');
         }
     }
 }
