@@ -23,7 +23,6 @@
                                         class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i>
                                         Tambah</button>
                                 </div>
-                                @include('admin.component-admin.content-modal.modal-action-unit')
                             </div>
                             <!--//row-->
                         </div>
@@ -36,7 +35,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                @if(session('error'))
+                @if (session('error'))
                     <div class="alert alert-danger mt-4" role="alert">
                         {{ session('error') }}
                     </div>
@@ -77,7 +76,9 @@
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
                                                 | <a href="" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
+                                                @include('admin.component-admin.content-modal.modal-action-unit')
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

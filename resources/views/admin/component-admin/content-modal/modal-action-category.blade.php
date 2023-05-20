@@ -1,5 +1,3 @@
-
-
 <!-- Edit Modal -->
 <div class="modal fade" id="edit{{ $item->id_categories }}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

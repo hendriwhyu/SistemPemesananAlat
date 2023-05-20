@@ -32,16 +32,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 //     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 // });
 
-Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
+Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/kategori', [AdminController::class, 'kategori'])->name('admin.kategori');
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
     Route::put('/kategori/edit', [AdminController::class, 'edit']);
     Route::delete('/kategori/delete', [AdminController::class, 'delete']);
-    Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show'])->name('admin.addUnit');
+    Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show'])->name('admin.Unit');
     Route::post('/detail-kategori/{name_categories}', [UnitController::class, 'addUnit']);
+    Route::put('/detail-kategori/{name_categories}', [UnitController::class, 'edit'])->name('admin.editUnit');
+    Route::delete('/detail-kategori/{name_categories}', [UnitController::class, 'delete']);
 });
 
-Route::prefix('client')->middleware('auth','isClient')->group(function () {
-    Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard')->middleware('isClient');
+Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
+    Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
 });

@@ -27,4 +27,29 @@ class UnitController extends Controller
             }
         }
     }
+    public function edit(Request $request)
+    {
+        $data = Unit::where('id', $request->id);
+        $data->update([
+            'kode_alat' => $request->kode_alat,
+            'name_alat' => $request->name_alat,
+            'status' => $request->status
+        ]);
+
+        if ($data) {
+            return back()->with('success', 'Unit telah diubah');
+        }else{
+            return back()->with('error', 'Unit gagal diubah');
+        }
+    }
+    public function delete(Request $request)
+    {
+        $data = Unit::where('id', $request->id);
+        $data->delete();
+        if ($data) {
+            return back()->with('success', 'Unit telah dihapus');
+        }else{
+            return back()->with('error', 'Unit gagal dihapus');
+        }
+    }
 }
