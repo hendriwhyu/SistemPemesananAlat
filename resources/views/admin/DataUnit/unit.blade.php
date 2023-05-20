@@ -23,7 +23,7 @@
                                         class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i>
                                         Tambah</button>
                                 </div>
-                                @include('')
+                                @include('admin.component-admin.content-modal.modal-action-unit')
                             </div>
                             <!--//row-->
                         </div>
