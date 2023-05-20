@@ -42,6 +42,6 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::post('/detail-kategori/{name_categories}', [UnitController::class, 'addUnit']);
 });
 
-Route::prefix('client')->group(function () {
-    Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
-})->middleware('isClient');
+Route::prefix('client')->middleware('auth','isClient')->group(function () {
+    Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard')->middleware('isClient');
+});

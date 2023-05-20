@@ -16,7 +16,7 @@ class CekClient
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() || $request->user()->id_role == 2) {
+        if (Auth::check() && Auth::user()->id_role == 2) {
             return $next($request);
         }else{
             abort(403, 'Unauthorized');
