@@ -38,7 +38,7 @@ Route::prefix('admin')->middleware('auth','isAdmin')->group(function () {
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
     Route::put('/kategori/edit', [AdminController::class, 'edit']);
     Route::delete('/kategori/delete', [AdminController::class, 'delete']);
-    Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show']);
+    Route::get('/detail-kategori/{name_categories}', [UnitController::class, 'show'])->name('admin.addUnit');
     Route::post('/detail-kategori/{name_categories}', [UnitController::class, 'addUnit']);
 });
 

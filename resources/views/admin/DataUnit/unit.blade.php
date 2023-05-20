@@ -23,6 +23,7 @@
                                         class="btn btn-primary pull-right text-light"><i class="fa fa-plus"></i>
                                         Tambah</button>
                                 </div>
+                                @include('')
                             </div>
                             <!--//row-->
                         </div>
@@ -30,9 +31,14 @@
                     </div>
                     <!--//col-auto-->
                 </div>
-                @if (Session::has('status'))
+                @if (session('success'))
                     <div class="alert alert-success mt-4" role="alert">
-                        {{ Session::get('message') }}
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if(session('error'))
+                    <div class="alert alert-danger mt-4" role="alert">
+                        {{ session('error') }}
                     </div>
                 @endif
                 <!--//row-->
@@ -64,10 +70,10 @@
                                                 <td class="cell text-center badge bg-danger text-uppercase text-light">
                                                     sold</td>
                                             @endif
-                                            <td class="cell text-end"><a href="#edit{{ $item->id_categories }}"
+                                            <td class="cell text-end"><a href="#edit{{ $item->id }}"
                                                     data-bs-toggle="modal" class="text-info"><i
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
-                                                    href="#delete{{ $item->id_categories }}" data-bs-toggle="modal"
+                                                    href="#delete{{ $item->id }}" data-bs-toggle="modal"
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
                                                 | <a href="" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>

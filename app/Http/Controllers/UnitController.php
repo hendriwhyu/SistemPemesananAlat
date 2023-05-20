@@ -17,12 +17,15 @@ class UnitController extends Controller
     }
     public function addUnit(Request $request)
     {
+        $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
         // dd($request);
-        $data = Unit::create($request->all());
-        if ($data) {
-            Session::flash('status', 'success');
-            Session::flash('message', 'Tambah Data Proyek Berhasil');
+        if ($cekDuplikat) {
+            return back()->with('error', 'Kode Alat sudah ada');
+        } else {
+            $data = Unit::create($request->all());
+            if ($data) {
+                return back()->with('success', 'Unit telah ditambah');
+            }
         }
-        return back();
     }
 }
