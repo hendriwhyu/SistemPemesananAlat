@@ -18,7 +18,6 @@ class UnitController extends Controller
     public function addUnit(Request $request)
     {
         $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
-        // dd($request);
         if ($cekDuplikat) {
             return back()->with('error', 'Kode Alat sudah ada');
         } else {
