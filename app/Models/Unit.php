@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\DetailUnit;
 
 class Unit extends Model
 {
@@ -18,5 +21,9 @@ class Unit extends Model
     public function relationCategory()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function detailUnit(): HasOne
+    {
+        return $this->hasOne(DetailUnit::class, 'kode_alat', 'kode_alat');
     }
 }
