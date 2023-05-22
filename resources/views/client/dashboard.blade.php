@@ -177,14 +177,20 @@
                                 <div class="app-utility-item app-user-dropdown dropdown">
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                         href="#" role="button" aria-expanded="false"><img
-                                            src="assets/images/user.png" alt="user profile"></a>
+                                            src="assets/images/user.png"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="post" class="dropdown-item">
+                                                @csrf
+                                                <button style="border:none; background-color:transparent"
+                                                    type="submit">Log Out</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!--//app-user-dropdown-->
@@ -223,7 +229,7 @@
                                                 d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                                         </svg>
                                     </span>
-                                    <span class="nav-link-text">Overview</span>
+                                    <span class="nav-link-text">Dashboard</span>
                                 </a>
                                 <!--//nav-link-->
                             </li>

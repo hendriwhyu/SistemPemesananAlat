@@ -177,18 +177,25 @@
                                 <div class="app-utility-item app-user-dropdown dropdown">
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                         href="#" role="button" aria-expanded="false"><img
-                                            src="assets/images/user.png" alt="user profile"></a>
+                                            src="assets/images/user.png"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                        <li><b
-                                                class="dropdown-item text-center text-capitalize text-bold" style="margin-bottom: 0%; padding-bottom:0%">{{ Auth::user()->username }}</b>
-                                            <small class="dropdown-item text-center text-capitalize text-bold" style="margin-bottom: 0%; padding-bottom:0%; padding-top:0%">{{ Auth::user()->role->role }}</small>
+                                        <li><b class="dropdown-item text-center text-capitalize text-bold"
+                                                style="margin-bottom: 0%; padding-bottom:0%">{{ Auth::user()->username }}</b>
+                                            <small class="dropdown-item text-center text-capitalize text-bold"
+                                                style="margin-bottom: 0%; padding-bottom:0%; padding-top:0%">{{ Auth::user()->role->role }}</small>
                                         </li>
                                         <li><a class="dropdown-item" href="account.html">Account</a></li>
                                         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="post" class="dropdown-item">
+                                                @csrf
+                                                <button style="border:none; background-color:transparent"
+                                                    type="submit">Log Out</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!--//app-user-dropdown-->
