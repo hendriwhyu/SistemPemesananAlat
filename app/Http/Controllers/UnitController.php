@@ -15,14 +15,16 @@ class UnitController extends Controller
     public function show($categories)
     {
         $kategori = Category::where('name_categories', $categories)->first();
-        $unit = Unit::where('id_categories', $kategori->id_categories)->get();
+        $unit = Unit::where('id_categories', $kategori->id_categories)->orderBy('kode_alat', 'ASC')->get();
         return view('admin.DataUnit.unit', ['Kategori' => $kategori, 'Unit' => $unit]);
     }
     public function addUnit(Request $request)
     {
         $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
-        if ($cekDuplikat) {
-            return back()->with('error', 'Kode Alat sudah ada');
+        $cekDuplikatName = Unit::where('name_alat', $request->name_alat)->count();
+        // dd($cekDuplikat);
+        if ($cekDuplikat || $cekDuplikatName) {
+            return back()->with('error', 'Kode Alat / Nama Alat sudah ada');
         } else {
             $data = Unit::create($request->all());
             $detail = new DetailUnit;
@@ -71,6 +73,39 @@ class UnitController extends Controller
             return back()->with('success', 'Unit telah dihapus');
         } else {
             return back()->with('error', 'Unit gagal dihapus');
+        }
+    }
+    public function detailUpdate(Request $request)
+    {
+        $request->validate([
+            'harga' => 'required',
+            'deskripsi' => 'required',
+            'type' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
+        ]);
+        if ($request->image == null) {
+            $data = DetailUnit::where('kode_alat', $request->alat)->first();
+            $data->update([
+                'harga' => $request->harga,
+                'deskripsi' => $request->deskripsi,
+                'type_book' => $request->type
+            ]);
+        } else {
+            $imageName = $request->alat . '.' . $request->image->extension();
+            $request->image->move(public_path('image'), $imageName);
+            $data = DetailUnit::where('kode_alat', $request->alat)->first();
+            $data->update([
+                'harga' => $request->harga,
+                'deskripsi' => $request->deskripsi,
+                'type_book' => $request->type,
+                'image' => $imageName,
+            ]);
+        }
+
+        if ($data) {
+            return back()->with('success', 'Detail Unit telah diubah');
+        } else {
+            return back()->with('error', 'Detail Unit gagal diubah');
         }
     }
 }

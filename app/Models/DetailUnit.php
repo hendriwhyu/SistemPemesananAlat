@@ -10,6 +10,7 @@ class DetailUnit extends Model
 {
     use HasFactory;
     protected $table = 'detail_unit';
+    protected $primaryKey = 'kode_alat';
     protected $fillable = [
         'kode_alat',
         'harga',
