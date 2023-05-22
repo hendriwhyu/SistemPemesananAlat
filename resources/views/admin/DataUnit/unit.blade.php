@@ -76,7 +76,6 @@
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
                                                 | <a href="#detail{{ $item->id }}" data-bs-toggle="modal" class="text-success"><i
                                                         class='bx bx-layer'></i>Detail</a>
-                                                
                                                 @include('admin.component-admin.content-modal.modal-action-unit')
                                             </td>
                                         </tr>
