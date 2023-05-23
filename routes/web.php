@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::put('/detail-kategori/{name_categories}', [UnitController::class, 'edit'])->name('admin.editUnit');
     Route::put('/detail-kategori/{name_categories}/detail-unit', [UnitController::class, 'detailUpdate'])->name('admin.editDetailUnit');
     Route::delete('/detail-kategori/{name_categories}', [UnitController::class, 'delete']);
+    
+    Route::get('/user', [UserController::class, 'user'])->name('admin.user');
+    Route::post('/user-add', [UserController::class, 'addUser']);
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {

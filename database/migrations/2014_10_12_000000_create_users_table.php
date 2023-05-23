@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('telp')->nullable();
             $table->text('alamat')->nullable();
             $table->string('ktp')->nullable();
-            $table->string('kk')->nullable();
             $table->unsignedInteger('id_role')->length(10);
             $table->rememberToken();
             $table->timestamps();

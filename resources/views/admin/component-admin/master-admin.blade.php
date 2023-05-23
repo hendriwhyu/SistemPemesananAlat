@@ -270,7 +270,7 @@
                                         <li class="submenu-item"><a class="submenu-link"
                                                 href="{{ url('admin/kategori') }}">Data
                                                 Unit</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="account.html">Data
+                                        <li class="submenu-item"><a class="submenu-link" href="{{ url('admin/user') }}">Data
                                                 User</a>
                                         </li>
                                         {{-- <li class="submenu-item"><a class="submenu-link"

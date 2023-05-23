@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
-
     public function dashboard()
     {
         return view('admin.dashboard');
     }
-
     public function kategori()
     {
         $data = Category::all();
@@ -43,7 +41,6 @@ class AdminController extends Controller
     public function edit(Request $request)
     {
         $cekKategori = Category::where('name_categories', $request->nama_kategori)->first();
-        // dd($cekKategori);
         if ($cekKategori) {
             return back()->with('error', 'Nama Kategori sudah ada');
         } else {
@@ -54,7 +51,6 @@ class AdminController extends Controller
                 $data->update([
                     'name_categories' => $request->nama_kategori
                 ]);
-
                 if ($data) {
                     Session::flash('status', 'success');
                     Session::flash('message', 'Ubah Kategori Berhasil');
