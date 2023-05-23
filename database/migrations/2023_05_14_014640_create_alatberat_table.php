@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('alatberat', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_alat', 100)->unique();
-            $table->string('name_alat', 100)->unique();
+            $table->string('kode_alat', 100)->nullable()->unique();
+            $table->string('name_alat', 100)->nullable()->unique();
             $table->string('status')->default('ready');
             $table->unsignedInteger('id_categories')->length(10);
             $table->foreign('id_categories')->references('id_categories')->on('category');

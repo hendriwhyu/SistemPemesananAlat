@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             $table->unsignedInteger('id_categories',10);
-            $table->string('name_categories',100);
+            $table->string('name_categories',100)->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@
                     <div class="input-group">
                         <span class="input-group-text">Kategori</span>
                         <input type="text" aria-label="First name" name="nama_kategori" class="form-control"
-                            value="{{ $item->name_categories }}">
+                            value="{{ $item->name_categories }}" required>
                     </div>
 
                 </div>

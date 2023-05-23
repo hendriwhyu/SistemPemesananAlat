@@ -34,6 +34,10 @@
                     <div class="alert alert-success mt-4" role="alert">
                         {{ Session::get('message') }}
                     </div>
+                @elseif (session('error'))
+                    <div class="alert alert-danger mt-4" role="alert">
+                        {{ session('error') }}
+                    </div>
                 @endif
                 <!--//row-->
 
@@ -59,8 +63,8 @@
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
                                                     href="#delete{{ $item->id_categories }}" data-bs-toggle="modal"
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
-                                                | <a href="detail-kategori/{{ $item->name_categories }}" class="text-success"><i
-                                                        class='bx bx-layer'></i>Detail</a>
+                                                | <a href="detail-kategori/{{ $item->name_categories }}"
+                                                    class="text-success"><i class='bx bx-layer'></i>Detail</a>
                                                 @include('admin.component-admin.content-modal.modal-action-category')
                                             </td>
                                         </tr>

@@ -40,6 +40,15 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger  mt-4">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!--//row-->
 
                 <div class="app-card app-card-orders-table mb-5">
@@ -74,8 +83,8 @@
                                                         class='bx bxs-edit'></i>Ubah</a> | <a
                                                     href="#delete{{ $item->id }}" data-bs-toggle="modal"
                                                     class="text-danger"><i class='bx bx-trash'></i>Delete</a>
-                                                | <a href="#detail{{ $item->id }}" data-bs-toggle="modal" class="text-success"><i
-                                                        class='bx bx-layer'></i>Detail</a>
+                                                | <a href="#detail{{ $item->id }}" data-bs-toggle="modal"
+                                                    class="text-success"><i class='bx bx-layer'></i>Detail</a>
                                                 @include('admin.component-admin.content-modal.modal-action-unit')
                                             </td>
                                         </tr>

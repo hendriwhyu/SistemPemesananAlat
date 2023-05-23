@@ -20,6 +20,10 @@ class UnitController extends Controller
     }
     public function addUnit(Request $request)
     {
+        $request->validate([
+            'kode_alat' => 'required',
+            'name_unit' => 'required',
+        ]);
         $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
         $cekDuplikatName = Unit::where('name_alat', $request->name_alat)->count();
         // dd($cekDuplikat);
@@ -35,24 +39,27 @@ class UnitController extends Controller
             $detail->image = '-';
             $detail->save();
             return back();
-            if ($data) {
+            if ($data->save()) {
                 return back()->with('success', 'Unit telah ditambah');
+            } else {
+                return back()->with('error', 'Unit gagal ditambah');
             }
         }
     }
     public function edit(Request $request)
     {
-        $data = Unit::where('id', $request->id);
-        $data->update([
-            'kode_alat' => $request->kode_alat,
-            'name_alat' => $request->name_alat,
-            'status' => $request->status
-        ]);
-
-        if ($data) {
-            return back()->with('success', 'Unit telah diubah');
+        $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
+        $cekDuplikatName = Unit::where('name_alat', $request->name_alat)->count();
+        if ($cekDuplikat || $cekDuplikatName) {
+            return back()->with('error', 'Kode Alat / Nama Alat sudah ada');
         } else {
-            return back()->with('error', 'Unit gagal diubah');
+            $data = Unit::where('id', $request->id);
+            $data->update([
+                'kode_alat' => $request->kode_alat,
+                'name_alat' => $request->name_alat,
+                'status' => $request->status
+            ]);
+            return back()->with('success', 'Unit telah diubah');
         }
     }
     public function delete(Request $request)
@@ -90,6 +97,11 @@ class UnitController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'type_book' => $request->type
             ]);
+            if ($data->update()) {
+                return back()->with('success', 'Detail Unit telah diubah');
+            } else {
+                return back()->with('error', 'Detail Unit gagal diubah');
+            }
         } else {
             $imageName = $request->alat . '.' . $request->image->extension();
             $request->image->move(public_path('image'), $imageName);
@@ -100,12 +112,12 @@ class UnitController extends Controller
                 'type_book' => $request->type,
                 'image' => $imageName,
             ]);
-        }
 
-        if ($data) {
-            return back()->with('success', 'Detail Unit telah diubah');
-        } else {
-            return back()->with('error', 'Detail Unit gagal diubah');
+            if ($data->update()) {
+                return back()->with('success', 'Detail Unit telah diubah');
+            } else {
+                return back()->with('error', 'Detail Unit gagal diubah');
+            }
         }
     }
 }

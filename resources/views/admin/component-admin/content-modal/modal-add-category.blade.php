@@ -13,7 +13,8 @@
 
                     <div class="input-group">
                         <span class="input-group-text">Kategori</span>
-                        <input type="text" aria-label="First name" name="nama_kategori" class="form-control">
+                        <input type="text" aria-label="First name" name="nama_kategori"
+                            class="form-control" required>
                     </div>
 
                 </div>

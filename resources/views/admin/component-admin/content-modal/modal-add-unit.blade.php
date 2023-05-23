@@ -11,12 +11,12 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <span class="input-group-text">Kode</span>
-                        <input type="text" aria-label="First name" name="kode_alat" class="form-control">
+                        <input type="text" aria-label="First name" name="kode_alat" class="form-control" required>
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">Unit</span>
-                        <input type="text" aria-label="First name" name="name_alat" class="form-control">
+                        <input type="text" aria-label="First name" name="name_alat" class="form-control" required>
                     </div>
                     <br>
                     <select class="form-select" aria-label="Default select example">

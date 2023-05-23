@@ -15,13 +15,13 @@
                     <div class="input-group">
                         <span class="input-group-text">Kode</span>
                         <input type="text" aria-label="First name" name="kode_alat" class="form-control"
-                            value="{{ $item->kode_alat }}">
+                            value="{{ $item->kode_alat }}" required>
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">Unit</span>
                         <input type="text" aria-label="First name" name="name_alat" class="form-control"
-                            value="{{ $item->name_alat }}">
+                            value="{{ $item->name_alat }}" required>
                     </div>
                     <br>
                     <select class="form-select" aria-label="Default select example" name="status">
@@ -111,7 +111,7 @@
                     <div class="row">
                         <div class="col-4">
                             <img src="{{ asset('image/' . $item->detailUnit->image) }}" class="card-img-top"
-                                alt="...">
+                                alt="dataUnit.{{ $item->kode_alat }}">
                             <div class="input-group">
                                 <input type="file"
                                     class="form-control @error('image')

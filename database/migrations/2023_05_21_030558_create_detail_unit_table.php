@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('detail_unit', function (Blueprint $table) {
             $table->string('kode_alat');
             $table->foreign('kode_alat')->references('kode_alat')->on('alatberat');
-            $table->string('harga');
-            $table->string('deskripsi');
-            $table->enum('type_book', ['jam', 'hari']);
+            $table->string('harga')->default('-');
+            $table->string('deskripsi')->default('-');
+            $table->enum('type_book', ['jam', 'hari'])->default('jam');
             $table->text('image');
         });
     }
