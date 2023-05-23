@@ -2,10 +2,10 @@
 <div class="modal fade" id="edit{{ $item->id_users }}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" action="{{ url('admin/detail-kategori/{name_categories}') }}">
+            <form method="post" action="{{ url('admin/user-edit') }}">
                 @csrf
                 @method('put')
-                <input type="hidden" value="{{ $item->id }}" name="id">
+                <input type="hidden" value="{{ $item->id_users }}" name="id_users">
                 {{-- {!! Form::model($item, ['method' => 'patch', 'route' => ['admin.kategori', $item->id_categories]]) !!} --}}
                 <div class="modal-header">
                     <h5 class="modal-title" id="addnewModalLabel">Edit User</h5>
@@ -15,22 +15,22 @@
                     <div class="input-group">
                         <span class="input-group-text">Username</span>
                         <input type="text" aria-label="First name" name="username" class="form-control"
-                            value="{{ $item->username }}" disabled>
+                            value="{{ $item->username }}">
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">Email</span>
                         <input type="email" aria-label="First name" name="email" class="form-control"
-                            value="{{ $item->email }}" disabled>
+                            value="{{ $item->email }}">
                     </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">Password</span>
                         <input type="password" aria-label="First name" name="password" class="form-control"
-                            value="{{ $item->password }}" disabled>
+                            value="{{ $item->password }}">
                     </div>
                     <br>
-                    <select class="form-select" aria-label="Default select example" name="status">
+                    <select class="form-select" aria-label="Default select example" name="role">
                         @if ($item->id_role == '1')
                             <option value="1" selected>Admin</option>
                             <option value="2">Client</option>
@@ -63,10 +63,10 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" action="{{ url('admin/detail-kategori/{name_categories }') }}">
+            <form method="post" action="{{ url('admin/user-delete') }}">
                 @csrf
                 @method('delete')
-                <input type="hidden" value="{{ $item->id }}" name="id">
+                <input type="hidden" value="{{ $item->id_users }}" name="id_users">
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Delete Member</h5>

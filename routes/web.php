@@ -48,6 +48,8 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     
     Route::get('/user', [UserController::class, 'user'])->name('admin.user');
     Route::post('/user-add', [UserController::class, 'addUser']);
+    Route::put('/user-edit', [UserController::class, 'update']);
+    Route::delete('/user-delete', [UserController::class, 'delete']);
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
