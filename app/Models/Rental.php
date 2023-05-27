@@ -26,6 +26,6 @@ class Rental extends Model
     }
     public function unit(): HasMany
     {
-        return $this->hasMany(Unit::class);
+        return $this->hasMany(Unit::class, 'id');
     }
 }

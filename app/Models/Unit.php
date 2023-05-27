@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\Category;
+use App\Models\DetailUnit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\DetailUnit;
 
 class Unit extends Model
 {
@@ -25,5 +26,9 @@ class Unit extends Model
     public function detailUnit(): HasOne
     {
         return $this->hasOne(DetailUnit::class, 'kode_alat', 'kode_alat');
+    }
+    public function rental(): BelongsTo
+    {
+        return $this->belongsTo(Rental::class);
     }
 }

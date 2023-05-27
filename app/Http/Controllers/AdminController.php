@@ -2,21 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Rental;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Rental;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
+        $dataChart = Unit::select('name_alat')->get();
+        $valueChart = Rental::select('rental.id_alat', DB::raw('count(alatberat.id) as total_rental'))
+            ->join('alatberat', 'alatberat.id', '=', 'rental.id_alat')
+            ->groupBy('alatberat.id')
+            ->get();
+        $labels = $dataChart->pluck('name_alat')->toArray();
+        $values = $valueChart->pluck('total_rental')->toArray();
+
         $dataUsers = User::all()->count();
         $dataRental = Rental::all()->count();
         $dataUnit = Unit::where('status', 'ready')->count();
-        return view('admin.dashboard', ['dataUnit'=>$dataUnit, 'dataRental'=>$dataRental, 'dataUsers'=>$dataUsers]);
+        return view('admin.dashboard', ['dataUnit' => $dataUnit, 'dataRental' => $dataRental, 'dataUsers' => $dataUsers], compact('labels', 'values'));
     }
     public function kategori()
     {

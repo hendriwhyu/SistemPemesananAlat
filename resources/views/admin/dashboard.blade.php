@@ -96,7 +96,7 @@
                                     </select>
                                 </div>
                                 <div class="chart-container">
-                                    <canvas id="canvas-linechart"></canvas>
+                                    <canvas id="myChart"></canvas>
                                 </div>
                             </div>
                             <!--//app-card-body-->
@@ -239,4 +239,32 @@
         <!--//app-footer-->
 
     </div>
+    <script>
+        // Buat chart menggunakan data dari controller
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: 'Data Rental',
+                    data: {!! json_encode($values) !!},
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 @endsection
