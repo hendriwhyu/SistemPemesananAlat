@@ -24,8 +24,8 @@ class Rental extends Model
     {
         return $this->hasOne(User::class, 'id_users', 'id_user');
     }
-    public function unit(): HasMany
+    public function unit(): HasOne
     {
-        return $this->hasMany(Unit::class, 'id');
+        return $this->hasOne(Unit::class, 'id');
     }
 }

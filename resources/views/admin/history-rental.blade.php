@@ -37,23 +37,18 @@
                                         <th class="cell" style="width:50px">No.</th>
                                         <th class="cell">Username</th>
                                         <th class="cell">Alat Berat</th>
-                                        <th class="cell">Tanggal Mulai</th>
-                                        <th class="cell">Tanggal Selesai</th>
-                                        <th class="cell">Tanggal Kembali</th>
+                                        <th class="d-flex justify-content-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($ListData as $item)
                                         <tr>
                                             <td class="cell">{{ $loop->iteration }}</td>
-                                            <td class="cell">{{ $item->username }}</td>
-                                            <td class="cell">{{ $item->email }}</td>
-                                            <td class="cell">{{ $item->telp }}</td>
-                                            <td class="cell text-capitalize">{{ $item->role->role }}</td>
-                                            <td class="cell text-end">
-                                                | <a href="#detail{{ $item->username }}" data-bs-toggle="modal"
+                                            <td class="cell">{{ $item->peminjam->username }}</td>
+                                            <td class="cell">{{ $item->unit->name_alat }}</td>
+                                            <td class="cell text-center"><a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
                                                     class="text-success"><i class='bx bx-layer'></i>Detail</a>
-                                                @include('admin.component-admin.content-modal.modal-action-user')
+                                                @include('admin.component-admin.content-modal.modal-detail-history')
                                             </td>
                                         </tr>
                                     @endforeach

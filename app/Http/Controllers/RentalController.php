@@ -12,8 +12,8 @@ class RentalController extends Controller
      */
     public function index()
     {
-        $data = Rental::all();
-        return view('admin.history-rental', ['ListData'=> $data]);
+        $data = Rental::with('unit', 'peminjam')->get();
+        return view('admin.history-rental', ['ListData' => $data]);
     }
 
     /**
