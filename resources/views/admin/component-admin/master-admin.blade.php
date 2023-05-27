@@ -270,13 +270,26 @@
                                         <li class="submenu-item"><a class="submenu-link"
                                                 href="{{ url('admin/kategori') }}">Data
                                                 Unit</a></li>
-                                        <li class="submenu-item"><a class="submenu-link" href="{{ url('admin/user') }}">Data
+                                        <li class="submenu-item"><a class="submenu-link"
+                                                href="{{ url('admin/user') }}">Data
                                                 User</a>
                                         </li>
                                         {{-- <li class="submenu-item"><a class="submenu-link"
                                                 href="settings.html">Settings</a></li> --}}
                                     </ul>
                                 </div>
+                            </li>
+                            <!--//nav-item-->
+
+                            <li class="nav-item">
+                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                                <a class="nav-link" href="help.html">
+                                    <span class="nav-icon">
+                                        <i class='bx bx-history' width="1em" height="1em"></i>
+                                    </span>
+                                    <span class="nav-link-text">History Rental</span>
+                                </a>
+                                <!--//nav-link-->
                             </li>
                             <!--//nav-item-->
 

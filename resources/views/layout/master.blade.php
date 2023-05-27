@@ -22,7 +22,7 @@
     <!-- App CSS -->
     <link rel="icon" type="image/x-icon" href="{{ asset('template/assets/images/icon.png') }}">
     <link id="theme-style" rel="stylesheet" href="{{ asset('template/assets/css/portal.css') }}">
-
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 @yield('content')
 

@@ -6,7 +6,6 @@
                 @csrf
                 @method('put')
                 <input type="hidden" value="{{ $item->id_users }}" name="id_users">
-                {{-- {!! Form::model($item, ['method' => 'patch', 'route' => ['admin.kategori', $item->id_categories]]) !!} --}}
                 <div class="modal-header">
                     <h5 class="modal-title" id="addnewModalLabel">Edit User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -52,7 +51,6 @@
                         Cancel</button>
                     {{ Form::button('<i class="fa fa-check-square-o"></i> Update', ['class' => 'btn btn-success', 'type' => 'submit']) }}
                 </div>
-                {{-- {!! Form::close() !!} --}}
             </form>
         </div>
     </div>
