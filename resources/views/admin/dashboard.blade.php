@@ -128,7 +128,7 @@
                                     </div>
                                     <!--//col-->
                                     <div class="col-auto">
-                                        <h4 class="app-card-title">Invoices</h4>
+                                        <h4 class="app-card-title">Unit</h4>
                                     </div>
                                     <!--//col-->
                                 </div>
@@ -137,12 +137,12 @@
                             <!--//app-card-header-->
                             <div class="app-card-body px-4">
 
-                                <div class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                                    aliquet eros vel diam semper mollis.</div>
+                                <div class="intro">Unit alat berat mencakup data seperti kode alat,nama alat berat, jenis
+                                    alat berat, status operasional</div>
                             </div>
                             <!--//app-card-body-->
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="#">Create New</a>
+                                <a class="btn app-btn-secondary" href="{{ route('admin.kategori') }}">Overview</a>
                             </div>
                             <!--//app-card-footer-->
                         </div>
@@ -155,9 +155,8 @@
                                 <div class="row align-items-center gx-3">
                                     <div class="col-auto">
                                         <div class="app-icon-holder">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                                class="bi bi-code-square" fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-code-square"
+                                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
                                                     d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                                 <path fill-rule="evenodd"
@@ -169,7 +168,7 @@
                                     </div>
                                     <!--//col-->
                                     <div class="col-auto">
-                                        <h4 class="app-card-title">Apps</h4>
+                                        <h4 class="app-card-title">Users</h4>
                                     </div>
                                     <!--//col-->
                                 </div>
@@ -178,12 +177,12 @@
                             <!--//app-card-header-->
                             <div class="app-card-body px-4">
 
-                                <div class="intro">Pellentesque varius, elit vel volutpat sollicitudin, lacus quam
-                                    efficitur augue</div>
+                                <div class="intro">Data pengguna terdapat ringkasan data pengguna, dan mengakses
+                                    fitur penting terkait pengguna</div>
                             </div>
                             <!--//app-card-body-->
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="#">Create New</a>
+                                <a class="btn app-btn-secondary" href="{{ route('admin.user') }}">Overview</a>
                             </div>
                             <!--//app-card-footer-->
                         </div>
@@ -209,7 +208,7 @@
                                     </div>
                                     <!--//col-->
                                     <div class="col-auto">
-                                        <h4 class="app-card-title">Tools</h4>
+                                        <h4 class="app-card-title">Rental</h4>
                                     </div>
                                     <!--//col-->
                                 </div>
@@ -218,12 +217,12 @@
                             <!--//app-card-header-->
                             <div class="app-card-body px-4">
 
-                                <div class="intro">Sed maximus, libero ac pharetra elementum, turpis nisi molestie
-                                    neque, et tincidunt velit turpis non enim.</div>
+                                <div class="intro">Halaman yang memberikan informasi secara komprehensif tentang
+                                    aktivitas, data, dan pengelolaan rental tersebut</div>
                             </div>
                             <!--//app-card-body-->
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="#">Create New</a>
+                                <a class="btn app-btn-secondary" href="{{ url('admin/history') }}">Overview</a>
                             </div>
                             <!--//app-card-footer-->
                         </div>
