@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Rental;
+use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -10,7 +13,10 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $dataUsers = User::all()->count();
+        $dataRental = Rental::all()->count();
+        $dataUnit = Unit::where('status', 'ready')->count();
+        return view('admin.dashboard', ['dataUnit'=>$dataUnit, 'dataRental'=>$dataRental, 'dataUsers'=>$dataUsers]);
     }
     public function kategori()
     {

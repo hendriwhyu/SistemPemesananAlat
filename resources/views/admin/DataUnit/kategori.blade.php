@@ -44,8 +44,8 @@
                 <div class="app-card app-card-orders-table mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
-
-                            <table class="table mb-0 text-left">
+                            
+                            <table id="tables" class="table mb-0 text-left">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -95,7 +95,6 @@
 
 
     <!--//app-footer-->
-
     </div>
     @include('admin.component-admin.content-modal.modal-add-category')
 @endsection

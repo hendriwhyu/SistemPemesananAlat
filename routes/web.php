@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 
@@ -50,6 +51,8 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::post('/user-add', [UserController::class, 'addUser']);
     Route::put('/user-edit', [UserController::class, 'update']);
     Route::delete('/user-delete', [UserController::class, 'delete']);
+
+    Route::resource('/history', RentalController::class);
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {

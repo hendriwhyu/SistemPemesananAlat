@@ -22,7 +22,7 @@ class UnitController extends Controller
     {
         $request->validate([
             'kode_alat' => 'required',
-            'name_unit' => 'required',
+            'name_alat' => 'required',
         ]);
         $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
         $cekDuplikatName = Unit::where('name_alat', $request->name_alat)->count();
@@ -48,11 +48,7 @@ class UnitController extends Controller
     }
     public function edit(Request $request)
     {
-        $cekDuplikat = Unit::where('kode_alat', $request->kode_alat)->count();
-        $cekDuplikatName = Unit::where('name_alat', $request->name_alat)->count();
-        if ($cekDuplikat || $cekDuplikatName) {
-            return back()->with('error', 'Kode Alat / Nama Alat sudah ada');
-        } else {
+        try {
             $data = Unit::where('id', $request->id);
             $data->update([
                 'kode_alat' => $request->kode_alat,
@@ -60,6 +56,8 @@ class UnitController extends Controller
                 'status' => $request->status
             ]);
             return back()->with('success', 'Unit telah diubah');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Unit gagal diubah');
         }
     }
     public function delete(Request $request)

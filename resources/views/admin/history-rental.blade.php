@@ -31,7 +31,7 @@
                     <div class="app-card-body">
                         <div class="table-responsive">
 
-                            <table class="table mb-0 text-left">
+                            <table class="table mb-0 text-left" id="tables">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -43,18 +43,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ListUser as $item)
+                                    @foreach ($ListData as $item)
                                         <tr>
                                             <td class="cell">{{ $loop->iteration }}</td>
                                             <td class="cell">{{ $item->username }}</td>
                                             <td class="cell">{{ $item->email }}</td>
                                             <td class="cell">{{ $item->telp }}</td>
                                             <td class="cell text-capitalize">{{ $item->role->role }}</td>
-                                            <td class="cell text-end"><a href="#edit{{ $item->id_users }}"
-                                                    data-bs-toggle="modal" class="text-info"><i
-                                                        class='bx bxs-edit'></i>Ubah</a> | <a
-                                                    href="#delete{{ $item->id_users }}" data-bs-toggle="modal"
-                                                    class="text-danger"><i class='bx bx-trash'></i>Delete</a>
+                                            <td class="cell text-end">
                                                 | <a href="#detail{{ $item->username }}" data-bs-toggle="modal"
                                                     class="text-success"><i class='bx bx-layer'></i>Detail</a>
                                                 @include('admin.component-admin.content-modal.modal-action-user')

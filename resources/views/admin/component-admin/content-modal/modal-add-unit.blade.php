@@ -19,7 +19,7 @@
                         <input type="text" aria-label="First name" name="name_alat" class="form-control" required>
                     </div>
                     <br>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" name="status" aria-label="Default select example">
                         <option selected disabled>Status</option>
                         <option value="ready">Ready</option>
                         <option value="sold">Sold</option>

@@ -283,7 +283,7 @@
 
                             <li class="nav-item">
                                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="help.html">
+                                <a class="nav-link" href="{{ url('admin/history') }}">
                                     <span class="nav-icon">
                                         <i class='bx bx-history' width="1em" height="1em"></i>
                                     </span>
@@ -395,6 +395,6 @@
 
         <!-- Page Specific JS -->
         <script src="{{ asset('template/assets/js/app.js') }}"></script>
-
+        
     </body>
 @endsection

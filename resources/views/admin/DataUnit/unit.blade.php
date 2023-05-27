@@ -55,7 +55,7 @@
                     <div class="app-card-body">
                         <div class="table-responsive">
 
-                            <table class="table mb-0 text-left">
+                            <table class="table mb-0 text-left" id="tables">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
