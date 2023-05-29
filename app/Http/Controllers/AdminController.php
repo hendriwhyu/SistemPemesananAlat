@@ -77,12 +77,18 @@ class AdminController extends Controller
     }
     public function delete(Request $request)
     {
-        $data = Category::where('id_categories', $request->id_categori);
-        $data->delete();
-        if ($data) {
-            Session::flash('status', 'success');
-            Session::flash('message', 'Hapus Kategori Berhasil');
+        try {
+            $data = Category::where('id_categories', $request->id_categori);
+            $data->delete();
+            if ($data) {
+                Session::flash('status', 'success');
+                Session::flash('message', 'Hapus Kategori Berhasil');
+            }
+            return redirect()->route('admin.kategori');
+        } catch (\Throwable $e) {
+            Session::flash('error', 'error');
+            Session::flash('message', 'Terdapat data didalam kategori');
+            return redirect()->route('admin.kategori');
         }
-        return redirect()->route('admin.kategori');
     }
 }
