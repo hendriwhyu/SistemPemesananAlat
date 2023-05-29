@@ -48,6 +48,35 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Data User telah diubah');
         }
     }
+    public function editProfile(Request $request)
+    {
+        $data = User::where('id_users', $request->id_users);
+        $data->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat,
+            'ktp' => $request->nik
+        ]);
+        return redirect()->back()->with('success', 'Profile telah diubah');
+    }
+    public function editPassword(Request $request)
+    {
+        $data = User::where('id_users', $request->id_users);
+        $data->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat,
+            'ktp' => $request->ktp,
+            'password' => Hash::make($request->password)
+        ]);
+        if ($request->password == $request->password_confirmation) {
+            return redirect()->back()->with('success', 'Password telah diubah');
+        } else {
+            return redirect()->back()->with('error', 'Confirm password anda salah');
+        }
+    }
     public function delete(Request $request)
     {
         $data = User::where('id_users', $request->id_users);

@@ -38,6 +38,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::put('/profile/change', [UserController::class, 'editProfile'])->name('admin.profile-change');
+    Route::put('/profile/password', [UserController::class, 'editPassword'])->name('admin.profile-password');
     Route::get('/kategori', [AdminController::class, 'kategori'])->name('admin.kategori');
     Route::post('/kategori', [AdminController::class, 'AddKategori']);
     Route::put('/kategori/edit', [AdminController::class, 'edit']);

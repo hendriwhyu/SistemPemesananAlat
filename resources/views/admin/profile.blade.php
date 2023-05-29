@@ -5,8 +5,17 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-
                 <h1 class="app-page-title">My Account</h1>
+                @if (session('success'))
+                    <div class="alert alert-success mt-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger mt-4" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="row gy-4">
                     <div class="col-12 col-lg-12">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -104,7 +113,9 @@
                             </div>
                             <!--//app-card-body-->
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="#">Manage Profile</a>
+                                <a class="btn app-btn-secondary" data-bs-toggle="modal"
+                                    href="#editprofile{{ Auth::user()->id_users }}">Manage Profile</a>
+                                @include('admin.component-admin.content-modal.modal-action-profile')
                             </div>
                             <!--//app-card-footer-->
 
@@ -159,8 +170,11 @@
                             <!--//app-card-body-->
 
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="#">Manage Security</a>
+                                <a class="btn app-btn-secondary" data-bs-toggle="modal"
+                                    href="#editpassword{{ Auth::user()->id_users }}">Manage Security</a>
                             </div>
+                            @include('admin.component-admin.content-modal.modal-action-profile')
+
                             <!--//app-card-footer-->
 
                         </div>

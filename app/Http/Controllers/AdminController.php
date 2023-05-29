@@ -93,8 +93,7 @@ class AdminController extends Controller
             }
             return redirect()->route('admin.kategori');
         } catch (\Throwable $e) {
-            Session::flash('error', 'error');
-            Session::flash('message', 'Terdapat data didalam kategori');
+            Session::flash('error', 'Terdapat data didalam kategori');
             return redirect()->route('admin.kategori');
         }
     }
