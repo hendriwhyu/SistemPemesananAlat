@@ -119,12 +119,14 @@ class UnitController extends Controller
             }
         }
     }
-    public function getUnitData()
+    public function getUnitData($kode)
     {
         $produk = DB::table('alatberat')
             ->join('detail_unit', 'alatberat.kode_alat', '=', 'detail_unit.kode_alat')
             ->select('detail_unit.harga')
+            ->where('detail_unit.kode_alat', $kode)
             ->get();
+        // dd($produk);
         return response()->json($produk);
     }
 }

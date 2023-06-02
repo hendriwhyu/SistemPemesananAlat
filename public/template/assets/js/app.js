@@ -88,22 +88,25 @@ $(document).ready(function () {
     $("#tables").DataTable();
 });
 
-function hitungTotalHargaProduk() {
-    const tanggalMulai = document.getElementById("tanggalMulai").value;
-    const tanggalSelesai = document.getElementById("tanggalSelesai").value;
-
+function hitungTotalHargaProduk($kode) {
+    const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
+    const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
+    
     const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 * 24)); // Hitung selisih dalam hari
+    console.log(diffInDays);
 
     // Kirim permintaan Ajax ke server
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/unit", true);
+    xhr.open("GET", "/api/unit/"+$kode, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            const hargaProduk = parseInt(xhr.responseText); // Ambil harga produk dari respons server
+            const data = JSON.parse(xhr.responseText); // Menguraikan respons JSON
+            const hargaProduk = parseInt(data[0].harga);
+            // console.log(hargaProduk)
 
             const totalHarga = diffInDays * hargaProduk; // Hitung total harga
 
-            document.getElementById("totalHarga").textContent = totalHarga;
+            document.getElementById("totalHarga").value = totalHarga;
         }
     };
     xhr.send();

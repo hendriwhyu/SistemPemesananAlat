@@ -43,8 +43,8 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text" id="harga">Harga</span>
-                                <input type="text" class="form-control" placeholder="Total Harga" aria-label="Harga" aria-describedby="harga">
-                                <button class="btn btn-secondary" type="button" onclick="hitungTotalHargaProduk()"
+                                <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga" aria-label="Harga" aria-describedby="harga" disabled>
+                                <button class="btn btn-secondary" type="button" onclick="hitungTotalHargaProduk('{{ $item->kode_alat }}')"
                                     id="inputGroupFileAddon04">Hitung</button>
                             </div>
 

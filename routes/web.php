@@ -34,7 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route::middleware(['auth', 'cekUser:1'])->group(function () {
 //     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 // });
-Route::get('/api/unit', [UnitController::class, 'getUnitData']);
+Route::get('/api/unit/{kode}', [UnitController::class, 'getUnitData']);
 
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
