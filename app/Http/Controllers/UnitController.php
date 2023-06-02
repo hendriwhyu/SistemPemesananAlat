@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\DetailUnit;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 use function Pest\Laravel\delete;
@@ -117,5 +118,13 @@ class UnitController extends Controller
                 return back()->with('error', 'Detail Unit gagal diubah');
             }
         }
+    }
+    public function getUnitData()
+    {
+        $produk = DB::table('alatberat')
+            ->join('detail_unit', 'alatberat.kode_alat', '=', 'detail_unit.kode_alat')
+            ->select('detail_unit.harga')
+            ->get();
+        return response()->json($produk);
     }
 }

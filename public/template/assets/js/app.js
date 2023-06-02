@@ -87,3 +87,24 @@ searchMobileTrigger.addEventListener("click", () => {
 $(document).ready(function () {
     $("#tables").DataTable();
 });
+
+function hitungTotalHargaProduk() {
+    const tanggalMulai = document.getElementById("tanggalMulai").value;
+    const tanggalSelesai = document.getElementById("tanggalSelesai").value;
+
+    const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 * 24)); // Hitung selisih dalam hari
+
+    // Kirim permintaan Ajax ke server
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/unit", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const hargaProduk = parseInt(xhr.responseText); // Ambil harga produk dari respons server
+
+            const totalHarga = diffInDays * hargaProduk; // Hitung total harga
+
+            document.getElementById("totalHarga").textContent = totalHarga;
+        }
+    };
+    xhr.send();
+}

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 
 class Unit extends Model
 {
@@ -21,7 +22,7 @@ class Unit extends Model
     ];
     public function relationCategory()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'id_categories');
     }
     public function detailUnit(): HasOne
     {

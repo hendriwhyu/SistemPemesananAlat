@@ -34,6 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route::middleware(['auth', 'cekUser:1'])->group(function () {
 //     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 // });
+Route::get('/api/unit', [UnitController::class, 'getUnitData']);
 
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -60,4 +61,5 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+    Route::get('/pemesanan', [RentalController::class, 'pemesanan'])->name('client.pemesanan');
 });

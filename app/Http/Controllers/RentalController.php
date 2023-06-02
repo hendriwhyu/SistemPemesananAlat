@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rental;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
@@ -16,6 +17,11 @@ class RentalController extends Controller
         return view('admin.history-rental', ['ListData' => $data]);
     }
 
+    public function pemesanan()
+    {
+        $listUnit = Unit::where('status', 'ready')->get();
+        return view('client.pemesanan', ['ListUnit'=> $listUnit]);
+    }
     /**
      * Show the form for creating a new resource.
      */

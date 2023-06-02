@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Tambahkan script jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,7 +34,7 @@
     <link id="theme-style" rel="stylesheet" href="{{ asset('template/assets/css/portal.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="{{ asset('template/assets/js/app.js') }}"></script>
 </head>
 @yield('content')
 
