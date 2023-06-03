@@ -39,7 +39,7 @@ class UnitController extends Controller
             $detail->type_book = 'jam';
             $detail->image = '-';
             $detail->save();
-            return back();
+            // return back();
             if ($data->save()) {
                 return back()->with('success', 'Unit telah ditambah');
             } else {

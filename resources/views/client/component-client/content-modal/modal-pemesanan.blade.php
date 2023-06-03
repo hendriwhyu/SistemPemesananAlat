@@ -2,7 +2,7 @@
 <div class="modal fade" id="pesan{{ $item->kode_alat }}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" action="{{ route('client.addpesanan') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{ $item->kode_alat }}" name="alat">
                 {{-- {!! Form::model($item, ['method' => 'patch', 'route' => ['admin.kategori', $item->id_categories]]) !!} --}}
@@ -11,6 +11,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="id_alat" value="{{ $item->id }}">
                     <div class="row">
                         <div class="col-4">
                             <img src="{{ asset('image/' . $item->detailUnit->image) }}" class="card-img-top"
@@ -24,40 +25,64 @@
                                 <label class="form-label">Kategori :
                                     {{ $item->relationCategory->name_categories }}</label>
                             </div>
-                            <div class="mb-1 row">
-                                <div class="col gap-0">
-                                    <label class="form-label">Tanggal Mulai : </label>
+                            @if ($item->detailUnit->type_book == 'hari')
+                                <div class="tanggal">
+                                    <div class="mb-1 row">
+                                        <div class="col gap-0">
+                                            <label class="form-label">Tanggal Mulai : </label>
+                                        </div>
+                                        <div class="col gap-0">
+                                            <input type="date" id="tanggalMulai" name="tanggalMulai"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col gap-0">
+                                            <label class="form-label">Tanggal Selesai : </label>
+                                        </div>
+                                        <div class="col gap-0">
+                                            <input type="date" id="tanggalSelesai"
+                                                name="tanggalSelesai"class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="harga">Harga</span>
+                                        <input type="text" id="totalHarga" class="form-control"
+                                            placeholder="Total Harga" aria-label="Harga" aria-describedby="harga"
+                                            disabled>
+                                        <input type="hidden" name="totalHarga" id="totalHargaAPI">
+                                        <button class="btn btn-secondary" type="button"
+                                            onclick="hitungTotalwithTanggal('{{ $item->kode_alat }}')"
+                                            id="inputGroupFileAddon04">Hitung</button>
+                                    </div>
                                 </div>
-                                <div class="col gap-0">
-                                    <input type="date" id="tanggalMulai" name="tanggalMulai" class="form-control">
+                            @elseif($item->detailUnit->type_book == 'jam')
+                                <div class="mb-1 row">
+                                    <div class="col">
+                                        <label class="form-label">Jam Peminjaman : </label>
+                                    </div>
+                                    <div class="col gap-0">
+                                        <input type="time" id="jamPeminjaman" name="jamPeminjaman"
+                                            class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-1 row">
-                                <div class="col gap-0">
-                                    <label class="form-label">Tanggal Selesai : </label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="harga">Harga</span>
+                                    <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga"
+                                        aria-label="Harga" aria-describedby="harga" disabled>
+                                    <input type="hidden" name="totalHarga" id="totalHargaAPI">
+                                    <button class="btn btn-secondary" type="button"
+                                        onclick="hitungTotalwithJam('{{ $item->kode_alat }}')"
+                                        id="inputGroupFileAddon04">Hitung</button>
                                 </div>
-                                <div class="col gap-0">
-                                    <input type="date" id="tanggalSelesai" name="tanggalSelesai"class="form-control">
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-text" id="harga">Harga</span>
-                                <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga"
-                                    aria-label="Harga" aria-describedby="harga" disabled>
-                                <input type="hidden" id="totalHargaAPI" class="form-control" placeholder="Total Harga"
-                                    aria-label="Harga" aria-describedby="harga" disabled>
-                                <button class="btn btn-secondary" type="button"
-                                    onclick="hitungTotalProduk('{{ $item->kode_alat }}')"
-                                    id="inputGroupFileAddon04">Hitung</button>
-                            </div>
+                            @endif
+
 
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
-                        Cancel</button>
-                    {{ Form::button('<i class="fa fa-check-square-o"></i> Update', ['class' => 'btn btn-success', 'type' => 'submit']) }}
+                    {{ Form::button('<i class="bx bx-cart" ></i> Pesan', ['class' => 'btn btn-success text-light', 'type' => 'submit']) }}
                 </div>
                 {{-- {!! Form::close() !!} --}}
             </form>
@@ -65,7 +90,7 @@
     </div>
 </div>
 <script>
-    function hitungTotalProduk($kode) {
+    function hitungTotalwithTanggal($kode) {
         $(document).ready(function() {
             const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
             const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
@@ -82,6 +107,39 @@
                         currency: 'IDR',
                     }).format(totalHarga));
                     $('#totalHargaAPI').val(totalHarga);
+                })
+        })
+    }
+
+    function hitungTotalwithJam($kode) {
+        $(document).ready(function() {
+            var jamPeminjaman = $('#jamPeminjaman').val();
+            var currentTime = new Date(); // Waktu saat ini
+            var inputDate = new Date(currentTime.toDateString() + " " + jamPeminjaman);
+            var timeDifference = inputDate - currentTime;
+            var diffHours = Math.floor(timeDifference / (1000 * 60 * 60));
+            var diffMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            if (diffMinutes <= 59) {
+                diffHours += 1;
+            }
+            $.ajax({
+                    type: "GET",
+                    url: "/api/unit/" + $kode,
+                })
+                .done(function(data) {
+                    if (!jamPeminjaman) {
+                        $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                        }).format(0));
+                    }else{
+                        const totalHarga = diffHours * data[0].harga
+                        $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                        }).format(totalHarga));
+                        $('#totalHargaAPI').val(totalHarga);
+                    }
                 })
         })
     }

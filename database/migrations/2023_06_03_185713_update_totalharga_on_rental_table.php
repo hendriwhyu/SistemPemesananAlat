@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('rental', function (Blueprint $table) {
             $table->bigInteger('totalHarga')->length(100)->after('tanggal_selesai')->default(0);
+            $table->time('waktu_pinjam')->after('tanggal_kembali')->nullable();
+            $table->time('waktu_selesai')->after('waktu_pinjam')->nullable();
         });
     }
 
@@ -23,6 +25,8 @@ return new class extends Migration
     {
         Schema::table('rental', function (Blueprint $table) {
             $table->dropColumn('totalHarga');
+            $table->dropColumn('waktu_pinjam');
+            $table->dropColumn('waktu_selesai');
         });
     }
 };

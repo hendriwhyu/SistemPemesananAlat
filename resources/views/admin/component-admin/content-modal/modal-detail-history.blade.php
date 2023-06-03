@@ -38,7 +38,7 @@
                                 <div class="description-ktp-peminjam" style="color: black; font-size:16px">
                                     <span>Harga :</span>
                                     <label for="floatingInputGroup1" class="text-capitalize">Rp.
-                                        {{ $item->unit->detailUnit->harga }} /
+                                        {{ number_format($item->totalHarga) }} /
                                         {{ $item->unit->detailUnit->type_book }}</label>
                                 </div>
                             </div>

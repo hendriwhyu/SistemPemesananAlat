@@ -18,6 +18,7 @@ class Rental extends Model
         'id_alat',
         'tanggal_mulai',
         'tanggal_selesai',
+        'totalHarga',
         'tanggal_kembali'
     ];
     public function peminjam(): HasOne
@@ -26,6 +27,6 @@ class Rental extends Model
     }
     public function unit(): HasOne
     {
-        return $this->hasOne(Unit::class, 'id');
+        return $this->hasOne(Unit::class, 'id', 'id_alat');
     }
 }
