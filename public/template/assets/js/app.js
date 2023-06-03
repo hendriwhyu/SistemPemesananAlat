@@ -88,13 +88,11 @@ $(document).ready(function () {
     $("#tables").DataTable();
 });
 
+//Ini menggunakan FunctionXML (Not Recommended for Clean Code)
 function hitungTotalHargaProduk($kode) {
     const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
     const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
-    
     const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 * 24)); // Hitung selisih dalam hari
-    console.log(diffInDays);
-
     // Kirim permintaan Ajax ke server
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/unit/"+$kode, true);
@@ -102,10 +100,7 @@ function hitungTotalHargaProduk($kode) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             const data = JSON.parse(xhr.responseText); // Menguraikan respons JSON
             const hargaProduk = parseInt(data[0].harga);
-            // console.log(hargaProduk)
-
             const totalHarga = diffInDays * hargaProduk; // Hitung total harga
-
             document.getElementById("totalHarga").value = totalHarga;
         }
     };

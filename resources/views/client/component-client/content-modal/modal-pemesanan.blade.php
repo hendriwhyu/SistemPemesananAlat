@@ -2,8 +2,7 @@
 <div class="modal fade" id="pesan{{ $item->kode_alat }}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" action="{{ url('admin/detail-kategori/{name_categories}/detail-unit') }}"
-                enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{ $item->kode_alat }}" name="alat">
                 {{-- {!! Form::model($item, ['method' => 'patch', 'route' => ['admin.kategori', $item->id_categories]]) !!} --}}
@@ -43,8 +42,12 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-text" id="harga">Harga</span>
-                                <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga" aria-label="Harga" aria-describedby="harga" disabled>
-                                <button class="btn btn-secondary" type="button" onclick="hitungTotalHargaProduk('{{ $item->kode_alat }}')"
+                                <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga"
+                                    aria-label="Harga" aria-describedby="harga" disabled>
+                                <input type="hidden" id="totalHargaAPI" class="form-control" placeholder="Total Harga"
+                                    aria-label="Harga" aria-describedby="harga" disabled>
+                                <button class="btn btn-secondary" type="button"
+                                    onclick="hitungTotalProduk('{{ $item->kode_alat }}')"
                                     id="inputGroupFileAddon04">Hitung</button>
                             </div>
 
@@ -61,3 +64,25 @@
         </div>
     </div>
 </div>
+<script>
+    function hitungTotalProduk($kode) {
+        $(document).ready(function() {
+            const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
+            const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
+            const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 *
+                24)); // Hitung selisih dalam hari
+            $.ajax({
+                    type: "GET",
+                    url: "/api/unit/" + $kode,
+                })
+                .done(function(data) {
+                    const totalHarga = diffInDays * data[0].harga
+                    $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                    }).format(totalHarga));
+                    $('#totalHargaAPI').val(totalHarga);
+                })
+        })
+    }
+</script>

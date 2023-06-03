@@ -78,7 +78,7 @@
                                         <ul class="list-unstyled mb-0">
                                             <li><span class="text-muted">Kategori:</span>
                                                 {{ $item->relationCategory->name_categories }}</li>
-                                            <li><span class="text-muted">Harga:</span>Rp. {{ $item->detailUnit->harga }} /
+                                            <li><span class="text-muted">Harga:</span>Rp. {{ number_format($item->detailUnit->harga) }} /
                                                 {{ $item->detailUnit->type_book }}</li>
                                             <li><span
                                                     class="text-muted">Uploaded:</span>{{ Carbon::parse($item->created_at)->format('l, d F Y') }}

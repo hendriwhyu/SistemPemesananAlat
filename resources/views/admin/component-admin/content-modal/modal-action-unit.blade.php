@@ -130,7 +130,7 @@
                             <div class="input-group input-group-sm mb-3">
                                 <label class="input-group-text" for="inputGroupSelect01">Harga</label>
 
-                                <input type="text"
+                                <input type="number"
                                     class="form-control @error('harga')
                                         is-invalid
                                     @enderror"
