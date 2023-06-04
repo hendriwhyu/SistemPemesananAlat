@@ -56,11 +56,12 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::put('/user-edit', [UserController::class, 'update']);
     Route::delete('/user-delete', [UserController::class, 'delete']);
 
-    Route::resource('/history', RentalController::class);
+    Route::get('/history', [RentalController::class, 'index'])->name('admin.historyrental');
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
     Route::get('/pemesanan', [RentalController::class, 'pemesanan'])->name('client.pemesanan');
     Route::post('/pemesanan', [RentalController::class, 'store'])->name('client.addpesanan');
+    Route::get('/history', [RentalController::class, 'index'])->name('client.historyrental');
 });

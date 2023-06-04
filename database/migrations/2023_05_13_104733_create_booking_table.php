@@ -15,10 +15,11 @@ return new class extends Migration
             $table->integerIncrements('kode_rental');
             $table->unsignedInteger('id_user')->length('10');
             $table->unsignedBigInteger('id_alat');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->dateTime('tanggal_mulai');
+            $table->dateTime('tanggal_selesai');
+            $table->bigInteger('totalHarga')->length(100)->default(0);
             $table->date('tanggal_kembali')->nullable();
-            $table->timestamps();
+            $table->string('status')->default('booked');
         });
     }
 

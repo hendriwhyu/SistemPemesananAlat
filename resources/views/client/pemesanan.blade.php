@@ -24,8 +24,8 @@
                 <!--//row-->
 
                 <div class="row g-4">
+                    @foreach ($ListUnit as $item)
                     <div class="col-6 col-md-4 col-xl-3 col-xxl-2">
-                        @foreach ($ListUnit as $item)
                             <div class="app-card app-card-doc shadow-sm h-100">
                                 <div class="app-card-thumb-holder p-3">
                                     <a href="#pesan{{ $item->kode_alat }}" data-bs-toggle="modal">
@@ -61,8 +61,8 @@
                             </div>
                             @include('client.component-client.content-modal.modal-pemesanan')
                             <!--//app-card-->
+                        </div>
                         @endforeach
-                    </div>
                     <!--//col-->
                 </div>
                 <!--//row-->

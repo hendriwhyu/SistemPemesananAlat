@@ -19,7 +19,10 @@ class Rental extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'totalHarga',
-        'tanggal_kembali'
+        'tanggal_kembali',
+        'waktu_pinjam',
+        'waktu_kembali',
+        'status'
     ];
     public function peminjam(): HasOne
     {
@@ -29,4 +32,6 @@ class Rental extends Model
     {
         return $this->hasOne(Unit::class, 'id', 'id_alat');
     }
+    public $timestamps = false;
+
 }

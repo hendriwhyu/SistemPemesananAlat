@@ -47,10 +47,10 @@
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-text" id="harga">Harga</span>
-                                        <input type="text" id="totalHarga" class="form-control"
+                                        <input type="text" id="totalHargaPerHari" class="form-control"
                                             placeholder="Total Harga" aria-label="Harga" aria-describedby="harga"
                                             disabled>
-                                        <input type="hidden" name="totalHarga" id="totalHargaAPI">
+                                        <input type="hidden" name="totalHarga" id="totalHargaAPIPerHari">
                                         <button class="btn btn-secondary" type="button"
                                             onclick="hitungTotalwithTanggal('{{ $item->kode_alat }}')"
                                             id="inputGroupFileAddon04">Hitung</button>
@@ -62,15 +62,16 @@
                                         <label class="form-label">Jam Peminjaman : </label>
                                     </div>
                                     <div class="col gap-0">
+                                        <input type="hidden" name="jam_pinjam" id="jam_pinjam">
                                         <input type="time" id="jamPeminjaman" name="jamPeminjaman"
                                             class="form-control">
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <span class="input-group-text" id="harga">Harga</span>
-                                    <input type="text" id="totalHarga" class="form-control" placeholder="Total Harga"
-                                        aria-label="Harga" aria-describedby="harga" disabled>
-                                    <input type="hidden" name="totalHarga" id="totalHargaAPI">
+                                    <input type="text" id="totalHargaPerJam" class="form-control"
+                                        placeholder="Total Harga" aria-label="Harga" aria-describedby="harga" disabled>
+                                    <input type="hidden" name="totalHarga" id="totalHargaAPIPerJam">
                                     <button class="btn btn-secondary" type="button"
                                         onclick="hitungTotalwithJam('{{ $item->kode_alat }}')"
                                         id="inputGroupFileAddon04">Hitung</button>
@@ -102,11 +103,14 @@
                 })
                 .done(function(data) {
                     const totalHarga = diffInDays * data[0].harga
-                    $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                    return diffInDays <= 0 ? $('#totalHargaPerHari').val(new Intl.NumberFormat('id-ID', {
                         style: 'currency',
                         currency: 'IDR',
-                    }).format(totalHarga));
-                    $('#totalHargaAPI').val(totalHarga);
+                    }).format(0)).$('#totalHargaAPIPerHari').val(0) : $('#totalHargaPerHari').val(
+                        new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                        }).format(totalHarga)), $('#totalHargaAPIPerHari').val(totalHarga);
                 })
         })
     }
@@ -116,6 +120,13 @@
             var jamPeminjaman = $('#jamPeminjaman').val();
             var currentTime = new Date(); // Waktu saat ini
             var inputDate = new Date(currentTime.toDateString() + " " + jamPeminjaman);
+            var year = inputDate.getFullYear();
+            var month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+            var day = inputDate.getDate().toString().padStart(2, '0');
+            var hours = inputDate.getHours().toString().padStart(2, '0');
+            var minutes = inputDate.getMinutes().toString().padStart(2, '0');
+            var seconds = inputDate.getSeconds().toString().padStart(2, '0');
+            $('#jam_pinjam').val(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
             var timeDifference = inputDate - currentTime;
             var diffHours = Math.floor(timeDifference / (1000 * 60 * 60));
             var diffMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -127,19 +138,16 @@
                     url: "/api/unit/" + $kode,
                 })
                 .done(function(data) {
-                    if (!jamPeminjaman) {
-                        $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                    const totalHarga = diffHours * data[0].harga
+                    return !jamPeminjaman ? $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
-                        }).format(0));
-                    }else{
-                        const totalHarga = diffHours * data[0].harga
-                        $('#totalHarga').val(new Intl.NumberFormat('id-ID', {
+                        }).format(0)) :
+                        $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
                             style: 'currency',
                             currency: 'IDR',
-                        }).format(totalHarga));
-                        $('#totalHargaAPI').val(totalHarga);
-                    }
+                        }).format(totalHarga)),
+                        $('#totalHargaAPIPerJam').val(totalHarga);
                 })
         })
     }

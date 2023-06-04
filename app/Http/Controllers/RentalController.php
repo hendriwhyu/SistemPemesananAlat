@@ -15,7 +15,15 @@ class RentalController extends Controller
     public function index()
     {
         $data = Rental::with('unit', 'peminjam')->get();
-        return view('admin.history-rental', ['ListData' => $data]);
+        $dataById = Rental::with('unit', 'peminjam')
+            ->whereHas('peminjam', function ($query) {
+                $query->where('id_users', Auth::user()->id_users);
+            })->get();
+        if (Auth::user()->id_role == 1) {
+            return view('admin.history-rental', ['ListData' => $data]);
+        } elseif (Auth::user()->id_role == 2) {
+            return view('client.history-rental', ['ListData' => $dataById]);
+        }
     }
 
     public function pemesanan()
@@ -44,14 +52,11 @@ class RentalController extends Controller
             if ($request->jamPeminjaman == null) {
                 $rental->tanggal_mulai = $request->tanggalMulai;
                 $rental->tanggal_selesai = $request->tanggalSelesai;
-                $rental->waktu_pinjam = now();
-                $rental->waktu_selesai = now();
             } else {
                 $rental->tanggal_mulai = now();
-                $rental->tanggal_selesai = now();
-                $rental->waktu_pinjam = now();
-                $rental->waktu_selesai = $request->jamPeminjaman;
+                $rental->tanggal_selesai = $request->jam_pinjam;
             }
+            // dd($rental);
             $rental->save();
             if ($rental->save()) {
                 return back()->with('success', 'Berhasil melakukan pemesanan alat');
