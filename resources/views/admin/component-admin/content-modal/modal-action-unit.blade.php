@@ -142,6 +142,20 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Denda</label>
+                                <input type="number"
+                                    class="form-control @error('denda')
+                                        is-invalid
+                                    @enderror"
+                                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                    value="{{ $item->detailUnit->denda }}" name="denda">
+                                @error('denda')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="type">Jenis</label>
                                 <select

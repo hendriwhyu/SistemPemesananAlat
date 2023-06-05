@@ -35,6 +35,7 @@ class UnitController extends Controller
             $detail = new DetailUnit;
             $detail->kode_alat = $request->kode_alat;
             $detail->harga = '-';
+            $detail->denda = '-';
             $detail->deskripsi = '-';
             $detail->type_book = 'jam';
             $detail->image = '-';
@@ -85,6 +86,7 @@ class UnitController extends Controller
     {
         $request->validate([
             'harga' => 'required',
+            'denda' => 'required',
             'deskripsi' => 'required',
             'type' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
@@ -93,6 +95,7 @@ class UnitController extends Controller
             $data = DetailUnit::where('kode_alat', $request->alat)->first();
             $data->update([
                 'harga' => $request->harga,
+                'denda' => $request->denda,
                 'deskripsi' => $request->deskripsi,
                 'type_book' => $request->type
             ]);
@@ -107,6 +110,7 @@ class UnitController extends Controller
             $data = DetailUnit::where('kode_alat', $request->alat)->first();
             $data->update([
                 'harga' => $request->harga,
+                'denda' => $request->denda,
                 'deskripsi' => $request->deskripsi,
                 'type_book' => $request->type,
                 'image' => $imageName,

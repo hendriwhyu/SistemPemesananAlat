@@ -6,6 +6,8 @@ use App\Models\Rental;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Redis;
 
 class RentalController extends Controller
 {
@@ -34,10 +36,7 @@ class RentalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,6 +63,24 @@ class RentalController extends Controller
         } catch (\Throwable $e) {
             return back()->with('error', 'Gagal melakukan pemesanan alat');
             # code...
+        }
+    }
+
+    public function uploadBukti(Request $request)
+    {
+        $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
+        $request->validate([
+            'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
+        ]);
+        $buktiBayarImage = 'INV' . time() . '.' .  $request->file('image')->extension();;
+        $request->image->move(public_path('image/bukti-pembayaran'), $buktiBayarImage);
+        $dataRentalByKode->update([
+            'bukti_pembayaran' => $buktiBayarImage
+        ]);
+        if ($request->image == null) {
+            return back()->with('error', 'Silahkan isi bukti pembayaran.');
+        } else {
+            return back()->with('success', 'Berhasil mengupload bukti pembayaran');
         }
     }
     /**

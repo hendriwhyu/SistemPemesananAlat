@@ -32,13 +32,10 @@ class UserController extends Controller
     }
     public function update(Request $request)
     {
-        $cekDuplikatUser = User::where('username', $request->username)->count();
-        $cekDuplikatEmailUser = User::where('username', $request->email)->count();
-        if ($cekDuplikatUser || $cekDuplikatEmailUser) {
-            return redirect()->back()->with('error', 'Username / Email sudah ada');
-        } else {
-            $data = User::where('id_users', $request->id_users);
-            // dd($data);
+        $data = User::where('id_users', $request->id_users);
+        if($request->password == null){
+            return redirect()->back()->with('error', 'Password anda kosong');
+        }else{
             $data->update([
                 'username' => $request->username,
                 'email' => $request->email,

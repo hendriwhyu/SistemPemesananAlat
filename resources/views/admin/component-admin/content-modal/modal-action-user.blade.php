@@ -26,7 +26,7 @@
                     <div class="input-group">
                         <span class="input-group-text">Password</span>
                         <input type="password" aria-label="First name" name="password" class="form-control"
-                            value="{{ $item->password }}">
+                            value="">
                     </div>
                     <br>
                     <select class="form-select" aria-label="Default select example" name="role">

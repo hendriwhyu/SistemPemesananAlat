@@ -14,6 +14,7 @@ class DetailUnit extends Model
     protected $fillable = [
         'kode_alat',
         'harga',
+        'denda',
         'deskripsi',
         'type_book',
         'image',

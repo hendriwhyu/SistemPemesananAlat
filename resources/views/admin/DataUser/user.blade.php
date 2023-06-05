@@ -30,9 +30,9 @@
                     </div>
                     <!--//col-auto-->
                 </div>
-                @if (Session::has('status'))
+                @if (Session::has('success'))
                     <div class="alert alert-success mt-4" role="alert">
-                        {{ Session::get('message') }}
+                        {{ Session::get('success') }}
                     </div>
                 @elseif (session('error'))
                     <div class="alert alert-danger mt-4" role="alert">

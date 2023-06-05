@@ -22,7 +22,8 @@ class Rental extends Model
         'tanggal_kembali',
         'waktu_pinjam',
         'waktu_kembali',
-        'status'
+        'status',
+        'bukti_pembayaran'
     ];
     public function peminjam(): HasOne
     {
