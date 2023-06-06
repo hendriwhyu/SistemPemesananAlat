@@ -72,7 +72,11 @@
                                                 <td class="badge bg-secondary text-light text-capitalize">
                                                     {{ $item->status }}
                                                 </td>
-                                            @endif
+                                            @elseif($item->status == 'denda')
+                                                <td class="badge bg-danger text-light text-capitalize">
+                                                    {{ $item->status }}
+                                                </td>
+                                        @endif
                                             <td class="cell text-center">
                                                 <a href="#bukti{{ $item->kode_rental }}" data-bs-toggle="modal"
                                                     class="text-secondary"><i class='bx bx-file'></i>Bukti</a> |

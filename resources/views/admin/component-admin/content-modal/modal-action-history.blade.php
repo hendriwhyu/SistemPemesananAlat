@@ -6,6 +6,7 @@
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="kode_rental" value="{{ $item->kode_rental }}">
+                <input type="hidden" name="id_alat" value="{{ $item->id_alat }}">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addnewModalLabel">Detail Unit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -34,6 +35,7 @@
                                         <span>Tanggal Mulai :</span>
                                         <label for="floatingInputGroup1" class="text-capitalize">
                                             {{ $item->tanggal_mulai }}</label>
+                                        <input type="hidden" name="tanggal_mulai" value="{{ $item->tanggal_mulai }}">
                                     </div>
                                 </div>
                             </div>

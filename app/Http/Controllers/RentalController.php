@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DetailUnit;
 use App\Models\Rental;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -110,35 +111,20 @@ class RentalController extends Controller
             return back()->with('error', 'Lengkapi data update');
         }
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function hitungDenda()
+    // {
+    //     $dataPemesanan = Rental::join('alatberat', 'rental.id_alat', '=', 'alatberat.id')
+    //         ->join('detail_unit', 'detail_unit.kode_alat', '=', 'alatberat.kode_alat')
+    //         ->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    //     if ($dataPemesanan->tanggal_selesai > now()) {
+    //         $selisihHari = now()->diffInDays($dataPemesanan->tanggal_selesai);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    //         if ($dataPemesanan->type_book == 'hari') {
+    //             $denda = $selisihHari * intval($dataPemesanan->denda);
+    //             $dataPemesanan->totalDenda = $denda;
+    //             $dataPemesanan->save();
+    //         }
+    //     }
+    // }
 }

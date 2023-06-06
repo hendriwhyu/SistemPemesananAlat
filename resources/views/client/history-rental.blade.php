@@ -70,6 +70,10 @@
                                                 <td class="badge bg-secondary text-light text-capitalize">
                                                     {{ $item->status }}
                                                 </td>
+                                            @elseif($item->status == 'denda')
+                                                <td class="badge bg-danger text-light text-capitalize">
+                                                    {{ $item->status }}
+                                                </td>
                                             @endif
                                             <td class="cell">{{ $item->bukti_pembayaran }}</td>
                                             <td class="cell text-center">
