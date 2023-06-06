@@ -57,6 +57,7 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::delete('/user-delete', [UserController::class, 'delete']);
 
     Route::get('/history', [RentalController::class, 'index'])->name('admin.historyrental');
+    Route::put('/verified-stat', [RentalController::class, 'verifRental'])->name('admin.verified');
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {

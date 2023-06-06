@@ -36,7 +36,6 @@
                     </div>
                 @endif
                 <!--//row-->
-
                 <div class="app-card app-card-orders-table mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
@@ -61,11 +60,15 @@
                                             <td class="cell">{{ $item->tanggal_mulai }}</td>
                                             <td class="cell">{{ $item->tanggal_selesai }}</td>
                                             <td class="cell">{{ $item->tanggal_kembali }}</td>
-                                        @if ($item->status == 'booked')
+                                            @if ($item->status == 'booked')
                                                 <td class="badge bg-info text-light text-capitalize">{{ $item->status }}
                                                 </td>
                                             @elseif($item->status == 'verified')
                                                 <td class="badge bg-success text-light text-capitalize">{{ $item->status }}
+                                                </td>
+                                            @elseif($item->status == 'kembali')
+                                                <td class="badge bg-secondary text-light text-capitalize">
+                                                    {{ $item->status }}
                                                 </td>
                                             @endif
                                             <td class="cell">{{ $item->bukti_pembayaran }}</td>

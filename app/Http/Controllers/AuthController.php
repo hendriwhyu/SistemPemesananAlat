@@ -67,21 +67,28 @@ class AuthController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        // Membuat pengguna baru
-        $user = new User();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->id_role = $request->role;
-        $user->save();
-        
-        if ($user->save()) {
-            Session::flash('status', 'success');
-            // Mengirimkan pesan berhasil dan mengarahkan pengguna ke halaman login
-            return redirect('/login')->with('message', 'Registrasi berhasil! Silakan masuk menggunakan akun Anda.');
-        } else {
-            Session::flash('status', 'failed');
-            return back()->withInput()->with('message', 'register failed!');
+        $cekDuplikatUser = User::where('username', $request->username)->count();
+        $cekDuplikatEmailUser = User::where('username', $request->email)->count();
+        if ($cekDuplikatUser || $cekDuplikatEmailUser) {
+            return redirect()->back()->with('error', 'Username / Email sudah ada');
+        }else{
+            // Membuat pengguna baru
+            $user = new User();
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->id_role = $request->role;
+            $user->save();
+            if ($user->save()) {
+                Session::flash('status', 'success');
+                // Mengirimkan pesan berhasil dan mengarahkan pengguna ke halaman login
+                return redirect('/login')->with('message', 'Registrasi berhasil! Silakan masuk menggunakan akun Anda.');
+            } else {
+                Session::flash('status', 'failed');
+                return back()->withInput()->with('message', 'register failed!');
+            }
         }
+
+        
     }
 }

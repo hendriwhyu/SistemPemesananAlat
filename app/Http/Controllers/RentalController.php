@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailUnit;
 use App\Models\Rental;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class RentalController extends Controller
@@ -49,8 +51,8 @@ class RentalController extends Controller
             $rental->id_alat = $request->id_alat;
             $rental->totalHarga = $request->totalHarga;
             if ($request->jamPeminjaman == null) {
-                $rental->tanggal_mulai = $request->tanggalMulai;
-                $rental->tanggal_selesai = $request->tanggalSelesai;
+                $rental->tanggal_mulai = $request->tanggal_mulai;
+                $rental->tanggal_selesai = $request->tanggal_selesai;
             } else {
                 $rental->tanggal_mulai = now();
                 $rental->tanggal_selesai = $request->jam_pinjam;
@@ -72,6 +74,10 @@ class RentalController extends Controller
         $request->validate([
             'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
         ]);
+        // $imagePath = public_path('image') . '/' . 'bukti-pembayaran' . '/' . $dataRentalByKode->bukti_pembayaran;
+        // if (file_exists($imagePath)) {
+        //     unlink($imagePath); // Menghapus file gambar dari folder
+        // }
         $buktiBayarImage = 'INV' . time() . '.' .  $request->file('image')->extension();;
         $request->image->move(public_path('image/bukti-pembayaran'), $buktiBayarImage);
         $dataRentalByKode->update([
@@ -81,6 +87,27 @@ class RentalController extends Controller
             return back()->with('error', 'Silahkan isi bukti pembayaran.');
         } else {
             return back()->with('success', 'Berhasil mengupload bukti pembayaran');
+        }
+    }
+
+    public function verifRental(Request $request)
+    {
+        $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
+        try {
+            if ($request->tanggal_kembali == null) {
+                $dataRentalByKode->update([
+                    'status' => $request->status
+                ]);
+            } else {
+                $dataRentalByKode->update([
+                    'tanggal_kembali' => $request->tanggalBalik,
+                    'status' => $request->status
+                ]);
+            }
+
+            return back()->with('success', 'Berhasil memberikan verifikasi');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Lengkapi data update');
         }
     }
     /**

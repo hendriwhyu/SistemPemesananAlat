@@ -26,7 +26,17 @@
                     <!--//col-auto-->
                 </div>
                 <!--//row-->
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="app-card app-card-orders-table mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
@@ -36,6 +46,10 @@
                                         <th class="cell" style="width:50px">No.</th>
                                         <th class="cell">Username</th>
                                         <th class="cell">Alat Berat</th>
+                                        <th class="cell">Tanggal Mulai</th>
+                                        <th class="cell">Tanggal Selesai</th>
+                                        <th class="cell">Tanggal Kembali</th>
+                                        <th class="cell">Status</th>
                                         <th class="d-flex justify-content-center">Action</th>
                                     </tr>
                                 </thead>
@@ -45,9 +59,30 @@
                                             <td class="cell">{{ $loop->iteration }}</td>
                                             <td class="cell">{{ $item->peminjam->username }}</td>
                                             <td class="cell">{{ $item->unit->name_alat }}</td>
-                                            <td class="cell text-center"><a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
+                                            <td class="cell">{{ $item->tanggal_mulai }}</td>
+                                            <td class="cell">{{ $item->tanggal_selesai }}</td>
+                                            <td class="cell">{{ $item->tanggal_kembali }}</td>
+                                            @if ($item->status == 'booked')
+                                                <td class="badge bg-info text-light text-capitalize">{{ $item->status }}
+                                                </td>
+                                            @elseif($item->status == 'verified')
+                                                <td class="badge bg-success text-light text-capitalize">{{ $item->status }}
+                                                </td>
+                                            @elseif($item->status == 'kembali')
+                                                <td class="badge bg-secondary text-light text-capitalize">
+                                                    {{ $item->status }}
+                                                </td>
+                                            @endif
+                                            <td class="cell text-center">
+                                                <a href="#bukti{{ $item->kode_rental }}" data-bs-toggle="modal"
+                                                    class="text-secondary"><i class='bx bx-file'></i>Bukti</a> |
+                                                <a href="#update{{ $item->kode_rental }}" data-bs-toggle="modal"
+                                                    class="text-info"><i class='bx bx-edit'></i>Update</a> |
+                                                <a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
                                                     class="text-success"><i class='bx bx-layer'></i>Detail</a>
+                                                @include('admin.component-admin.content-modal.modal-action-history')
                                                 @include('admin.component-admin.content-modal.modal-detail-history')
+                                                @include('admin.component-admin.content-modal.modal-bukti-history-rental')
                                             </td>
                                         </tr>
                                     @endforeach

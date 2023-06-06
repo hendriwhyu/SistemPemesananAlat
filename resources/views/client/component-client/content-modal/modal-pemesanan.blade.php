@@ -34,6 +34,7 @@
                                         <div class="col gap-0">
                                             <input type="date" id="tanggalMulai" name="tanggalMulai"
                                                 class="form-control">
+                                            <input type="hidden" name="tanggal_mulai" id="formatTanggalMulai">
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -43,6 +44,7 @@
                                         <div class="col gap-0">
                                             <input type="date" id="tanggalSelesai"
                                                 name="tanggalSelesai"class="form-control">
+                                            <input type="hidden" name="tanggal_selesai" id="formatTanggalSelesai">
                                         </div>
                                     </div>
                                     <div class="input-group">
@@ -91,6 +93,22 @@
     </div>
 </div>
 <script>
+     $(document).ready(function() {
+        $("#tanggalMulai").change(function() {
+            const tanggal_mulai = $("#tanggalMulai").val();
+            const waktu_sekarang = new Date().toLocaleTimeString();
+            const formatTanggal = tanggal_mulai + ' ' + waktu_sekarang;
+            // console.log(formatTanggal);
+            $("#formatTanggalMulai").val(formatTanggal);
+        });
+        $("#tanggalSelesai").change(function() {
+            const tanggal_selesai = $("#tanggalSelesai").val();
+            const waktu_sekarang = new Date().toLocaleTimeString();
+            const formatTanggal = tanggal_selesai + ' ' + waktu_sekarang;
+            // console.log(formatTanggal);
+            $("#formatTanggalSelesai").val(formatTanggal);
+        });
+    });
     function hitungTotalwithTanggal($kode) {
         $(document).ready(function() {
             const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
