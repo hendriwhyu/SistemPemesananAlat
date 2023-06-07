@@ -7,6 +7,7 @@ use App\Models\DetailUnit;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 use function Pest\Laravel\delete;
@@ -105,17 +106,21 @@ class UnitController extends Controller
                 return back()->with('error', 'Detail Unit gagal diubah');
             }
         } else {
-            $imageName = $request->alat . '.' . $request->image->extension();
-            $request->image->move(public_path('image'), $imageName);
             $data = DetailUnit::where('kode_alat', $request->alat)->first();
             $data->update([
                 'harga' => $request->harga,
                 'denda' => $request->denda,
                 'deskripsi' => $request->deskripsi,
                 'type_book' => $request->type,
-                'image' => $imageName,
             ]);
-
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $image_name = $request->alat . "." . $request->file('image')->extension();
+                $image->move(public_path('foto'), $image_name);
+                $data_foto = DetailUnit::where('kode_alat', $request->alat)->first();
+                File::delete(public_path('foto') . '/' . $data_foto->image);
+                $data['image'] = $image_name;
+            }
             if ($data->update()) {
                 return back()->with('success', 'Detail Unit telah diubah');
             } else {

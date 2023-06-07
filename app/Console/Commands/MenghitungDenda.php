@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\RentalController;
 use App\Models\Rental;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class MenghitungDenda extends Command
@@ -32,39 +33,42 @@ class MenghitungDenda extends Command
         $now = now();
         $dendaRental = Rental::join('alatberat', 'rental.id_alat', '=', 'alatberat.id')
             ->join('detail_unit', 'detail_unit.kode_alat', '=', 'alatberat.kode_alat')
-            ->where('rental.tanggal_selesai', '<', $now)
-            ->select('rental.*', 'detail_unit.denda', 'detail_unit.type_book')
+            ->join('pengembalians', 'pengembalians.kode_rental', '=', 'rental.kode_rental')
+            ->select('rental.*', 'detail_unit.denda', 'detail_unit.type_book', 'pengembalians.*')
             ->get();
 
         foreach ($dendaRental as $transaction) {
-            // Logika untuk menghitung denda
-            $daysOverdue = $now->diffInDays($transaction->tanggal_selesai);
-            $hoursOverdue = $now->diffInHours($transaction->tanggal_selesai);
+            $tanggalSelesai = Carbon::parse($transaction->tanggal_selesai);
+            $tanggalBalik = Carbon::parse($transaction->tanggal_kembali);
             $penalty = 0; // Inisialisasi denda dengan 0
 
-            if ($transaction->status != 'kembali' && $transaction->status != 'booked') {
+            $isOverdue = $tanggalSelesai->lt($tanggalBalik);
+            $overdueDate = $isOverdue ? $tanggalBalik : $now;
+            $daysOverdue = $overdueDate->diffInDays($tanggalSelesai);
+            $hoursOverdue = $overdueDate->diffInHours($tanggalSelesai);
+
+            if (in_array($transaction->status, ['booked', 'verified']) || ($transaction->status == 'kembali' && $tanggalBalik > $tanggalSelesai && $penalty == 0)) {
                 if ($transaction->type_book == 'hari' && $daysOverdue > 0) {
                     // Jika ada keterlambatan pada peminjaman berdasarkan hari
                     $penalty = $daysOverdue * intval($transaction->denda);
+                    $transaction->totalDenda = $penalty;
+                    $transaction->save();
                 } elseif ($transaction->type_book == 'jam' && $hoursOverdue > 0) {
                     // Jika ada keterlambatan pada peminjaman berdasarkan jam
                     $penalty = $hoursOverdue * intval($transaction->denda);
+                    $transaction->totalDenda = $penalty;
+                    $transaction->save();
                 }
-            }elseif($transaction->status == 'kembali'){
-                $transaction->status = 'kembali';
+            } elseif ($transaction->status == 'kembali' && $penalty == 0) {
+                if ($tanggalBalik > $tanggalSelesai) {
+                    // Jika tanggal kembali melewati tanggal selesai
+                    $penalty = intval($transaction->denda);
+                    $transaction->totalDenda = $penalty;
+                    $transaction->save();
+                } else {
+                    $transaction->status = $transaction->status;
+                }
             }
-
-            // Update transaksi dengan denda yang dihitung
-            $transaction->totalDenda = $penalty;
-            if ($transaction->status != 'booked' && $penalty == 0) {
-                $transaction->status = 'booked';
-            } elseif ($transaction->status != 'verified' && $penalty == 0) {
-                $transaction->status = 'verified';            
-            } else {
-                $transaction->status = 'denda';
-            }
-            
-            $transaction->save();
         }
         $this->info('Penalties calculated successfully.');
     }

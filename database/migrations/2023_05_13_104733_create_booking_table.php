@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rental', function (Blueprint $table) {
-            $table->integerIncrements('kode_rental');
+            $table->string('kode_rental')->length(100)->primary();
             $table->unsignedInteger('id_user')->length('10');
             $table->unsignedBigInteger('id_alat');
             $table->dateTime('tanggal_mulai');
             $table->dateTime('tanggal_selesai');
             $table->bigInteger('totalHarga')->length(100)->default(0);
-            $table->date('tanggal_kembali')->nullable();
             $table->string('status')->default('booked');
         });
     }

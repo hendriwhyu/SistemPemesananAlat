@@ -44,8 +44,8 @@
                 <div class="app-card app-card-orders-table mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
-                            
-                            <table id="tables" class="table mb-0 text-left">
+
+                            <table id="tables" class="table">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -93,8 +93,10 @@
     </div>
     <!--//app-content-->
 
-
-    <!--//app-footer-->
-    </div>
+    <script>
+        $(document).ready(function() {
+            $("#tables").DataTable();
+        });
+    </script>
     @include('admin.component-admin.content-modal.modal-add-category')
 @endsection

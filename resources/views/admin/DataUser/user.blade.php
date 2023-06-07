@@ -1,5 +1,5 @@
 @extends('admin.component-admin.master-admin')
-@section('title', 'Kategori Unit')
+@section('title', 'Kategori User')
 @section('content-admin')
     <div class="app-wrapper">
 
@@ -8,7 +8,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Kategori Unit</h1>
+                        <h1 class="app-page-title mb-0">Kategori User</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -45,7 +45,7 @@
                     <div class="app-card-body">
                         <div class="table-responsive">
 
-                            <table class="table mb-0 text-left" id="tables">
+                            <table class="table" id="tables">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -53,7 +53,7 @@
                                         <th class="cell">Email</th>
                                         <th class="cell">No Hp</th>
                                         <th class="cell">Role</th>
-                                        <th class="cell text-center" style="width:200px">Action</th>
+                                        <th class="cell text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,10 +98,10 @@
         <!--//container-fluid-->
     </div>
     <!--//app-content-->
-
-
-    <!--//app-footer-->
-
-    </div>
+    <script>
+        $(document).ready(function() {
+            $("#tables").DataTable();
+        });
+    </script>
     @include('admin.component-admin.content-modal.modal-add-user')
 @endsection

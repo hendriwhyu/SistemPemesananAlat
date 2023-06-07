@@ -12,16 +12,13 @@ class Rental extends Model
     use HasFactory;
     protected $table = 'rental';
     protected $primaryKey = 'kode_rental';
-
+    protected $keyType = 'string';
     protected $fillable = [
         'id_user',
         'id_alat',
         'tanggal_mulai',
         'tanggal_selesai',
         'totalHarga',
-        'tanggal_kembali',
-        'waktu_pinjam',
-        'waktu_kembali',
         'status',
         'bukti_pembayaran'
     ];
@@ -35,4 +32,23 @@ class Rental extends Model
     }
     public $timestamps = false;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $lastRental = static::orderBy('kode_rental', 'desc')->first();
+            if ($lastRental) {
+                $lastId = intval(substr($lastRental->kode_rental, 1));
+                $model->kode_rental = 'R' . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                $model->kode_rental = 'R001';
+            }
+        });
+    }
+
+    public function kembali(): HasOne
+    {
+        return $this->hasOne(Pengembalian::class, 'kode_rental', 'kode_rental');
+    }
 }

@@ -55,7 +55,7 @@
                     <div class="app-card-body">
                         <div class="table-responsive">
 
-                            <table class="table mb-0 text-left" id="tables">
+                            <table class="table" id="tables">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -114,8 +114,10 @@
     <!--//app-content-->
 
 
-    <!--//app-footer-->
-
-    </div>
+    <script>
+        $(document).ready(function() {
+            $("#tables").DataTable();
+        });
+    </script>
     @include('admin.component-admin.content-modal.modal-add-unit')
 @endsection

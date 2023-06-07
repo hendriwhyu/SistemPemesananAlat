@@ -39,7 +39,7 @@
                 <div class="app-card app-card-orders-table mb-5">
                     <div class="app-card-body">
                         <div class="table-responsive">
-                            <table class="table mb-0 text-left" id="tables">
+                            <table class="table" id="tables">
                                 <thead>
                                     <tr>
                                         <th class="cell" style="width:50px">No.</th>
@@ -49,7 +49,7 @@
                                         <th class="cell">Tanggal Kembali</th>
                                         <th class="cell">Status</th>
                                         <th class="cell">Bukti Bayar</th>
-                                        <th class="d-flex justify-content-center">Action</th>
+                                        <th class="cell text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,38 +59,47 @@
                                             <td class="cell">{{ $item->unit->name_alat }}</td>
                                             <td class="cell">{{ $item->tanggal_mulai }}</td>
                                             <td class="cell">{{ $item->tanggal_selesai }}</td>
-                                            <td class="cell">{{ $item->tanggal_kembali }}</td>
-                                            @if ($item->status == 'booked')
-                                                <td class="badge bg-info text-light text-capitalize">{{ $item->status }}
-                                                </td>
-                                            @elseif($item->status == 'verified')
-                                                <td class="badge bg-success text-light text-capitalize">{{ $item->status }}
-                                                </td>
-                                            @elseif(intval($item->totalDenda) > 0)
-                                                <td class="badge bg-danger text-light text-capitalize">
-                                                    denda
-                                                </td>
-                                            @elseif($item->status == 'kembali')
-                                                <td class="badge bg-secondary text-light text-capitalize">
-                                                    {{ $item->status }}
-                                                </td>
-                                            @elseif($item->status == 'denda')
-                                                <td class="badge bg-danger text-light text-capitalize">
-                                                    {{ $item->status }}
-                                                </td>
-                                            @endif
+                                            <td class="cell">
+                                                @if ($item->rental && $item->rental->tanggal_kembali)
+                                                    {{ $item->rental->tanggal_kembali }}
+                                                @endif
+                                            </td>
+                                            <td class="cell">
+                                                @if ($item->status == 'booked')
+                                                    <span
+                                                        class="badge bg-info text-light text-capitalize">{{ $item->status }}</span>
+                                                @elseif($item->status == 'verified')
+                                                    <span
+                                                        class="badge bg-success text-light text-capitalize">{{ $item->status }}</span>
+                                                @elseif($item->status == 'canceled')
+                                                    <span
+                                                        class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
+                                                @elseif($item->status == 'kembali')
+                                                    <span
+                                                        class="badge bg-secondary text-light text-capitalize">{{ $item->status }}</span>
+                                                @elseif($item->status == 'denda')
+                                                    <span
+                                                        class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
+                                                @endif
+                                            </td>
                                             <td class="cell">{{ $item->bukti_pembayaran }}</td>
                                             <td class="cell text-center">
                                                 <a href="#upload{{ $item->kode_rental }}" data-bs-toggle="modal"
-                                                    class="text-secondary"><i class='bx bxs-cloud-upload'></i>Upload</a> |
+                                                    class="text-secondary">
+                                                    <i class='bx bxs-cloud-upload'></i> Upload
+                                                </a> |
                                                 <a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
-                                                    class="text-success"><i class='bx bx-layer'></i>Detail</a>
+                                                    class="text-success">
+                                                    <i class='bx bx-layer'></i> Detail
+                                                </a>
                                                 @include('client.component-client.content-modal.modal-detail-history')
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
+
                         </div>
                         <!--//table-responsive-->
                     </div>
@@ -111,10 +120,10 @@
         </div>
         <!--//container-fluid-->
     </div>
+    <script>
+        $(document).ready(function() {
+            $("#tables").DataTable();
+        });
+    </script>
     <!--//app-content-->
-
-
-    <!--//app-footer-->
-
-    </div>
 @endsection

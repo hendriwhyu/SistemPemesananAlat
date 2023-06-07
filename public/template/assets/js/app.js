@@ -84,25 +84,22 @@ searchMobileTrigger.addEventListener("click", () => {
         searchMobileTriggerIcon.classList.add("fa-search");
     }
 });
-$(document).ready(function () {
-    $("#tables").DataTable();
-});
 
 //Ini menggunakan FunctionXML (Not Recommended for Clean Code)
-function hitungTotalHargaProduk($kode) {
-    const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
-    const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
-    const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 * 24)); // Hitung selisih dalam hari
-    // Kirim permintaan Ajax ke server
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/unit/"+$kode, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            const data = JSON.parse(xhr.responseText); // Menguraikan respons JSON
-            const hargaProduk = parseInt(data[0].harga);
-            const totalHarga = diffInDays * hargaProduk; // Hitung total harga
-            document.getElementById("totalHarga").value = totalHarga;
-        }
-    };
-    xhr.send();
-}
+// function hitungTotalHargaProduk($kode) {
+//     const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
+//     const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
+//     const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 * 24)); // Hitung selisih dalam hari
+//     // Kirim permintaan Ajax ke server
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("GET", "/api/unit/"+$kode, true);
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState === 4 && xhr.status === 200) {
+//             const data = JSON.parse(xhr.responseText); // Menguraikan respons JSON
+//             const hargaProduk = parseInt(data[0].harga);
+//             const totalHarga = diffInDays * hargaProduk; // Hitung total harga
+//             document.getElementById("totalHarga").value = totalHarga;
+//         }
+//     };
+//     xhr.send();
+// }

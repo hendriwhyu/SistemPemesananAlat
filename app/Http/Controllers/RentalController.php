@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailUnit;
+use App\Models\Pengembalian;
 use App\Models\Rental;
 use App\Models\Unit;
 use Carbon\Carbon;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redis;
 
 class RentalController extends Controller
@@ -19,8 +21,8 @@ class RentalController extends Controller
      */
     public function index()
     {
-        $data = Rental::with('unit', 'peminjam')->get();
-        $dataById = Rental::with('unit', 'peminjam')
+        $data = Rental::with('unit', 'peminjam', 'kembali')->get();
+        $dataById = Rental::with('unit', 'peminjam', 'kembali')
             ->whereHas('peminjam', function ($query) {
                 $query->where('id_users', Auth::user()->id_users);
             })->get();
@@ -58,7 +60,6 @@ class RentalController extends Controller
                 $rental->tanggal_mulai = now();
                 $rental->tanggal_selesai = $request->jam_pinjam;
             }
-            // dd($rental);
             $rental->save();
             if ($rental->save()) {
                 return back()->with('success', 'Berhasil melakukan pemesanan alat');
@@ -75,15 +76,16 @@ class RentalController extends Controller
         $request->validate([
             'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
         ]);
-        // $imagePath = public_path('image') . '/' . 'bukti-pembayaran' . '/' . $dataRentalByKode->bukti_pembayaran;
-        // if (file_exists($imagePath)) {
-        //     unlink($imagePath); // Menghapus file gambar dari folder
-        // }
-        $buktiBayarImage = 'INV' . time() . '.' .  $request->file('image')->extension();;
-        $request->image->move(public_path('image/bukti-pembayaran'), $buktiBayarImage);
-        $dataRentalByKode->update([
-            'bukti_pembayaran' => $buktiBayarImage
-        ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $buktiBayarImage = 'INV' . time() . '.' .  $request->file('image')->extension();
+            $image->move(public_path('image/bukti-pembayaran/'), $buktiBayarImage);
+            $data_foto = Rental::where('kode_rental', $request->kode_rental)->first();
+            File::delete(public_path('image/bukti-pembayaran') . '/' . $data_foto->image);
+            $dataRentalByKode->update([
+                'bukti_pembayaran' => $buktiBayarImage
+            ]);
+        }
         if ($request->image == null) {
             return back()->with('error', 'Silahkan isi bukti pembayaran.');
         } else {
@@ -95,36 +97,20 @@ class RentalController extends Controller
     {
         $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
         try {
-            if ($request->tanggal_kembali == null) {
+            if ($request->status == 'verified') {
                 $dataRentalByKode->update([
                     'status' => $request->status
                 ]);
-            } else {
+                $pengembalian = new Pengembalian;
+                $pengembalian->save();
+            } elseif ($request->status == 'canceled') {
                 $dataRentalByKode->update([
-                    'tanggal_kembali' => $request->tanggalBalik,
                     'status' => $request->status
                 ]);
             }
-
             return back()->with('success', 'Berhasil memberikan verifikasi');
         } catch (\Throwable $e) {
             return back()->with('error', 'Lengkapi data update');
         }
     }
-    // public function hitungDenda()
-    // {
-    //     $dataPemesanan = Rental::join('alatberat', 'rental.id_alat', '=', 'alatberat.id')
-    //         ->join('detail_unit', 'detail_unit.kode_alat', '=', 'alatberat.kode_alat')
-    //         ->first();
-
-    //     if ($dataPemesanan->tanggal_selesai > now()) {
-    //         $selisihHari = now()->diffInDays($dataPemesanan->tanggal_selesai);
-
-    //         if ($dataPemesanan->type_book == 'hari') {
-    //             $denda = $selisihHari * intval($dataPemesanan->denda);
-    //             $dataPemesanan->totalDenda = $denda;
-    //             $dataPemesanan->save();
-    //         }
-    //     }
-    // }
 }
