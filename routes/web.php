@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -20,9 +21,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [LandingPageController::class, 'home'])->name('welcome');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'authentication']);

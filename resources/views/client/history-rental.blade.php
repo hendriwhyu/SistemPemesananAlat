@@ -66,6 +66,10 @@
                                             @elseif($item->status == 'verified')
                                                 <td class="badge bg-success text-light text-capitalize">{{ $item->status }}
                                                 </td>
+                                            @elseif(intval($item->totalDenda) > 0)
+                                                <td class="badge bg-danger text-light text-capitalize">
+                                                    denda
+                                                </td>
                                             @elseif($item->status == 'kembali')
                                                 <td class="badge bg-secondary text-light text-capitalize">
                                                     {{ $item->status }}

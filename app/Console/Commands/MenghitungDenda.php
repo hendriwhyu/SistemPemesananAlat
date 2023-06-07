@@ -50,6 +50,8 @@ class MenghitungDenda extends Command
                     // Jika ada keterlambatan pada peminjaman berdasarkan jam
                     $penalty = $hoursOverdue * intval($transaction->denda);
                 }
+            }elseif($transaction->status == 'kembali'){
+                $transaction->status = 'kembali';
             }
 
             // Update transaksi dengan denda yang dihitung
