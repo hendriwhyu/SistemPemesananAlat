@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:menghitung-denda')->everyMinute();
+        $schedule->command('app:menghitung-waktu-pemesanan')->everyMinute();
     }
 
     /**

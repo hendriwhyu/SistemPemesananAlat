@@ -14,9 +14,8 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                </div>
-                                <!--//col-->
-                                <div class="col-auto">
+                                    <a href="#detail{{ $ListData }}" data-bs-toggle="modal" class="text-white btn btn-danger"> Bayar Denda
+                                    </a>
                                 </div>
                             </div>
                             <!--//row-->

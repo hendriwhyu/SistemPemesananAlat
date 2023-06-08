@@ -26,6 +26,7 @@ class RentalController extends Controller
             ->whereHas('peminjam', function ($query) {
                 $query->where('id_users', Auth::user()->id_users);
             })->get();
+        
         if (Auth::user()->id_role == 1) {
             return view('admin.history-rental', ['ListData' => $data]);
         } elseif (Auth::user()->id_role == 2) {
@@ -97,18 +98,28 @@ class RentalController extends Controller
     {
         $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
         try {
-            if ($request->status == 'verified') {
-                $dataRentalByKode->update([
-                    'status' => $request->status
-                ]);
-                $pengembalian = new Pengembalian;
-                $pengembalian->save();
-            } elseif ($request->status == 'canceled') {
-                $dataRentalByKode->update([
-                    'status' => $request->status
-                ]);
-            }
-            return back()->with('success', 'Berhasil memberikan verifikasi');
+        if ($request->status == 'verified') {
+            $pengembalian = new Pengembalian;
+            $pengembalian->kode_rental = $request->kode_rental;
+            $pengembalian->save();
+            $dataRentalByKode->update([
+                'status' => $request->status
+            ]);
+        } elseif ($request->status == 'canceled') {
+            $dataRentalByKode->update([
+                'status' => $request->status
+            ]);
+        } elseif ($request->status == 'kembali') {
+            $dataRentalByKode->update([
+                'status' => $request->status
+            ]);
+            $pengembalian = Pengembalian::where('kode_rental', $request->kode_rental)->first();
+            // dd($request);
+            $pengembalian->update([
+                'tanggal_kembali' => $request->tanggal_kembali
+            ]);
+        }
+        return back()->with('success', 'Berhasil memberikan verifikasi');
         } catch (\Throwable $e) {
             return back()->with('error', 'Lengkapi data update');
         }

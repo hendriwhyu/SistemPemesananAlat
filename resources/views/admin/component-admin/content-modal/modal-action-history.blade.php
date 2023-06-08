@@ -1,4 +1,5 @@
 <!-- Detail Modal -->
+
 <div class="modal fade" id="update{{ $item->kode_rental }}" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -53,8 +54,9 @@
                                     <label for="" class="col-form-label">Tanggal Kembali</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="date" id="inputdate" name="tanggal_kembali" class="form-control">
-                                    <input type="hidden" id="formatTanggal" name="tanggalBalik">
+                                    <input type="datetime-local" id="inputdate" name="tanggal_kembali" class="form-control">
+                                    {{-- <input type="hidden" id="formatTanggal" name="tanggalBalik"> --}}
+
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -83,14 +85,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $("#inputdate").change(function() {
-            const tanggal_kembali = $("#inputdate").val();
-            const waktu_sekarang = new Date().toLocaleTimeString();
-            const formatTanggal = tanggal_kembali + ' ' + waktu_sekarang;
-            console.log(formatTanggal);
-            $("#formatTanggal").val(formatTanggal);
-        });
-    });
-</script>

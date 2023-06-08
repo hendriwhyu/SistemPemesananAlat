@@ -52,11 +52,13 @@ class MenghitungDenda extends Command
                     // Jika ada keterlambatan pada peminjaman berdasarkan hari
                     $penalty = $daysOverdue * intval($transaction->denda);
                     $transaction->totalDenda = $penalty;
+                    $transaction->status_pengembalian = 'denda';
                     $transaction->save();
                 } elseif ($transaction->type_book == 'jam' && $hoursOverdue > 0) {
                     // Jika ada keterlambatan pada peminjaman berdasarkan jam
                     $penalty = $hoursOverdue * intval($transaction->denda);
                     $transaction->totalDenda = $penalty;
+                    $transaction->status_pengembalian = 'denda';
                     $transaction->save();
                 }
             } elseif ($transaction->status == 'kembali' && $penalty == 0) {
@@ -64,6 +66,7 @@ class MenghitungDenda extends Command
                     // Jika tanggal kembali melewati tanggal selesai
                     $penalty = intval($transaction->denda);
                     $transaction->totalDenda = $penalty;
+                    $transaction->status_pengembalian = 'ontime';
                     $transaction->save();
                 } else {
                     $transaction->status = $transaction->status;

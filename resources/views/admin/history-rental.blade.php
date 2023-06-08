@@ -61,11 +61,11 @@
                                             <td class="cell">{{ $item->unit->name_alat }}</td>
                                             <td class="cell">{{ $item->tanggal_mulai }}</td>
                                             <td class="cell">{{ $item->tanggal_selesai }}</td>
-                                            @if ($item->rental && $item->rental->tanggal_kembali)
-                                                <td>{{ $item->rental->tanggal_kembali }}</td>
-                                            @else
-                                                <td></td>
-                                            @endif
+                                            <td class="cell">
+                                                @if ($item->kembali && $item->kembali->tanggal_kembali)
+                                                    {{ $item->kembali->tanggal_kembali }}
+                                                @endif
+                                            </td>
                                             <td class="cell">
                                                 @if ($item->status == 'booked')
                                                     <span
@@ -99,10 +99,6 @@
                                                     class="text-success">
                                                     <i class='bx bx-layer'></i> Detail
                                                 </a>
-
-                                                @include('admin.component-admin.content-modal.modal-action-history')
-                                                @include('admin.component-admin.content-modal.modal-detail-history')
-                                                @include('admin.component-admin.content-modal.modal-bukti-history-rental')
                                             </td>
                                         </tr>
                                     @endforeach
