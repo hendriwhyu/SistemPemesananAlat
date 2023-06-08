@@ -22,6 +22,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [LandingPageController::class, 'home'])->name('welcome');
+Route::get('/about', [LandingPageController::class, 'about'])->name('about');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'authentication']);
@@ -65,4 +66,5 @@ Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::post('/pemesanan', [RentalController::class, 'store'])->name('client.addpesanan');
     Route::get('/history', [RentalController::class, 'index'])->name('client.historyrental');
     Route::put('/upload-bukti', [RentalController::class, 'uploadBukti'])->name('client.uploadbukti');
+    Route::put('/bayar-denda', [RentalController::class, 'bayarDenda'])->name('client.bayarDenda');
 });

@@ -12,4 +12,8 @@ class LandingPageController extends Controller
         $dataUnit = Unit::limit(3)->orderBy('id', 'asc')->get();
         return view('index', ['DataUnit' => $dataUnit]);
     }
+    public function about()
+    {
+        return view('about');
+    }
 }

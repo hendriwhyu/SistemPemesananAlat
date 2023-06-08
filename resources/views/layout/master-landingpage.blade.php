@@ -40,11 +40,11 @@
         <div class="footer">
             <div class="container">
                 <div class="row">
-                    <div class=" col-lg-3 col-md-6">
-                        <a class="logo_bottom"><img src="images/logo_bottom.png" alt="#" /></a>
+                    <div class=" col-lg-8 col-md-8">
+                        <a class="logo_bottom"><img src="https://www.spora.co.id/wp-content/uploads/2017/09/logo-pupr-ok.png" alt="#" width="60px" /></a>
                         <p class="many">
-                            There are many variations of passages of Lorem Ipsum available, but the majority have
-                            suffered alteration in some form, by injected humou
+                            Kegiatan membangun sarana atau prasarana yang berdasarkan desain dan rencana
+                            terperinci untuk membuat struktur untuk lokasi tertentu.
                         </p>
                     </div>
                     <div class="col-lg-2 offset-lg-1 col-md-6">
@@ -52,26 +52,8 @@
                         <ul class="link_menu">
                             <li><a href="index.html">Home</a></li>
                             <li><a href="about.html"> About</a></li>
-                            <li><a href="project.html">Projects</a></li>
-                            <li><a href="staff.html">Staff</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="project.html">List Unit</a></li>
                         </ul>
-                    </div>
-                    <div class=" col-lg-3 col-md-6">
-                        <h3>INSTAGRAM FEEDS</h3>
-                        <ul class="insta text_align_left">
-                            <li><img src="images/inst1.png" alt="#" /></li>
-                            <li><img src="images/inst2.png" alt="#" /></li>
-                            <li><img src="images/inst3.png" alt="#" /></li>
-                            <li><img src="images/inst4.png" alt="#" /></li>
-                        </ul>
-                    </div>
-                    <div class=" col-lg-3 col-md-6 ">
-                        <h3>SIGN UP TO OUR NEWSLETTER </h3>
-                        <form class="bottom_form">
-                            <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
-                            <button class="sub_btn">Sign Up</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -79,8 +61,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 offset-md-2">
-                            <p>© 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html
-                                    Templates</a></p>
+                            <p>© 2023 All Rights Reserved. Design by Politeknik Negeri Cilacap</a></p>
                         </div>
                     </div>
                 </div>

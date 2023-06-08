@@ -19,13 +19,15 @@ class AdminController extends Controller
         $dataChart = Unit::select('name_alat')->get();
         $valueChart = Rental::select('rental.id_alat', DB::raw('count(alatberat.id) as total_rental'))
             ->join('alatberat', 'alatberat.id', '=', 'rental.id_alat')
+            ->where('rental.status', '!=', 'canceled')
+            ->where('rental.status', '!=', 'booked')
             ->groupBy('alatberat.id')
             ->get();
         $labels = $dataChart->pluck('name_alat')->toArray();
         $values = $valueChart->pluck('total_rental')->toArray();
 
         $dataUsers = User::all()->count();
-        $dataRental = Rental::all()->count();
+        $dataRental = Rental::where('rental.status', '!=', 'canceled')->where('rental.status', '!=', 'booked')->count();
         $dataUnit = Unit::where('status', 'ready')->count();
         return view('admin.dashboard', ['dataUnit' => $dataUnit, 'dataRental' => $dataRental, 'dataUsers' => $dataUsers], compact('labels', 'values'));
     }

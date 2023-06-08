@@ -14,8 +14,11 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                    <a href="#detail{{ $ListData }}" data-bs-toggle="modal" class="text-white btn btn-danger"> Bayar Denda
-                                    </a>
+                                    @if ($dataByStatus >= 1)
+                                        <a href="#bayardenda{{ Auth::user()->username }}" data-bs-toggle="modal"
+                                            class="text-white btn btn-danger">Bayar Denda</a>
+                                    @endif
+                                    @include('client.component-client.content-modal.modal-pembayaran-denda')
                                 </div>
                             </div>
                             <!--//row-->
@@ -70,15 +73,15 @@
                                                 @elseif($item->status == 'verified')
                                                     <span
                                                         class="badge bg-success text-light text-capitalize">{{ $item->status }}</span>
+                                                    <span class="badge bg-danger text-light text-capitalize">
+                                                        {{ $item->kembali->status_pengembalian == null ? '' : $item->kembali->status_pengembalian }}
+                                                    </span>
                                                 @elseif($item->status == 'canceled')
                                                     <span
                                                         class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
                                                 @elseif($item->status == 'kembali')
                                                     <span
                                                         class="badge bg-secondary text-light text-capitalize">{{ $item->status }}</span>
-                                                @elseif($item->status == 'denda')
-                                                    <span
-                                                        class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
                                                 @endif
                                             </td>
                                             <td class="cell">{{ $item->bukti_pembayaran }}</td>

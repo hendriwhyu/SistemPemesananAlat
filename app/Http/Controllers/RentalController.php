@@ -26,11 +26,28 @@ class RentalController extends Controller
             ->whereHas('peminjam', function ($query) {
                 $query->where('id_users', Auth::user()->id_users);
             })->get();
-        
+        $dataByStatus = Rental::join('users', 'users.id_users', '=', 'rental.id_user')
+            ->join('pengembalians', 'pengembalians.kode_rental', '=', 'rental.kode_rental')
+            ->select('rental.*', 'pengembalians.*')
+            ->where('rental.id_user', '=', Auth::user()->id_users)
+            ->where('pengembalians.status_pengembalian', '=', 'denda')
+            ->count();
+        $hitungTotalDenda = Rental::join('users', 'users.id_users', '=', 'rental.id_user')
+            ->join('pengembalians', 'pengembalians.kode_rental', '=', 'rental.kode_rental')
+            ->where('rental.id_user', '=', Auth::user()->id_users)
+            ->where('pengembalians.status_pengembalian', '=', 'denda')
+            ->sum('pengembalians.totalDenda');
+        $kodePembayaranDenda = Rental::join('users', 'users.id_users', '=', 'rental.id_user')
+            ->join('pengembalians', 'pengembalians.kode_rental', '=', 'rental.kode_rental')
+            ->where('rental.id_user', '=', Auth::user()->id_users)
+            ->where('pengembalians.status_pengembalian', '=', 'denda')
+            ->orderBy('pengembalians.kode_rental', 'desc')
+            ->select('pengembalians.kode_rental')
+            ->first();
         if (Auth::user()->id_role == 1) {
             return view('admin.history-rental', ['ListData' => $data]);
         } elseif (Auth::user()->id_role == 2) {
-            return view('client.history-rental', ['ListData' => $dataById]);
+            return view('client.history-rental', ['ListData' => $dataById], compact('dataByStatus', 'hitungTotalDenda', 'kodePembayaranDenda'));
         }
     }
 
@@ -39,14 +56,7 @@ class RentalController extends Controller
         $listUnit = Unit::where('status', 'ready')->get();
         return view('client.pemesanan', ['ListUnit' => $listUnit]);
     }
-    /**
-     * Show the form for creating a new resource.
-     */
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -68,6 +78,36 @@ class RentalController extends Controller
         } catch (\Throwable $e) {
             return back()->with('error', 'Gagal melakukan pemesanan alat');
             # code...
+        }
+    }
+
+    public function verifRental(Request $request)
+    {
+        $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
+        try {
+            if ($request->status == 'verified') {
+                $pengembalian = new Pengembalian;
+                $pengembalian->kode_rental = $request->kode_rental;
+                $pengembalian->save();
+                $dataRentalByKode->update([
+                    'status' => $request->status
+                ]);
+            } elseif ($request->status == 'canceled') {
+                $dataRentalByKode->update([
+                    'status' => $request->status
+                ]);
+            } elseif ($request->status == 'kembali') {
+                $dataRentalByKode->update([
+                    'status' => $request->status
+                ]);
+                $pengembalian = Pengembalian::where('kode_rental', $request->kode_rental)->first();
+                $pengembalian->update([
+                    'tanggal_kembali' => $request->tanggal_kembali
+                ]);
+            }
+            return back()->with('success', 'Berhasil memberikan verifikasi');
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Lengkapi data update');
         }
     }
 
@@ -94,34 +134,26 @@ class RentalController extends Controller
         }
     }
 
-    public function verifRental(Request $request)
+    public function bayarDenda(Request $request)
     {
-        $dataRentalByKode = Rental::where('kode_rental', $request->kode_rental)->first();
-        try {
-        if ($request->status == 'verified') {
-            $pengembalian = new Pengembalian;
-            $pengembalian->kode_rental = $request->kode_rental;
-            $pengembalian->save();
-            $dataRentalByKode->update([
-                'status' => $request->status
-            ]);
-        } elseif ($request->status == 'canceled') {
-            $dataRentalByKode->update([
-                'status' => $request->status
-            ]);
-        } elseif ($request->status == 'kembali') {
-            $dataRentalByKode->update([
-                'status' => $request->status
-            ]);
-            $pengembalian = Pengembalian::where('kode_rental', $request->kode_rental)->first();
-            // dd($request);
-            $pengembalian->update([
-                'tanggal_kembali' => $request->tanggal_kembali
+        $dataPengembalianByKode = Pengembalian::where('kode_rental', $request->kode_rental)->first();
+        $request->validate([
+            'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
+        ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $buktiBayarDenda = 'DND' . time() . '.' .  $request->file('image')->extension();
+            $image->move(public_path('image/bukti-denda/'), $buktiBayarDenda);
+            $data_foto = Pengembalian::where('kode_rental', $request->kode_rental)->first();
+            File::delete(public_path('image/bukti-denda') . '/' . $data_foto->image);
+            $dataPengembalianByKode->update([
+                'bukti_bayar_denda' => $buktiBayarDenda
             ]);
         }
-        return back()->with('success', 'Berhasil memberikan verifikasi');
-        } catch (\Throwable $e) {
-            return back()->with('error', 'Lengkapi data update');
+        if ($request->image == null) {
+            return back()->with('error', 'Silahkan isi bukti pembayaran.');
+        } else {
+            return back()->with('success', 'Berhasil mengupload bukti pembayaran');
         }
     }
 }
