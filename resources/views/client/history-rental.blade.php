@@ -68,9 +68,12 @@
                                                 @elseif($item->status == 'verified')
                                                     <span
                                                         class="badge bg-success text-light text-capitalize">{{ $item->status }}</span>
-                                                    <span class="badge bg-danger text-light text-capitalize">
-                                                        {{ $item->kembali->status_pengembalian == null ? '' : $item->kembali->status_pengembalian }}
-                                                    </span>
+                                                    @if ($item->kembali->status_pengembalian == null)
+                                                    @elseif($item->kembali->status_pengembalian == 'denda')
+                                                        <span class="badge bg-danger text-light text-capitalize">
+                                                            {{ $item->kembali->status_pengembalian }}
+                                                        </span>
+                                                    @endif
                                                 @elseif($item->status == 'canceled')
                                                     <span
                                                         class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>

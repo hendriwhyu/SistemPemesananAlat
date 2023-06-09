@@ -44,12 +44,16 @@ class MenghitungDenda extends Command
 
             $isOverdue = $tanggalSelesai->lt($tanggalBalik);
             $overdueDate = $isOverdue ? $tanggalBalik : $now;
+            $minuteOverdue = $now->diffInMinutes($tanggalSelesai);
             $daysOverdue = $overdueDate->diffInDays($tanggalSelesai);
             $hoursOverdue = $overdueDate->diffInHours($tanggalSelesai);
+            if ($minuteOverdue <= 59) {
+                $hoursOverdue += 1;
+            }
             $pengembalian = Pengembalian::where('kode_rental', $transaction->kode_rental)->first();
 
-            if (($transaction->status == 'verified') || ($transaction->status == 'kembali' && $tanggalBalik > $tanggalSelesai)) {
-                if ($transaction->type_book == 'hari' && $daysOverdue > 0) {
+            if (($transaction->status == 'verified' && ($tanggalSelesai < $now || $minuteOverdue >= 30)) || ($transaction->status == 'kembali' && $tanggalBalik > $tanggalSelesai)) {
+                if ($transaction->type_book == 'hari' && ($daysOverdue > 0 || $minuteOverdue >= 30)) {
                     // Jika ada keterlambatan pada peminjaman berdasarkan hari
                     $penalty = $daysOverdue * intval($transaction->denda);
                     $pengembalian->update([
