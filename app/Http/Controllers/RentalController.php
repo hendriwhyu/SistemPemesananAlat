@@ -41,7 +41,6 @@ class RentalController extends Controller
             ->join('pengembalians', 'pengembalians.kode_rental', '=', 'rental.kode_rental')
             ->where('rental.id_user', '=', Auth::user()->id_users)
             ->where('pengembalians.status_pengembalian', '=', 'denda')
-            ->orderBy('pengembalians.kode_rental', 'desc')
             ->select('pengembalians.kode_rental')
             ->first();
         if (Auth::user()->id_role == 1) {

@@ -6,14 +6,17 @@
             <form action="{{ route('client.bayarDenda') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="kode_rental" value="{{ $kodePembayaranDenda->kode_rental }}">
+                @if ($kodePembayaranDenda == null)
+                @elseif ($kodePembayaranDenda)
+                    <input type="hidden" name="kode_rental" value="{{ $kodePembayaranDenda->kode_rental }}">
+                @endif
                 <div class="modal-header">
                     <h5 class="modal-title" id="addnewModalLabel">Pembayaran Denda</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-3">
-                        <label for="">Total Denda : Rp. {{ number_format($hitungTotalDenda)}}</label>
+                        <label for="">Total Denda : Rp. {{ number_format($hitungTotalDenda) }}</label>
                     </div>
                     <div class="row">
                         <div class="container mb-3">

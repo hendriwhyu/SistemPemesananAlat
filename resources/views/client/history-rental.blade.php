@@ -14,11 +14,6 @@
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                                 <div class="col-auto">
-                                    @if ($dataByStatus >= 1)
-                                        <a href="#bayardenda{{ Auth::user()->username }}" data-bs-toggle="modal"
-                                            class="text-white btn btn-danger">Bayar Denda</a>
-                                    @endif
-                                    @include('client.component-client.content-modal.modal-pembayaran-denda')
                                 </div>
                             </div>
                             <!--//row-->
@@ -94,6 +89,17 @@
                                                     class="text-success">
                                                     <i class='bx bx-layer'></i> Detail
                                                 </a>
+                                                @if ($item->kembali != null)
+                                                    @if ($item->kembali->status_pengembalian == null)
+                                                        {{-- Handle case when 'status_pengembalian' is null --}}
+                                                    @elseif ($item->kembali->status_pengembalian == 'denda')
+                                                        <a href="#bayardenda{{ $item->kode_rental }}"
+                                                            data-bs-toggle="modal" class="text-danger">
+                                                            <i class='bx bx-layer'></i>Denda
+                                                        </a>
+                                                    @endif
+                                                @endif
+                                                @include('client.component-client.content-modal.modal-pembayaran-denda')
                                                 @include('client.component-client.content-modal.modal-detail-history')
                                             </td>
                                         </tr>
