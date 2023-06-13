@@ -96,16 +96,17 @@
                                                     @if ($item->kembali->status_pengembalian == null)
                                                         {{-- Handle case when 'status_pengembalian' is null --}}
                                                     @elseif ($item->kembali->status_pengembalian == 'denda')
-                                                        <a href="#bayardenda{{ $item->kode_rental }}"
+                                                        | <a href="#bayardenda{{ $item->kode_rental }}"
                                                             data-bs-toggle="modal" class="text-danger">
                                                             <i class='bx bx-layer'></i>Denda
                                                         </a>
                                                     @endif
                                                 @endif
-                                                @include('client.component-client.content-modal.modal-pembayaran-denda')
-                                                @include('client.component-client.content-modal.modal-detail-history')
+
                                             </td>
                                         </tr>
+                                        @include('client.component-client.content-modal.modal-pembayaran-denda')
+                                        @include('client.component-client.content-modal.modal-detail-history')
                                     @endforeach
                                 </tbody>
                             </table>
@@ -131,9 +132,27 @@
         </div>
         <!--//container-fluid-->
     </div>
+
     <script>
         $(document).ready(function() {
             $("#tables").DataTable();
+            $(".inputDenda").hide();
+            $(".inputDendaBukti").hide();
+            $(".menu-pembayaran").on("change", function() {
+                var selectedOption = $(this).val();
+
+                if (selectedOption == 1) {
+                    $(".inputDenda").hide();
+                    $(".inputDendaBukti").hide();
+                } else if (selectedOption == 2) {
+                    $(".inputDenda").show();
+                    $(".inputDendaBukti").show();
+                } else {
+                    $(".inputDenda").hide();
+                    $(".inputDendaBukti").hide();
+                }
+            });
+            
         });
     </script>
     <!--//app-content-->

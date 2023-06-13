@@ -103,3 +103,20 @@ searchMobileTrigger.addEventListener("click", () => {
 //     };
 //     xhr.send();
 // }
+
+$("#inputDenda").hide();
+$("#inputDendaBukti").hide();
+$("#menu-pembayaran").on("change", function () {
+    var selectedOption = $(this).val();
+
+    if (selectedOption == 1) {
+        $("#inputDenda").hide();
+        $("#inputDendaBukti").hide();
+    } else if (selectedOption == 2) {
+        $("#inputDenda").show();
+        $("#inputDendaBukti").show();
+    } else {
+        $("#inputDenda").hide();
+        $("#inputDendaBukti").hide();
+    }
+});

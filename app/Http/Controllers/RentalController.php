@@ -155,4 +155,5 @@ class RentalController extends Controller
             return back()->with('success', 'Berhasil mengupload bukti pembayaran');
         }
     }
+    
 }

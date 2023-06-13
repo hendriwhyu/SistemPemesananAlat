@@ -263,8 +263,8 @@
             integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous">
         </script>
         <!-- Charts JS -->
-        <script src="assets/plugins/chart.js/chart.min.js"></script>
-        <script src="assets/js/index-charts.js"></script>
+        <script src="{{ asset('template/assets/plugins/chart.js/chart.min.js') }}"></script>
+        <script src="{{ asset('template/assets/js/index-charts.js') }}"></script>
 
         <!-- Page Specific JS -->
         <script src="{{ asset('template/assets/js/app.js') }}"></script>
