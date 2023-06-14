@@ -62,25 +62,38 @@
                                                 @endif
                                             </td>
                                             <td class="cell">
-                                                @if ($item->status == 'booked')
-                                                    <span
-                                                        class="badge bg-info text-light text-capitalize">{{ $item->status }}</span>
-                                                @elseif($item->status == 'verified')
-                                                    <span
-                                                        class="badge bg-success text-light text-capitalize">{{ $item->status }}</span>
-                                                    @if ($item->kembali->status_pengembalian == null)
-                                                    @elseif($item->kembali->status_pengembalian == 'denda')
-                                                        <span class="badge bg-danger text-light text-capitalize">
-                                                            {{ $item->kembali->status_pengembalian }}
-                                                        </span>
-                                                    @endif
-                                                @elseif($item->status == 'canceled')
-                                                    <span
-                                                        class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
-                                                @elseif($item->status == 'kembali')
-                                                    <span
-                                                        class="badge bg-secondary text-light text-capitalize">{{ $item->status }}</span>
-                                                @endif
+                                                @php
+                                                    $status = $item->status;
+                                                    $kembali = $item->kembali;
+                                                    $kembaliStatus = $kembali ? $kembali->status_pengembalian : null;
+                                                @endphp
+
+                                                @switch($status)
+                                                    @case('booked')
+                                                        <span
+                                                            class="badge bg-info text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+
+                                                    @case('verified')
+                                                        <span
+                                                            class="badge bg-success text-light text-capitalize">{{ $status }}</span>
+                                                        @if ($kembali && $kembaliStatus === 'denda')
+                                                            <span
+                                                                class="badge bg-danger text-light text-capitalize">{{ $kembaliStatus }}</span>
+                                                        @endif
+                                                    @break
+
+                                                    @case('canceled')
+                                                        <span
+                                                            class="badge bg-danger text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+
+                                                    @case('kembali')
+                                                        <span
+                                                            class="badge bg-secondary text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+                                                @endswitch
+
                                             </td>
                                             <td class="cell">{{ $item->bukti_pembayaran }}</td>
                                             <td class="cell text-center">
@@ -94,7 +107,6 @@
                                                 </a>
                                                 @if ($item->kembali != null)
                                                     @if ($item->kembali->status_pengembalian == null)
-                                                        {{-- Handle case when 'status_pengembalian' is null --}}
                                                     @elseif ($item->kembali->status_pengembalian == 'denda')
                                                         | <a href="#bayardenda{{ $item->kode_rental }}"
                                                             data-bs-toggle="modal" class="text-danger">
@@ -102,7 +114,6 @@
                                                         </a>
                                                     @endif
                                                 @endif
-
                                             </td>
                                         </tr>
                                         @include('client.component-client.content-modal.modal-pembayaran-denda')
