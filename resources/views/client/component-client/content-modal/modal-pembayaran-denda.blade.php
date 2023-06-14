@@ -54,7 +54,9 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
                         Cancel</button>
-                    {{ Form::button('<i class="fa fa-check-square-o"></i> Bayar', ['class' => 'btn btn-danger', 'type' => 'submit']) }}
+                    <button type="button" class="btn btn-danger submit" data-bs-dismiss="modal" type="submit"><i
+                            class="fa fa-check-square-o "></i>
+                        Bayar</button>
                 </div>
             </form>
         </div>
@@ -62,19 +64,24 @@
 </div>
 <script>
     $(".invalid-feedback").hide();
+    $(".submit").attr("disabled", true);
 
-    $(".nilaiDenda").change(function() {
-        const valueDenda = parseInt($(".nilaiDenda").val());
+
+    $(".nilaiDenda").keyup(function() {
+        var valueDenda = $(this).val();
         const totalDenda = $(".totalDenda").val();
 
         if (isNaN(valueDenda)) {
             $(".invalid-feedback").show();
             $(".invalid-feedback").text("Nilai Denda harus berupa angka.");
+            $(".submit").attr("disabled", true);
         } else if (!isNaN(totalDenda) && valueDenda < parseInt(totalDenda)) {
             $(".invalid-feedback").show();
             $(".invalid-feedback").text("Harga yang harus dibayar anda kurang.");
+            $(".submit").attr("disabled", true);
         } else {
             $(".invalid-feedback").hide();
+            $(".submit").attr("disabled", false);
         }
     });
 </script>
