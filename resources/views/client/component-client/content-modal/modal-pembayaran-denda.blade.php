@@ -21,7 +21,7 @@
                     </div>
                     <div class="row">
                         <div class="container mb-3">
-                            <select class="form-select menu-pembayaran" aria-label="Default select example">
+                            <select class="form-select menu-pembayaran" name="pembayaran" aria-label="Default select example">
                                 <option selected disabled>Pilih Menu Pembayaran</option>
                                 <option value="1">Cash On Delivery</option>
                                 <option value="2">Transfer</option>

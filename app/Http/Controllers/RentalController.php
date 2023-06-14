@@ -136,24 +136,30 @@ class RentalController extends Controller
     public function bayarDenda(Request $request)
     {
         $dataPengembalianByKode = Pengembalian::where('kode_rental', $request->kode_rental)->first();
-        $request->validate([
-            'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
-        ]);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $buktiBayarDenda = 'DND' . time() . '.' .  $request->file('image')->extension();
-            $image->move(public_path('image/bukti-denda/'), $buktiBayarDenda);
-            $data_foto = Pengembalian::where('kode_rental', $request->kode_rental)->first();
-            File::delete(public_path('image/bukti-denda') . '/' . $data_foto->image);
+        if ($request->pembayaran == "1") {
             $dataPengembalianByKode->update([
-                'bukti_bayar_denda' => $buktiBayarDenda
+                'bukti_bayar_denda' => 'COD'
             ]);
-        }
-        if ($request->image == null) {
-            return back()->with('error', 'Silahkan isi bukti pembayaran.');
+            return back()->with('success', 'Bayar Denda ditempat');
         } else {
-            return back()->with('success', 'Berhasil mengupload bukti pembayaran');
+            $request->validate([
+                'image' => 'image|mimes:png,jpg,jpeg,svg|max:2048'
+            ]);
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $buktiBayarDenda = 'DND' . time() . '.' .  $request->file('image')->extension();
+                $image->move(public_path('image/bukti-denda/'), $buktiBayarDenda);
+                $data_foto = Pengembalian::where('kode_rental', $request->kode_rental)->first();
+                File::delete(public_path('image/bukti-denda') . '/' . $data_foto->image);
+                $dataPengembalianByKode->update([
+                    'bukti_bayar_denda' => $buktiBayarDenda
+                ]);
+            }
+            if ($request->image == null) {
+                return back()->with('error', 'Silahkan isi bukti pembayaran.');
+            } else {
+                return back()->with('success', 'Berhasil mengupload bukti pembayaran');
+            }
         }
     }
-    
 }

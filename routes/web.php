@@ -38,7 +38,7 @@ Route::get('/api/unit/{kode}', [UnitController::class, 'getUnitData']);
 
 Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    Route::get('/profile', [UserController::class, 'profile'])->name('admin.profile');
     Route::put('/profile/change', [UserController::class, 'editProfile'])->name('admin.profile-change');
     Route::put('/profile/password', [UserController::class, 'editPassword'])->name('admin.profile-password');
     Route::get('/kategori', [AdminController::class, 'kategori'])->name('admin.kategori');
@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
     Route::put('/detail-kategori/{name_categories}', [UnitController::class, 'edit'])->name('admin.editUnit');
     Route::put('/detail-kategori/{name_categories}/detail-unit', [UnitController::class, 'detailUpdate'])->name('admin.editDetailUnit');
     Route::delete('/detail-kategori/{name_categories}', [UnitController::class, 'delete']);
-    
+
     Route::get('/user', [UserController::class, 'user'])->name('admin.user');
     Route::post('/user-add', [UserController::class, 'addUser']);
     Route::put('/user-edit', [UserController::class, 'update']);
@@ -67,4 +67,7 @@ Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::get('/history', [RentalController::class, 'index'])->name('client.historyrental');
     Route::put('/upload-bukti', [RentalController::class, 'uploadBukti'])->name('client.uploadbukti');
     Route::put('/bayar-denda', [RentalController::class, 'bayarDenda'])->name('client.bayarDenda');
+    Route::get('/profile', [UserController::class, 'profile'])->name('client.profile');
+    Route::put('/profile/change', [UserController::class, 'editProfile'])->name('client.profile-change');
+    Route::put('/profile/password', [UserController::class, 'editPassword'])->name('client.profile-password');
 });

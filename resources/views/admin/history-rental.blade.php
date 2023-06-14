@@ -73,16 +73,20 @@
                                                 @elseif($item->status == 'verified')
                                                     <span
                                                         class="badge bg-success text-light text-capitalize">{{ $item->status }}</span>
+                                                    @if ($item->kembali->status_pengembalian == null)
+                                                    @elseif($item->kembali->status_pengembalian == 'denda')
+                                                        <span class="badge bg-danger text-light text-capitalize">
+                                                            {{ $item->kembali->status_pengembalian }}
+                                                        </span>
+                                                    @endif
                                                 @elseif($item->status == 'canceled')
                                                     <span
                                                         class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
                                                 @elseif($item->status == 'kembali')
                                                     <span
                                                         class="badge bg-secondary text-light text-capitalize">{{ $item->status }}</span>
-                                                @elseif($item->status == 'denda')
-                                                    <span
-                                                        class="badge bg-danger text-light text-capitalize">{{ $item->status }}</span>
                                                 @endif
+
                                             </td>
                                             <td class="cell text-center">
                                                 @if ($item->status != 'canceled')
@@ -99,6 +103,16 @@
                                                     class="text-success">
                                                     <i class='bx bx-layer'></i> Detail
                                                 </a>
+                                                @if ($item->kembali != null)
+                                                    @if ($item->kembali->status_pengembalian == null)
+                                                        {{-- Handle case when 'status_pengembalian' is null --}}
+                                                    @elseif ($item->kembali->status_pengembalian == 'denda')
+                                                        | <a href="#bayardenda{{ $item->kode_rental }}"
+                                                            data-bs-toggle="modal" class="text-danger">
+                                                            <i class='bx bx-layer'></i>Denda
+                                                        </a>
+                                                    @endif
+                                                @endif
                                             </td>
                                         </tr>
                                         @include('admin.component-admin.content-modal.modal-bukti-history-rental')

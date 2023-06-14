@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -14,6 +15,17 @@ class UserController extends Controller
         $data = User::all();
         return view('admin.DataUser.user', ['ListUser' => $data]);
     }
+    
+    public function profile()
+    {
+        $dataUsers = User::where('username', Auth::user()->username)->first();
+        if(Auth::user()->id_role == '1'){
+            return view('admin.profile', ['dataUsers' => $dataUsers]);
+        }elseif(Auth::user()->id_role == '2'){
+            return view('client.profile', ['dataUsers' => $dataUsers]);
+        }
+    }
+
     public function addUser(Request $request)
     {
         $cekDuplikatUser = User::where('username', $request->username)->count();
@@ -33,9 +45,9 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $data = User::where('id_users', $request->id_users);
-        if($request->password == null){
+        if ($request->password == null) {
             return redirect()->back()->with('error', 'Password anda kosong');
-        }else{
+        } else {
             $data->update([
                 'username' => $request->username,
                 'email' => $request->email,

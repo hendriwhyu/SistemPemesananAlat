@@ -37,7 +37,7 @@
                             <div class="app-utilities col-auto">
                                 <!--//app-utility-item-->
                                 <div class="app-utility-item">
-                                    <a href="{{ route('admin.profile') }}" title="Settings">
+                                    <a href="{{ route('client.profile') }}" title="Settings">
                                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear icon"
                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@
                                             <small class="dropdown-item text-center text-capitalize text-bold"
                                                 style="margin-bottom: 0%; padding-bottom:0%; padding-top:0%">{{ Auth::user()->role->role }}</small>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ route('admin.profile') }}">Settings</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('client.profile') }}">Settings</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
@@ -193,7 +193,7 @@
                             <ul class="app-menu footer-menu list-unstyled">
                                 <li class="nav-item">
                                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                    <a class="nav-link" href="{{ route('admin.profile') }}">
+                                    <a class="nav-link" href="{{ route('client.profile') }}">
                                         <span class="nav-icon">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear"
                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">

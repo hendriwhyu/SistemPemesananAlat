@@ -31,11 +31,6 @@ class AdminController extends Controller
         $dataUnit = Unit::where('status', 'ready')->count();
         return view('admin.dashboard', ['dataUnit' => $dataUnit, 'dataRental' => $dataRental, 'dataUsers' => $dataUsers], compact('labels', 'values'));
     }
-    public function profile()
-    {
-        $dataUsers = User::where('username', Auth::user()->username)->first();
-        return view('admin.profile', ['dataUsers'=>$dataUsers]);
-    }
 
     public function kategori()
     {

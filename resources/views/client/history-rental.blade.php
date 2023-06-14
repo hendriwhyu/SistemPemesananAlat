@@ -142,6 +142,7 @@
                 var selectedOption = $(this).val();
 
                 if (selectedOption == 1) {
+                    $(".submit").attr("disabled", false);
                     $(".inputDenda").hide();
                     $(".inputDendaBukti").hide();
                 } else if (selectedOption == 2) {
@@ -152,7 +153,7 @@
                     $(".inputDendaBukti").hide();
                 }
             });
-            
+
         });
     </script>
     <!--//app-content-->
