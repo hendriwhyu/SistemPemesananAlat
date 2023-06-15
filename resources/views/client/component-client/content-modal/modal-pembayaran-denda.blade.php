@@ -54,7 +54,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i>
                         Cancel</button>
-                    <button type="button" class="btn btn-danger submit" data-bs-dismiss="modal" type="submit"><i
+                    <button class="btn btn-danger submit" data-bs-dismiss="modal" type="submit"><i
                             class="fa fa-check-square-o "></i>
                         Bayar</button>
                 </div>

@@ -131,7 +131,7 @@
                                         @include('admin.component-admin.content-modal.modal-bukti-history-rental')
                                         @include('admin.component-admin.content-modal.modal-action-history')
                                         @include('admin.component-admin.content-modal.modal-detail-history')
-                                    @endforeach
+                                        @include('admin.component-admin.content-modal.modal-validasi-denda')                                    @endforeach
                                 </tbody>
                             </table>
 

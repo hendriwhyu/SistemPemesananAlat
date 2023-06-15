@@ -58,6 +58,7 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
 
     Route::get('/history', [RentalController::class, 'index'])->name('admin.historyrental');
     Route::put('/verified-stat', [RentalController::class, 'verifRental'])->name('admin.verified');
+    Route::put('/verified-denda', [RentalController::class, 'verifDenda'])->name('admin.verifDenda');
 });
 
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {

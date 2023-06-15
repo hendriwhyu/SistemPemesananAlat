@@ -3,7 +3,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" action="{{ route('admin.profile-change') }}">
+            <form method="post" action="{{ route('client.profile-change') }}">
                 @csrf
                 @method('put')
                 <input type="hidden" value="{{ $dataUsers->id_users }}" name="id_users">
@@ -56,7 +56,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" action="{{ route('admin.profile-password') }}">
+            <form method="post" action="{{ route('client.profile-password') }}">
                 @csrf
                 @method('put')
                 <input type="hidden" value="{{ $dataUsers->id_users }}" name="id_users">
@@ -83,8 +83,8 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">Confirm Password</span>
-                        <input type="password" aria-label="First name" id="password-confirm" name="password_confirmation"class="form-control"
-                            value="" required>
+                        <input type="password" aria-label="First name" id="password-confirm"
+                            name="password_confirmation"class="form-control" value="" required>
                     </div>
                 </div>
 
