@@ -131,7 +131,8 @@
                                         @include('admin.component-admin.content-modal.modal-bukti-history-rental')
                                         @include('admin.component-admin.content-modal.modal-action-history')
                                         @include('admin.component-admin.content-modal.modal-detail-history')
-                                        @include('admin.component-admin.content-modal.modal-validasi-denda')                                    @endforeach
+                                        @include('admin.component-admin.content-modal.modal-validasi-denda')
+                                    @endforeach
                                 </tbody>
                             </table>
 
@@ -160,7 +161,65 @@
     <script>
         $(document).ready(function() {
             $('#tables').DataTable({
-                "order": [], // Untuk menghapus pengurutan awal jika tidak diinginkan
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'csv',
+                        text: 'Export to CSV',
+                        exportOptions: {
+                            columns: ':not(.text-center)' // Exclude columns with the 'text-center' class
+                        },
+                        title: 'Dinas PUPR', // Set a custom logo/header,
+
+                        filename: 'history_rental_' + new Date().toISOString().slice(0,
+                            10), // Set the file name with the current date
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Export to Excel',
+                        exportOptions: {
+                            columns: ':not(.text-center)' // Exclude columns with the 'text-center' class
+                        },
+                        title: 'Dinas PUPR', // Set a custom logo/header,
+                        filename: 'history_rental_' + new Date().toISOString().slice(0,
+                            10), // Set the file name with the current date
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Export to PDF',
+                        exportOptions: {
+                            columns: ':not(.text-center)' // Exclude columns with the 'text-center' class
+                        },
+                        title: 'Dinas PUPR', // Set a custom logo/header,
+                        filename: 'history_rental_' + new Date().toISOString().slice(0,
+                            10), // Set the file name with the current date
+                        customize: function(doc) {
+                            doc.defaultStyle.fontSize = 10; // Customize the font size (optional)
+                            doc.styles.tableHeader.fontSize =
+                                12; // Customize the table header font size (optional)
+                            // Add any additional customization here if needed
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        exportOptions: {
+                            columns: ':not(.text-center)' // Exclude columns with the 'text-center' class
+                        },
+                        title: 'Dinas PUPR', // Set a custom logo/header,
+                        customize: function(win) {
+                            $(win.document.body).addClass(
+                                'white-bg'); // Add a custom class to the print document body
+                            $(win.document.body).css('font-size',
+                                '10px'); // Customize the font size (optional)
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size',
+                                    'inherit'
+                                    ); // Apply a compact style to the table and inherit font size
+                            // Add any additional customization here if needed
+                        }
+                    }
+                ]
             });
         });
     </script>

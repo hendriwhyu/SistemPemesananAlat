@@ -19,19 +19,7 @@
                                     </svg>
                                 </a>
                             </div>
-                            <!--//col-->
-                            <div class="search-mobile-trigger d-sm-none col">
-                                <i class="search-mobile-trigger-icon fas fa-search"></i>
-                            </div>
-                            <!--//col-->
-                            <div class="app-search-box col">
-                                <form class="app-search-form">
-                                    <input type="text" placeholder="Search..." name="search"
-                                        class="form-control search-input">
-                                    <button type="submit" class="btn search-btn btn-primary" value="Search"><i
-                                            class="fas fa-search"></i></button>
-                                </form>
-                            </div>
+                           
                             <!--//app-search-box-->
 
                             <div class="app-utilities col-auto">
@@ -104,7 +92,7 @@
                 <div class="sidepanel-inner d-flex flex-column">
                     <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                     <div class="app-branding">
-                        <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="assets/images/app-logo.svg"
+                        <a class="app-logo" href="{{ route('admin.dashboard') }}"><img class="logo-icon me-2" src="https://th.bing.com/th/id/OIP.KkGriirdxCNzvoZhmBImDAHaHa?pid=ImgDet&rs=1"
                                 alt="logo"><span class="logo-text">PORTAL</span></a>
 
                     </div>
@@ -189,23 +177,6 @@
                             </li>
                             <!--//nav-item-->
 
-                            <li class="nav-item">
-                                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                                <a class="nav-link" href="help.html">
-                                    <span class="nav-icon">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16"
-                                            class="bi bi-question-circle" fill="currentColor"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path
-                                                d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
-                                        </svg>
-                                    </span>
-                                    <span class="nav-link-text">Help</span>
-                                </a>
-                                <!--//nav-link-->
-                            </li>
                             <!--//nav-item-->
                         </ul>
                         <!--//app-menu-->
@@ -288,7 +259,7 @@
         <!-- Charts JS -->
         <script src="assets/plugins/chart.js/chart.min.js"></script>
         <script src="assets/js/index-charts.js"></script>
-        
+
         <!-- Page Specific JS -->
         <script src="{{ asset('template/assets/js/app.js') }}"></script>
 

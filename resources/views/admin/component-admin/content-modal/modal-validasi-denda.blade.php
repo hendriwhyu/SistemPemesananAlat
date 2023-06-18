@@ -30,7 +30,7 @@
                         <div class="container mb-3">
                             <select class="form-select menu-pembayaran" name="pembayaran"
                                 aria-label="Default select example">
-                                <option selected disabled>Pilih Menu Pembayaran</option>
+                                <option selected disabled>Validasi Pembayaran</option>
                                 <option value="1">Belum Lunas</option>
                                 <option value="2">Lunas</option>
                             </select>

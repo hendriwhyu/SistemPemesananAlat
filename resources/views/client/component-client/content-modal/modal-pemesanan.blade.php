@@ -32,8 +32,7 @@
                                             <label class="form-label">Tanggal Mulai : </label>
                                         </div>
                                         <div class="col gap-0">
-                                            <input type="date" id="tanggalMulai" name="tanggalMulai"
-                                                class="form-control">
+                                            <input type="date" name="tanggalMulai" class="form-control tanggalMulai">
                                             <input type="hidden" name="tanggal_mulai" id="formatTanggalMulai">
                                         </div>
                                     </div>
@@ -42,8 +41,8 @@
                                             <label class="form-label">Tanggal Selesai : </label>
                                         </div>
                                         <div class="col gap-0">
-                                            <input type="date" id="tanggalSelesai"
-                                                name="tanggalSelesai"class="form-control">
+                                            <input type="date" name="tanggalSelesai"
+                                                class="form-control tanggalSelesai">
                                             <input type="hidden" name="tanggal_selesai" id="formatTanggalSelesai">
                                         </div>
                                     </div>
@@ -65,8 +64,7 @@
                                     </div>
                                     <div class="col gap-0">
                                         <input type="hidden" name="jam_pinjam" id="jam_pinjam">
-                                        <input type="time" id="jamPeminjaman" name="jamPeminjaman"
-                                            class="form-control">
+                                        <input type="time" name="jamPeminjaman" class="form-control jamPeminjaman">
                                     </div>
                                 </div>
                                 <div class="input-group">
@@ -93,80 +91,80 @@
     </div>
 </div>
 <script>
-     $(document).ready(function() {
-        $("#tanggalMulai").change(function() {
-            const tanggal_mulai = $("#tanggalMulai").val();
-            const waktu_sekarang = new Date().toLocaleTimeString();
-            const formatTanggal = tanggal_mulai + ' ' + waktu_sekarang;
-            // console.log(formatTanggal);
-            $("#formatTanggalMulai").val(formatTanggal);
-        });
-        $("#tanggalSelesai").change(function() {
-            const tanggal_selesai = $("#tanggalSelesai").val();
-            const waktu_sekarang = new Date().toLocaleTimeString();
-            const formatTanggal = tanggal_selesai + ' ' + waktu_sekarang;
-            // console.log(formatTanggal);
-            $("#formatTanggalSelesai").val(formatTanggal);
-        });
+    $(".tanggalMulai").change(function() {
+        const tanggal_mulai = $(".tanggalMulai").val();
+        const waktu_sekarang = new Date().toLocaleTimeString();
+        const formatTanggal = tanggal_mulai + ' ' + waktu_sekarang;
+        // console.log(formatTanggal);
+        $("#formatTanggalMulai").val(formatTanggal);
     });
+    $(".tanggalSelesai").change(function() {
+        const tanggal_selesai = $(".tanggalSelesai").val();
+        const waktu_sekarang = new Date().toLocaleTimeString();
+        const formatTanggal = tanggal_selesai + ' ' + waktu_sekarang;
+        // console.log(formatTanggal);
+        $("#formatTanggalSelesai").val(formatTanggal);
+    });
+
     function hitungTotalwithTanggal($kode) {
-        $(document).ready(function() {
-            const tanggalMulai = document.getElementById("tanggalMulai").valueAsDate;
-            const tanggalSelesai = document.getElementById("tanggalSelesai").valueAsDate;
-            const diffInDays = Math.floor((tanggalSelesai - tanggalMulai) / (1000 * 60 * 60 *
-                24)); // Hitung selisih dalam hari
-            $.ajax({
-                    type: "GET",
-                    url: "/api/unit/" + $kode,
-                })
-                .done(function(data) {
-                    const totalHarga = diffInDays * data[0].harga
-                    return diffInDays <= 0 ? $('#totalHargaPerHari').val(new Intl.NumberFormat('id-ID', {
+
+        const tanggalMulai = new Date($(".tanggalMulai").val());
+        const tanggalSelesai = new Date($(".tanggalSelesai").val());
+        const diffInDays = Math.floor((tanggalSelesai.getTime() - tanggalMulai.getTime()) / (1000 * 60 * 60 *
+            24)); // Hitung selisih dalam hari
+
+        console.log(diffInDays);
+
+        $.ajax({
+                type: "GET",
+                url: "/api/unit/" + $kode,
+            })
+            .done(function(data) {
+                const totalHarga = diffInDays * data[0].harga
+                return diffInDays <= 0 ? $('.totalHargaPerHari').val(new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                }).format(0)).$('.totalHargaAPIPerHari').val(0) : $('#totalHargaPerHari').val(
+                    new Intl.NumberFormat('id-ID', {
                         style: 'currency',
                         currency: 'IDR',
-                    }).format(0)).$('#totalHargaAPIPerHari').val(0) : $('#totalHargaPerHari').val(
-                        new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR',
-                        }).format(totalHarga)), $('#totalHargaAPIPerHari').val(totalHarga);
-                })
-        })
+                    }).format(totalHarga)), $('#totalHargaAPIPerHari').val(totalHarga);
+            })
     }
 
     function hitungTotalwithJam($kode) {
-        $(document).ready(function() {
-            var jamPeminjaman = $('#jamPeminjaman').val();
-            var currentTime = new Date(); // Waktu saat ini
-            var inputDate = new Date(currentTime.toDateString() + " " + jamPeminjaman);
-            var year = inputDate.getFullYear();
-            var month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
-            var day = inputDate.getDate().toString().padStart(2, '0');
-            var hours = inputDate.getHours().toString().padStart(2, '0');
-            var minutes = inputDate.getMinutes().toString().padStart(2, '0');
-            var seconds = inputDate.getSeconds().toString().padStart(2, '0');
-            $('#jam_pinjam').val(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
-            var timeDifference = inputDate - currentTime;
-            var diffHours = Math.floor(timeDifference / (1000 * 60 * 60));
-            var diffMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            if (diffMinutes <= 59) {
-                diffHours += 1;
-            }
-            $.ajax({
-                    type: "GET",
-                    url: "/api/unit/" + $kode,
-                })
-                .done(function(data) {
-                    const totalHarga = diffHours * data[0].harga
-                    return !jamPeminjaman ? $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR',
-                        }).format(0)) :
-                        $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR',
-                        }).format(totalHarga)),
-                        $('#totalHargaAPIPerJam').val(totalHarga);
-                })
-        })
+        var jamPeminjaman = $(".jamPeminjaman").val();
+        console.log(jamPeminjaman)
+        var currentTime = new Date(); // Waktu saat ini
+        var inputDate = new Date(currentTime.toDateString() + " " + jamPeminjaman);
+        var year = inputDate.getFullYear();
+        var month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = inputDate.getDate().toString().padStart(2, '0');
+        var hours = inputDate.getHours().toString().padStart(2, '0');
+        var minutes = inputDate.getMinutes().toString().padStart(2, '0');
+        var seconds = inputDate.getSeconds().toString().padStart(2, '0');
+        $('#jam_pinjam').val(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds);
+        var timeDifference = inputDate - currentTime;
+        var diffHours = Math.floor(timeDifference / (1000 * 60 * 60));
+        var diffMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        if (diffMinutes <= 59) {
+            diffHours += 1;
+        }
+        $.ajax({
+                type: "GET",
+                url: "/api/unit/" + $kode,
+            })
+            .done(function(data) {
+                const totalHarga = diffHours * data[0].harga
+                return !jamPeminjaman ? $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                    }).format(0)) :
+                    $('#totalHargaPerJam').val(new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                    }).format(totalHarga)),
+                    $('#totalHargaAPIPerJam').val(totalHarga);
+            })
     }
 </script>

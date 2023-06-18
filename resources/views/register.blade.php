@@ -10,7 +10,7 @@
                     <div class="app-auth-body mx-auto">
                         <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="logo-icon me-2"
                                     src="assets/images/app-logo.svg" alt="logo"></a></div>
-                        <h2 class="auth-heading text-center mb-4">Sign up to Portal</h2>
+                        <h2 class="auth-heading text-center mb-4">Sign up to PORTAL</h2>
                         @if (session('status'))
                             <div class="alert alert-danger">
                                 {{ session('message') }}
@@ -74,7 +74,7 @@
                                             id="RememberPassword">
                                         <input type="hidden" value="2" id="role" name="role">
                                         <label class="form-check-label" for="RememberPassword">
-                                            I agree to Portal's <a href="#" class="app-link">Terms of Service</a> and
+                                            I agree to PORTAL's <a href="#" class="app-link">Terms of Service</a> and
                                             <a href="#" class="app-link">Privacy Policy</a>.
                                         </label>
                                     </div>
@@ -122,10 +122,10 @@
                     <div class="d-flex flex-column align-content-end h-100">
                         <div class="h-100"></div>
                         <div class="overlay-content p-3 p-lg-4 rounded">
-                            <h5 class="mb-3 overlay-title">Explore Portal Admin Template</h5>
-                            <div>Portal is a free Bootstrap 5 admin dashboard template. You can download and view the
+                            <h5 class="mb-3 overlay-title">Explore PORTAL Admin Template</h5>
+                            <div>PORTAL is a free Bootstrap 5 admin dashboard template. You can download and view the
                                 template license <a
-                                    href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">here</a>.
+                                    href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/PORTAL-free-bootstrap-admin-dashboard-template-for-developers/">here</a>.
                             </div>
                         </div>
                     </div>

@@ -165,17 +165,16 @@ class RentalController extends Controller
     public function verifDenda(Request $request)
     {
         $dataPengembalianByKode = Pengembalian::where('kode_rental', $request->kode_rental)->first();
-        dd($request);
         if ($request->pembayaran == "1") {
             $dataPengembalianByKode->update([
                 'status_pengembalian' => 'BelumLunas'
             ]);
+            return back()->with('success', 'Denda Belum Lunas Rental : ' . $request->kode_rental);
         }elseif ($request->pembayaran == "2") {
-            dd($request);
             $dataPengembalianByKode->update([
                 'status_pengembalian' => 'Lunas'
             ]);
-            return back()->with('success', 'Denda sudah Lunas Rental :',$request->kode_rental);
+            return back()->with('success', 'Denda sudah Lunas Rental : '.$request->kode_rental);
         }
     }
 }

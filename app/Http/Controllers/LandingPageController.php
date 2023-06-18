@@ -16,4 +16,8 @@ class LandingPageController extends Controller
     {
         return view('about');
     }
+    public function unit(){
+        $dataUnit = Unit::all();
+        return view('listUnit', ['DataUnit' => $dataUnit]);
+    }
 }

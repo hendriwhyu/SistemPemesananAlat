@@ -1,10 +1,10 @@
 @extends('layout.master-landingpage')
 @section('content-landingpage')
-    <!-- loader  -->
     <div class="loader_bg">
         <div class="loader"><img src="{{ asset('rhino-master/images/loading.gif') }}" alt="#" /></div>
     </div>
     <!-- end loader -->
+    <!-- header -->
     <header class="full_bg">
         <!-- header inner -->
         <div class="header">
@@ -59,10 +59,10 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{{ route('welcome') }}">Home</a>
                                                 </li>
-                                                <li class="nav-item active">
+                                                <li class="nav-item">
                                                     <a class="nav-link" href="{{ route('about') }}">About</a>
                                                 </li>
-                                                <li class="nav-item ">
+                                                <li class="nav-item active">
                                                     <a class="nav-link" href="{{ route('unit') }}">Unit</a>
                                                 </li>
                                                 <li class="nav-item ">
@@ -95,48 +95,39 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="title">
-                        <h2>About</h2>
+                        <h2>Our Expert Staff</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- about -->
-    <div class="about">
-        <div class="container-fluid">
-            <div class="row d_flex">
-                <div class="col-md-7">
-                    <div class="titlepage">
-                        <h2>About Our Company</h2>
-                        <span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                            alteration in some form, by injected humour, or randomisedThere are many variations of passages
-                            of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected
-                            humour, or randomised</span>
+    <!-- staff -->
+    @if (isset($DataUnit))
+        <div class="staff_main mb-5">
+            <div class="container_staff">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>List Unit</h2>
+                            <span>There are many variations of passages of Lorem Ipsum available, but the </span>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="about_img">
-                        <figure><img src="{{ asset('rhino-master/images/about.png ') }}" alt="#" /></figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="truck">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 jkhgkj">
-                    <div class="truck_img1">
-                        <img src="{{ asset('rhino-master/images/truck.png') }}" alt="#" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="truck_img1">
-                        <img src="{{ asset('rhino-master/images/jcb.png') }}" alt="#" />
-                    </div>
+                    @foreach ($DataUnit as $item)
+                        <div class="col-md-4 col-sm-6">
+                            <div class="staff">
+                                <div class="man">
+                                    <img src="image/{{ $item->detailUnit->image }}" alt="{{ $item->name_alat }}" />
+                                </div>
+                                <div class="social_icon_main">
+                                    <h4>{{ $item->name_alat }}</h4>
+                                    <p class="text-white text-capitalize">{{ $item->status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end about -->
+    @endif
 @endsection

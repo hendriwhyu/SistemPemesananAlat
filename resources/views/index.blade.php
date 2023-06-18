@@ -58,13 +58,13 @@
                                         <div class="collapse navbar-collapse" id="navbarsExample04">
                                             <ul class="navbar-nav mr-auto">
                                                 <li class="nav-item active">
-                                                    <a class="nav-link" href="index.html">Home</a>
+                                                    <a class="nav-link" href="{{ route('welcome') }}">Home</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{{ route('about') }}">About</a>
                                                 </li>
                                                 <li class="nav-item ">
-                                                    <a class="nav-link" href="project.html">Unit</a>
+                                                    <a class="nav-link" href="{{ route('unit') }}">Unit</a>
                                                 </li>
                                                 <li class="nav-item ">
                                                     <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -139,7 +139,7 @@
                         <span>Tugas utama Dinas PUPR adalah merencanakan, membangun, memelihara, dan
                             mengawasi infrastruktur publik seperti jalan, jembatan, gedung-gedung,
                             saluran air, dan fasilitas umum lainnya.</span>
-                        <a class="read_more" href="Javascript:void(0)"> Read More</a>
+                        <a class="read_more" href="{{ route('about') }}"> Read More</a>
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -168,34 +168,37 @@
     </div>
     <!-- end about -->
     <!-- projects -->
-    <div class="staff_main">
-        <div class="container_staff">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <h2>List Unit</h2>
-                        <span>There are many variations of passages of Lorem Ipsum available, but the </span>
-                    </div>
-                </div>
-                @foreach ($DataUnit as $item)
-                    <div class="col-md-4 col-sm-6">
-                        <div class="staff">
-                            <div class="man">
-                                <img src="image/{{ $item->detailUnit->image }}" alt="{{ $item->name_alat }}" />
-                            </div>
-                            <div class="social_icon_main">
-                                <h4>{{ $item->name_alat }}</h4>
-                                <p class="text-white text-capitalize">{{ $item->status }}</p>
-                            </div>
+    @if (isset($DataUnit))
+        <div class="staff_main">
+            <div class="container_staff">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>List Unit</h2>
+                            <span>There are many variations of passages of Lorem Ipsum available, but the </span>
                         </div>
                     </div>
-                @endforeach
-                <div class="col-md-12">
-                    <a class="read_more" href="Javascript:void(0)"> See More</a>
+                    @foreach ($DataUnit as $item)
+                        <div class="col-md-4 col-sm-6">
+                            <div class="staff">
+                                <div class="man">
+                                    <img src="image/{{ $item->detailUnit->image }}" alt="{{ $item->name_alat }}" />
+                                </div>
+                                <div class="social_icon_main">
+                                    <h4>{{ $item->name_alat }}</h4>
+                                    <p class="text-white text-capitalize">{{ $item->status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="col-md-12">
+                        <a class="read_more" href="{{ route('unit') }}"> See More</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+
     <!-- end projects -->
     <!-- choose -->
     <div class="choose">

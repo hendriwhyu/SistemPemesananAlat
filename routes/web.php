@@ -23,6 +23,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [LandingPageController::class, 'home'])->name('welcome');
 Route::get('/about', [LandingPageController::class, 'about'])->name('about');
+Route::get('/unit', [LandingPageController::class, 'unit'])->name('unit');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login-proses', [AuthController::class, 'authentication']);

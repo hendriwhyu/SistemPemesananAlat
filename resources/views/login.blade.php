@@ -8,20 +8,23 @@
             <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
                 <div class="d-flex flex-column align-content-end">
                     <div class="app-auth-body mx-auto">
-                        <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                                    src="assets/images/app-logo.svg" alt="logo"></a></div>
-                        <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
+                        <div class="app-auth-branding mb-4"><a class="app-logo" href="{{ route('welcome') }}"><img
+                                    class="logo-icon me-2"
+                                    src="https://th.bing.com/th/id/OIP.KkGriirdxCNzvoZhmBImDAHaHa?pid=ImgDet&rs=1"
+                                    alt="logo"></a></div>
+                        <h2 class="auth-heading text-center mb-5">Dinas PUPR</h2>
                         @if (session('status') == 'failed')
                             <div class="alert alert-danger">
                                 {{ session('message') }}
                             </div>
                         @elseif (session('status') == 'success')
-                        <div class="alert alert-success">
+                            <div class="alert alert-success">
                                 {{ session('message') }}
                             </div>
                         @endif
                         <div class="auth-form-container text-start">
-                            <form class="auth-form login-form" action="{{ url('/login-proses') }}" method="POST" novalidate>
+                            <form class="auth-form login-form" action="{{ url('/login-proses') }}" method="POST"
+                                novalidate>
                                 @csrf
                                 <div class="username mb-3">
                                     <label class="form-label" for="username">Username</label>
@@ -39,34 +42,17 @@
                                 <!--//form-group-->
                                 <div class="password mb-3">
                                     <label class="form-label" for="password">Password</label>
-                                    <input name="password" type="password" id="password" class="form-control signin-password
+                                    <input name="password" type="password" id="password"
+                                        class="form-control signin-password
                                     @error('password')
                                         is-invalid
-                                    @enderror" placeholder="Password">
+                                    @enderror"
+                                        placeholder="Password">
                                     @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                    <div class="extra mt-3 row justify-content-between">
-                                        <div class="col-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="RememberPassword">
-                                                <label class="form-check-label" for="RememberPassword">
-                                                    Remember me
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!--//col-6-->
-                                        {{-- Forgot Pass
-                                        <div class="col-6">
-                                            <div class="forgot-password text-end">
-                                                <a href="reset-password.html">Forgot password?</a>
-                                            </div>
-                                        </div> --}}
-                                        <!--//col-6-->
-                                    </div>
                                     <!--//extra-->
                                 </div>
                                 <!--//form-group-->
@@ -75,7 +61,7 @@
                                         In</button>
                                 </div>
                             </form>
-                            
+
                             <div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link"
                                     href="{{ url('register') }}">here</a>.</div>
                         </div>
@@ -107,10 +93,10 @@
                     <div class="d-flex flex-column align-content-end h-100">
                         <div class="h-100"></div>
                         <div class="overlay-content p-3 p-lg-4 rounded">
-                            <h5 class="mb-3 overlay-title">Explore Portal Admin Template</h5>
-                            <div>Portal is a free Bootstrap 5 admin dashboard template. You can download and view the
-                                template license <a
-                                    href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">here</a>.
+                            <h5 class="mb-3 overlay-title">Ketahui tentang Dinas PUPR</h5>
+                            <div>Dinas PUPR bertanggung jawab untuk membangun, memelihara, dan mengelola infrastruktur
+                                publik seperti jalan, jembatan, saluran air, dan fasilitas umum lainnya.<a
+                                    href="{{ route('about') }}">About</a>.
                             </div>
                         </div>
                     </div>

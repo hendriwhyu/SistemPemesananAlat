@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class=" col-lg-8 col-md-8">
-                        <a class="logo_bottom"><img src="https://www.spora.co.id/wp-content/uploads/2017/09/logo-pupr-ok.png" alt="#" width="60px" /></a>
+                        <a class="logo_bottom"><img src="https://webpupredesign.github.io/assets/images/Logo_PU_(RGB).jpg" alt="#" width="60px" /></a>
                         <p class="many">
                             Kegiatan membangun sarana atau prasarana yang berdasarkan desain dan rencana
                             terperinci untuk membuat struktur untuk lokasi tertentu.
@@ -50,9 +50,9 @@
                     <div class="col-lg-2 offset-lg-1 col-md-6">
                         <h3>QUICK LINKS</h3>
                         <ul class="link_menu">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html"> About</a></li>
-                            <li><a href="project.html">List Unit</a></li>
+                            <li><a href="{{ route('welcome') }}">Home</a></li>
+                            <li><a href="{{ route('about') }}"> About</a></li>
+                            <li><a href="{{ route('unit') }}">List Unit</a></li>
                         </ul>
                     </div>
                 </div>

@@ -189,22 +189,5 @@
         </div>
         <!--//app-content-->
 
-        <footer class="app-footer">
-            <div class="container text-center py-3">
-                <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                <small class="copyright">Designed with <span class="sr-only">love</span><svg class="svg-inline--fa fa-heart"
-                        style="color: #fb866a;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart"
-                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                        <path fill="currentColor"
-                            d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z">
-                        </path>
-                    </svg><!-- <i class="fas fa-heart" style="color: #fb866a;"></i> Font Awesome fontawesome.com --> by <a
-                        class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for
-                    developers</small>
-
-            </div>
-        </footer>
-        <!--//app-footer-->
-
     </div>
 @endsection
