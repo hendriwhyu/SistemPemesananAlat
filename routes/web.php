@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -73,3 +74,15 @@ Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::put('/profile/change', [UserController::class, 'editProfile'])->name('client.profile-change');
     Route::put('/profile/password', [UserController::class, 'editPassword'])->name('client.profile-password');
 });
+
+Route::prefix('manager')->middleware('auth', 'isManager')->group(function () {
+    Route::get('/dashboard', [ManagerController::class, 'dashboard'])->name('manager.dashboard');
+    // Route::get('/unit', [ManagerController::class, 'unit'])->name('manager.unit');
+    Route::get('/kategori', [ManagerController::class, 'kategori'])->name('manager.kategori');
+    Route::get('/detail-kategori/{name_categories}', [ManagerController::class, 'show'])->name('manager.Unit');
+    // Route::get('/unit/{name_categories}', [ManagerController::class, 'unit'])->name('manager.unit');
+    Route::put('/detail-kategori/{name_categories}/detail-unit', [ManagerController::class, 'detailUpdate'])->name('manager.editDetailUnit');
+
+    Route::get('/histori', [ManagerController::class, 'histori'])->name('manager.histori');
+});
+

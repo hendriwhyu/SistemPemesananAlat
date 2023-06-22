@@ -31,7 +31,6 @@ class AuthController extends Controller
     }
     public function authentication(Request $request)
     {
-
         // Validasi data yang dikirimkan oleh form login
         $request->validate([
             'username' => 'required',
@@ -50,7 +49,10 @@ class AuthController extends Controller
                 return redirect()->intended('admin/dashboard');
             } elseif ($user->id_role == 2) {
                 return redirect()->intended('client/dashboard');
-            } else {
+            } elseif ($user->id_role == 3) {
+                return redirect()->intended('manager/dashboard');
+            }
+            else {
                 abort(404);
             }
         } else {
