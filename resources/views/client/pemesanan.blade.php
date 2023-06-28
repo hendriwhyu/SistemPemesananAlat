@@ -25,8 +25,9 @@
 
                 <div class="row g-4">
                     @foreach ($ListUnit as $item)
-                    <div class="col-6 col-md-4 col-xl-3 col-xxl-2">
-                            <div class="app-card app-card-doc shadow-sm h-100">
+                        <div class="col-6 col-md-4 col-xl-3 col-xxl-2">
+                            <div class="app-card app-card-doc shadow-sm h-100"
+                                onclick="redirectToView('{{ $item->kode_alat }}')">
                                 <div class="app-card-thumb-holder p-3">
                                     <a href="#pesan{{ $item->kode_alat }}" data-bs-toggle="modal">
                                         <img class="app-card-link-mask"
@@ -46,7 +47,8 @@
                                             <li><span class="text-muted">Kategori:</span>
                                                 {{ $item->relationCategory->name_categories }}</li>
                                             <li><span class="text-muted">Harga:</span>Rp.
-                                                {{ $item->detailUnit->harga == '-'? null : number_format($item->detailUnit->harga) }} /
+                                                {{ $item->detailUnit->harga == '-' ? null : number_format($item->detailUnit->harga) }}
+                                                /
                                                 {{ $item->detailUnit->type_book }}</li>
                                             <li><span
                                                     class="text-muted">Uploaded:</span>{{ Carbon::parse($item->created_at)->format('l, d F Y') }}
@@ -59,10 +61,9 @@
                                 <!--//app-card-body-->
 
                             </div>
-                            @include('client.component-client.content-modal.modal-pemesanan')
                             <!--//app-card-->
                         </div>
-                        @endforeach
+                    @endforeach
                     <!--//col-->
                 </div>
                 <!--//row-->
@@ -88,5 +89,9 @@
 
 
     </div>
-
+    <script>
+        function redirectToView(kode_alat) {
+            window.location.href = '/client/pemesanan/' + kode_alat; // Ganti '/view/' dengan URL halaman view yang sesuai
+        }
+    </script>
 @endsection

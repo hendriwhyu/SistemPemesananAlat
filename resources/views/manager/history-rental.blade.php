@@ -53,25 +53,64 @@
                                             <td class="cell">{{ $item->tanggal_mulai }}</td>
                                             <td class="cell">{{ $item->tanggal_selesai }}</td>
                                             <td class="cell">{{ $item->tanggal_kembali }}</td>
-                                            @if ($item->status == 'booked')
-                                                <td class="badge bg-info text-light text-capitalize">{{ $item->status }}
-                                                </td>
-                                            @elseif($item->status == 'verified')
-                                                <td class="badge bg-success text-light text-capitalize">{{ $item->status }}
-                                                </td>
-                                            @elseif($item->status == 'kembali')
-                                                <td class="badge bg-secondary text-light text-capitalize">
-                                                    {{ $item->status }}
-                                                </td>
-                                            @elseif($item->status == 'denda')
-                                                <td class="badge bg-danger text-light text-capitalize">
-                                                    {{ $item->status }}
-                                                </td>
-                                            @endif
-                                            {{-- <td class="cell">{{ $item->unit->name_alat }}</td> --}}
-                                            <td class="cell text-center"><a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
-                                                    class="text-success"><i class='bx bx-layer'></i>Detail</a>
+                                            <td class="cell">
+                                                @php
+                                                    $status = $item->status;
+                                                    $kembali = $item->kembali;
+                                                    $kembaliStatus = $kembali ? $kembali->status_pengembalian : null;
+                                                @endphp
+
+                                                @switch($status)
+                                                    @case('booked')
+                                                        <span
+                                                            class="badge bg-info text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+
+                                                    @case('verified')
+                                                        <span
+                                                            class="badge bg-success text-light text-capitalize">{{ $status }}</span>
+                                                        @if ($kembali && $kembaliStatus === 'denda')
+                                                            <span
+                                                                class="badge bg-danger text-light text-capitalize">{{ $kembaliStatus }}</span>
+                                                        @endif
+                                                    @break
+
+                                                    @case('canceled')
+                                                        <span
+                                                            class="badge bg-danger text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+
+                                                    @case('kembali')
+                                                        <span
+                                                            class="badge bg-secondary text-light text-capitalize">{{ $status }}</span>
+                                                    @break
+                                                @endswitch
+
+
+                                            </td>
+                                            <td class="cell text-center">
+                                                @if ($item->status != 'canceled')
+                                                    <a href="#bukti{{ $item->kode_rental }}" data-bs-toggle="modal"
+                                                        class="text-secondary">
+                                                        <i class='bx bx-file'></i> Bukti
+                                                    </a> |
+                                                @endif
+                                                <a href="#detail{{ $item->kode_rental }}" data-bs-toggle="modal"
+                                                    class="text-success">
+                                                    <i class='bx bx-layer'></i> Detail
+                                                </a>
+                                                @if ($item->kembali != null)
+                                                    @if ($item->kembali->status_pengembalian == null)
+                                                        {{-- Handle case when 'status_pengembalian' is null --}}
+                                                    @elseif ($item->kembali->status_pengembalian == 'denda')
+                                                        | <a href="#bayardenda{{ $item->kode_rental }}"
+                                                            data-bs-toggle="modal" class="text-danger">
+                                                            <i class='bx bx-layer'></i>Denda
+                                                        </a>
+                                                    @endif
+                                                @endif
                                                 @include('manager.component-manager.content-modal.modal-detail-history')
+
                                             </td>
                                         </tr>
                                     @endforeach

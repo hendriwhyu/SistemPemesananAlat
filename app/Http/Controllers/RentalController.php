@@ -55,6 +55,11 @@ class RentalController extends Controller
         $listUnit = Unit::where('status', 'ready')->get();
         return view('client.pemesanan', ['ListUnit' => $listUnit]);
     }
+    public function detailPemesanan($kode)
+    {
+        $dataUnit = Unit::where('kode_alat', $kode)->first();
+        return view('client.detail-pemesanan', ['dataUnit' => $dataUnit]);
+    }
 
     public function store(Request $request)
     {
@@ -67,12 +72,12 @@ class RentalController extends Controller
                 $rental->tanggal_mulai = $request->tanggal_mulai;
                 $rental->tanggal_selesai = $request->tanggal_selesai;
             } else {
-                $rental->tanggal_mulai = now();
-                $rental->tanggal_selesai = $request->jam_pinjam;
+                $rental->tanggal_mulai = $request->jam_pinjam;
+                $rental->tanggal_selesai = $request->jam_selesai;
             }
             $rental->save();
             if ($rental->save()) {
-                return back()->with('success', 'Berhasil melakukan pemesanan alat');
+                return redirect()->route('client.pemesanan')->with('success', 'Berhasil melakukan pemesanan alat');
             }
         } catch (\Throwable $e) {
             return back()->with('error', 'Gagal melakukan pemesanan alat');

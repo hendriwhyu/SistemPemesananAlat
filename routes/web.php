@@ -66,7 +66,9 @@ Route::prefix('admin')->middleware('auth', 'isAdmin')->group(function () {
 Route::prefix('client')->middleware('auth', 'isClient')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
     Route::get('/pemesanan', [RentalController::class, 'pemesanan'])->name('client.pemesanan');
+    Route::get('/pemesanan/{kode}', [RentalController::class, 'detailPemesanan'])->name('client.detailPemesanan');
     Route::post('/pemesanan', [RentalController::class, 'store'])->name('client.addpesanan');
+    
     Route::get('/history', [RentalController::class, 'index'])->name('client.historyrental');
     Route::put('/upload-bukti', [RentalController::class, 'uploadBukti'])->name('client.uploadbukti');
     Route::put('/bayar-denda', [RentalController::class, 'bayarDenda'])->name('client.bayarDenda');
