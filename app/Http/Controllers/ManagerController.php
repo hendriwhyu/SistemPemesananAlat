@@ -7,14 +7,26 @@ use App\Models\DetailUnit;
 use App\Models\Rental;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManagerController extends Controller
 {
     public function dashboard()
     {
+        $dataChart = Unit::select('name_alat')->get();
+        $valueChart = Rental::select('rental.id_alat', DB::raw('count(alatberat.id) as total_rental'))
+        ->join('alatberat', 'alatberat.id', '=', 'rental.id_alat')
+        ->where('rental.status', '!=', 'canceled')
+        ->where('rental.status', '!=', 'booked')
+            ->groupBy('alatberat.id')
+            ->get();
+        
+        $labels = $dataChart->pluck('name_alat')->toArray();
+        $values = $valueChart->pluck('total_rental')->toArray();
+
         $dataRental = Rental::all()->count();
         $dataUnit = Unit::where('status', 'ready')->count();
-        return view('manager.dashboard', compact('dataRental', 'dataUnit'));
+        return view('manager.dashboard', compact('dataRental', 'dataUnit', 'labels', 'values'));
     }
 
     public function unit($categories)

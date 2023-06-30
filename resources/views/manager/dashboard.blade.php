@@ -239,7 +239,7 @@
         <!--//app-footer-->
 
     </div>
-    {{-- <script>
+    <script>
         // Buat chart menggunakan data dari controller
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -266,5 +266,5 @@
                 }
             }
         });
-    </script> --}}
+    </script>
 @endsection
