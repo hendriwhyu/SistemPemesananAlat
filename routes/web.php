@@ -86,5 +86,8 @@ Route::prefix('manager')->middleware('auth', 'isManager')->group(function () {
     Route::put('/detail-kategori/{name_categories}/detail-unit', [ManagerController::class, 'detailUpdate'])->name('manager.editDetailUnit');
 
     Route::get('/histori', [ManagerController::class, 'histori'])->name('manager.histori');
+    Route::get('/profile', [UserController::class, 'profile'])->name('manager.profile');
+    Route::put('/profile/change', [UserController::class, 'editProfile'])->name('manager.profile-change');
+    Route::put('/profile/password', [UserController::class, 'editPassword'])->name('manager.profile-password');
 });
 

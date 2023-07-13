@@ -23,6 +23,8 @@ class UserController extends Controller
             return view('admin.profile', ['dataUsers' => $dataUsers]);
         }elseif(Auth::user()->id_role == '2'){
             return view('client.profile', ['dataUsers' => $dataUsers]);
+        }elseif(Auth::user()->id_role == '3'){
+            return view('manager.profile', ['dataUsers' => $dataUsers]);
         }
     }
 
@@ -88,16 +90,20 @@ class UserController extends Controller
     }
     public function delete(Request $request)
     {
-        $data = User::where('id_users', $request->id_users);
-        $data->delete();
-        if ($data) {
-            Session::flash('status', 'success');
-            Session::flash('message', 'Hapus Kategori Berhasil');
-            return back();
-        } else {
-            Session::flash('status', 'error');
-            Session::flash('message', 'Hapus Kategori Gagal');
-            return back();
+        try{
+            $data = User::where('id_users', $request->id_users);
+            $data->delete();
+            if ($data) {
+                Session::flash('status', 'success');
+                Session::flash('message', 'Hapus Kategori Berhasil');
+                return back();
+            } else {
+                Session::flash('status', 'error');
+                Session::flash('message', 'Hapus Kategori Gagal');
+                return back();
+            }
+        }catch (\Throwable $e) {
+            return back()->with('error', 'Gagal menghapus data karena user telah menyewa');
         }
     }
 }

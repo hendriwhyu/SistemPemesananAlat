@@ -19,7 +19,7 @@
                                     </svg>
                                 </a>
                             </div>
-                           
+
                             <!--//app-search-box-->
 
                             <div class="app-utilities col-auto">
@@ -92,7 +92,8 @@
                 <div class="sidepanel-inner d-flex flex-column">
                     <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                     <div class="app-branding">
-                        <a class="app-logo" href="{{ route('admin.dashboard') }}"><img class="logo-icon me-2" src="https://th.bing.com/th/id/OIP.KkGriirdxCNzvoZhmBImDAHaHa?pid=ImgDet&rs=1"
+                        <a class="app-logo" href="{{ route('admin.dashboard') }}"><img class="logo-icon me-2"
+                                src="https://th.bing.com/th/id/OIP.KkGriirdxCNzvoZhmBImDAHaHa?pid=ImgDet&rs=1"
                                 alt="logo"><span class="logo-text">PORTAL</span></a>
 
                     </div>
@@ -241,8 +242,8 @@
             <div class="container text-center py-3">
                 <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                 <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                        style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com"
-                        target="_blank">Xiaoying Riley</a> for developers</small>
+                        style="color: #fb866a;"></i> by <a class="app-link" href="#">Kelompok 1</a> for
+                    developers</small>
 
             </div>
         </footer>

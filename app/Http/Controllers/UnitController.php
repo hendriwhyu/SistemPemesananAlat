@@ -116,9 +116,9 @@ class UnitController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $image_name = $request->alat . "." . $request->file('image')->extension();
-                $image->move(public_path('foto'), $image_name);
+                $image->move(public_path('image'), $image_name);
                 $data_foto = DetailUnit::where('kode_alat', $request->alat)->first();
-                File::delete(public_path('foto') . '/' . $data_foto->image);
+                File::delete(public_path('image') . '/' . $data_foto->image);
                 $data['image'] = $image_name;
             }
             if ($data->update()) {
